@@ -3,6 +3,6 @@ const rescue = require('express').rescue();
 
 const controller = require('../controllers/loginController');
 
-route.post('/login', rescue(controller.login));
+route.post('/', rescue(controller.login));
 
 module.exports = route;
