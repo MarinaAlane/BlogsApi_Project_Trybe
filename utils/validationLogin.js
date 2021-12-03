@@ -5,7 +5,7 @@ const validationLogin = (email, password) => {
   validationEmail(email),
   validationPassword(password),
   searchUSer(email),
-  makeLogin(email, password),
+  makeLogin(email, password)
 };
 
 // const searchUSer = async (email, password) => {
