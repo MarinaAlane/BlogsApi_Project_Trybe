@@ -1,10 +1,5 @@
-const service = require('../services/validationUser');
+service = require('../services/')
 
-const cadastration = async (req, res) => {
-  service.cadastration(req.body);
-  return res.status(201).json({ message: 'Cadastro feito com sucesso!' });
-};
-
-module.exports = {
-  cadastration,
-};
+const getAll = async (req, res) => {
+  const result = await service.
+}

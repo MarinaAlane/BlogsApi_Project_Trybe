@@ -3,6 +3,6 @@ const rescue = require('express').rescue();
 
 const controller = require('../controllers/userController.js');
 
-route.get('/', rescue(controller.getAll));
+route.post('/', rescue(controller.Cadastration));
 
 module.exports = route;
