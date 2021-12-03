@@ -1,15 +1,11 @@
-const model = require('../models');
+const { User } = require('../models');
+const generationToken = require('../utils/generationToken');
+const generationToken = require('../utils/generationToken');
 
-
-const validationLogin = (email, password) => {
-  validationEmail(email),
-  validationPassword(password),
-  searchUSer(email),
-  makeLogin(email, password)
-};
+const err = (statusCode) => ({ statusCode });
 
 // const searchUSer = async (email, password) => {
-//  const search = await User.findOne({ where: { email }});
+//  const search = await User.findOne({ where: { email, password }});
 //  if (!search) throw err({ statusCode: 400, message: 'invalid fields' });
 // };
 
@@ -20,14 +16,24 @@ const validationEmail = (email) => {
 
 const validationPassword = (password) => {
   if (!password) throw err({ statusCode: 400, message: '"password" is required' });
-  if (password === '') throw err({ statusCode: 400, message: '"password" is not allowed to be empty' });
+  if (password === '') { 
+    throw err({ statusCode: 400, message: '"password" is not allowed to be empty' });
+  }
 };
 
-const makeLogin = (email, password) => {
-  const search = await User.findOne({ where: { email, password }});
+const makeLogin = async (email, password) => {
+  const search = await User.findOne({ where: { email, password } });
+  const token = generationToken(search);
   if (!search) throw err({ statusCode: 400, message: 'invalid fields' });
 };
 
+const validationLogin = (email, password) => {
+  validationEmail(email);
+  validationPassword(password);
+  makeLogin(email, password);
+  // searchUSer(email),
+};
+
 module.exports = {
-  validationLogin
+  validationLogin,
 };

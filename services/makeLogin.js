@@ -1,8 +1,9 @@
 const model = ();
 const utils = require('../utils/validationLogin');
 
-const makelogin = ({ email, password }) => {
-  utils.validationLogin(email, password)
+const makelogin = async ({ email, password }) => {
+  const token = await utils.validationLogin(email, password)
+  return token
 };
 
 module.exports = {
