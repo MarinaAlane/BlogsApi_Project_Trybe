@@ -36,6 +36,15 @@ const searchifEmailExists = async (email) => {
   }
 };
 
+const existsById = async (id) => {
+  const search = await 
+  User.findOne({ where: { id }, attributes: { exclude: ['name', 'password'] } });
+  if (!search) {
+    throw err({ statusCode: 404, message: 'User doest not exist' });
+  }
+  return search;
+};
+
 const cadastration = (email, displayName, password) => {
   validationEmail(email);
   searchifEmailExists(email);
@@ -45,4 +54,5 @@ const cadastration = (email, displayName, password) => {
 
 module.exports = {
   cadastration,
+  existsById,
 };
