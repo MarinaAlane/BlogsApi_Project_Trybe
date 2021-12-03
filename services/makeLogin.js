@@ -1,4 +1,3 @@
-const model = ();
 const utils = require('../utils/validationLogin');
 
 const makelogin = async ({ email, password }) => {
