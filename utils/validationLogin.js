@@ -1,6 +1,5 @@
 const { User } = require('../models');
-const generationToken = require('../utils/generationToken');
-const generationToken = require('../utils/generationToken');
+const generationToken = require('./generationToken');
 
 const err = (statusCode) => ({ statusCode });
 
@@ -25,6 +24,7 @@ const makeLogin = async (email, password) => {
   const search = await User.findOne({ where: { email, password } });
   const token = generationToken(search);
   if (!search) throw err({ statusCode: 400, message: 'invalid fields' });
+  return token;
 };
 
 const validationLogin = (email, password) => {
