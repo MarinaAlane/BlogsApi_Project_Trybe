@@ -12,13 +12,16 @@ const verificationToken = (token) => {
   }
 };
 
-const tokenExists = async (req, _res) => {
-  const token = req.headers.authorization;
+const tokenExists = (token) => {
   if (!token) throw err({ statusCode: 401, message: '"token" not found' });
-  verificationToken(token);
-  return token;
+};
+
+const validationToken = (token) => {
+  tokenExists(token);
+  const payload = verificationToken(token);
+  return payload;
 };
 
 module.exports = {
-  tokenExists,
+  validationToken,
 };

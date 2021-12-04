@@ -7,12 +7,12 @@ const validationName = (name) => {
 };
 
 const insertCategorie = async (name) => {
-  validationName(name);
   const result = await Category.create({ name });
   return result;
 };
 
 const validationCategories = (name) => {
+  validationName(name);
   insertCategorie(name);
 };
 
