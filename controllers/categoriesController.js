@@ -12,6 +12,18 @@ const createCategorie = async (req, res) => {
   }
 };
 
+const getCategories = async (req, res) => {
+  try {
+    const data = await Categories.findAll();
+
+    return res.status(200).json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Aconteceu um erro ao fazer o cadastro' });
+  }
+};
+
 module.exports = {
   createCategorie,
+  getCategories,
 };
