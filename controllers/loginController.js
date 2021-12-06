@@ -10,9 +10,8 @@ const login = async (req, res) => {
 
     const user = await loginService.findUser(email);
     if (user.error) return res.status(user.error.code).json({ message: user.error.message });
-    const { password: _, ...newUser } = user;
 
-    const token = createJWT(newUser);
+    const token = createJWT(user);
 
     return res.status(200).json({ token });
   } catch (e) {

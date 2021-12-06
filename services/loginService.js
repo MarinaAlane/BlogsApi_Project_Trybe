@@ -23,6 +23,7 @@ const validateData = async (email, password) => {
 
 const findUser = async (email) => {
   const user = await User.findOne({ where: { email } });
+
   if (!user) {
     return {
       error: {
@@ -31,8 +32,8 @@ const findUser = async (email) => {
       },
     };
   }
-
-  return true;
+  const { password: _, ...newUser } = user.dataValues;
+  return newUser;
 };
 
 module.exports = {
