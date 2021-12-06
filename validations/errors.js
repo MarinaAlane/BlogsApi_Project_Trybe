@@ -19,6 +19,14 @@ const errors = {
     code: '400',
     message: '"password" is required',
   },
+  emptyEmail: {
+    code: '400',
+    message: '"email" is not allowed to be empty',
+  },
+  emptyPassword: {
+    code: '400',
+    message: '"password" is not allowed to be empty',
+  },
 };
 
 module.exports = errors;

@@ -1,4 +1,4 @@
-const errors = require('./errors');
+const errors = require('../errors');
 
 const isNotValidDisplayName = (displayName) => {
   const { displayNameLength } = errors;
