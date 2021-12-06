@@ -1,4 +1,4 @@
-const validator = require('../utils');
+const validator = require('../utils/validationLogin');
 
 const makelogin = async ({ email, password }) => {
   const token = await validator.validationLogin(email, password);
