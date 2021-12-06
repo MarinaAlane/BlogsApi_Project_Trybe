@@ -8,28 +8,22 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
-        field: "id",
       },
       displayName: {
         allowNull: false,
         type: Sequelize.STRING,
-        field: "display_name",
       },
       email: {
         allowNull: false,
         unique: true,
         type: Sequelize.STRING,
-        field: "email",
       },
       password: {
         allowNull: false,
         type: Sequelize.STRING,
-        field: "password",
       },
       image: {
-        allowNull: false,
         type: Sequelize.STREING,
-        field: "image",
       },
     });
 
