@@ -34,8 +34,8 @@ const validateEmail = (email) => {
   return true;
 };
 
-const validatePassWord = (email, length) => {
-  if (!email) {
+const validatePassWord = (password, length) => {
+  if (!password) {
     return {
       error: {
         code: 400,
@@ -44,7 +44,7 @@ const validatePassWord = (email, length) => {
     };
   }
 
-  if (email === '' || email.length < length) {
+  if (password === '' || password.length < length) {
     return {
       error: {
         code: 400,
