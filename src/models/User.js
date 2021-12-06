@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  User.associate = (models) => {
-    User.hasMany(models.BlosPost, { foreignKey: 'userId', as: 'autor' });
-  };
+  // User.associate = (models) => {
+  //   User.hasMany(models.BlosPost, { foreignKey: 'userId', as: 'autor' });
+  // };
 
   return User;
 };
