@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const { verifyJWT } = require('../auth/jwt');
+// const { verifyJWT } = require('../auth/jwt');
 
 const validateEmail = (req, res, next) => {
   const { email } = req.body;
@@ -73,24 +73,23 @@ const checkEmailonDataBase = async (req, res, next) => {
 };
 
 const tokenExists = async (req, res, next) => {
-  const { authorization: token } = req.headers;
+  const token = req.headers.authorization;
   if (!token) { 
     return res.status(401).json({ message: 'Token not found' });
   }
-  req.token = token;
   next();
 };
 
-const tokenValid = (req, res, next) => {
-  const { token } = req;
-  console.log(token);
-  try {
-    verifyJWT(token);
-  } catch (error) {
-    return res.status(401).json({ message: 'Expired or invalid token' });
-  }
-  next();
-};
+// const tokenValid = (req, res, next) => {
+//   const { token } = req;
+//   console.log(token);
+//   try {
+//     verifyJWT(token);
+//   } catch (error) {
+//     return res.status(401).json({ message: 'Expired or invalid token' });
+//   }
+//   next();
+// };
 
 // const tokenValid = async (req, res, _next) => {
 //   const { authorization: token } = req.headers;
@@ -127,4 +126,4 @@ checkEmailonDataBase,
 passwordNotEmpty,
 emailNotEmpty,
 tokenExists,
-tokenValid };
+/* tokenValid */ };

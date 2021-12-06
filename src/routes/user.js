@@ -10,6 +10,6 @@ middleware.checkDisplayName,
 middleware.checkUniqueUser,
  userController.userCreate);
 
-router.get('/', middleware.tokenExists, middleware.tokenValid, userController.getAllUsers);
+router.get('/', middleware.tokenExists, /*  middleware.tokenValid, */ userController.getAllUsers);
 
 module.exports = router;

@@ -7,8 +7,15 @@ const token = jwt.createJWT(userCreated);
 return token;
 };
 
-const getUsers = async () => User.findAll({
-  attributes: { exclude: ['password'] },
-});
+const getUsers = async (token) => {
+  try {
+    jwt.verifyJWT(token);
+    await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
+} catch (error) {
+  return { message: 'Expired or invalid token' };
+}
+};
 
 module.exports = { userCreate, getUsers };
