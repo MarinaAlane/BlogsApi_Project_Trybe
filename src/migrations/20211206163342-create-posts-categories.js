@@ -5,7 +5,6 @@ module.exports = {
     const postsCategoriesTable = await queryInterface.createTable("PostsCategories", {
       postId: {
         type: Sequelize.INTEGER,
-        field: "id",
         references: {
           model: "BlogPosts",
           key: "id",
@@ -16,7 +15,6 @@ module.exports = {
       },
       categoryId: {
         type: Sequelize.INTEGER,
-        field: "id",
         references: {
           model: "Categories",
           key: "id",
