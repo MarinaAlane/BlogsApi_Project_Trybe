@@ -7,4 +7,8 @@ const token = jwt.createJWT(userCreated);
 return token;
 };
 
-module.exports = { userCreate };
+const getUsers = async () => User.findAll({
+  attributes: { exclude: ['password'] },
+});
+
+module.exports = { userCreate, getUsers };

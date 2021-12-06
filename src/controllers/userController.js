@@ -6,4 +6,9 @@ const userCreate = async (req, res) => {
   return res.status(201).json({ token });
 };
 
-module.exports = { userCreate };
+const getAllUsers = async (_req, res) => {
+  const AllUsers = await serviceUser.getUsers();
+  return res.status(200).json(AllUsers);
+};
+
+module.exports = { userCreate, getAllUsers };
