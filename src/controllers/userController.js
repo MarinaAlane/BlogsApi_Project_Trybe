@@ -25,9 +25,9 @@ const createUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
-    const employees = await User.findAll({ attributes: { exclude: ['password'] } });
+    const user = await User.findAll({ attributes: { exclude: ['password'] } });
 
-    return res.status(200).json(employees);
+    return res.status(200).json(user);
   } catch (e) {
     console.log(e.message);
     res.status(500).json({ message: 'Ocorreu um erro' });
