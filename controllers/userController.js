@@ -11,21 +11,22 @@ const getAllUsers = async (_req, res) => {
     return res.status(200).json(users);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json({ message: 'Algo deu errado' });
+    res.status(500).json({ message: 'Something went wrong' });
   }
 };
 
 const getUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const user = await User.findByPk(id);
+  const { id } = req.params;
 
-    if (!user) return res.status(404).json({ message: 'Usuário não encontrado' });
+  try {
+    const user = await userService.searchUser(id);
+
+    if (user.error) return res.status(user.error.code).json({ message: user.error.message });
 
     return res.status(200).json(user);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json({ message: 'Algo deu errado' });
+    res.status(500).json({ message: 'Something went wrong' });
   }
 };
 
@@ -43,7 +44,7 @@ const addUser = async (req, res) => {
     return res.status(201).json({ token });
   } catch (e) {
     console.log(e.message);
-    res.status(500).json({ message: 'Algo deu errado' });
+    res.status(500).json({ message: 'Something went wrong' });
   }
 };
 

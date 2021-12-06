@@ -39,6 +39,22 @@ const findUser = async (email) => {
   return false;
 };
 
+const searchUser = async (id) => {
+  const user = await User.findByPk(id);
+
+  if (!user) {
+    return {
+      error: {
+        code: 404,
+        message: 'User does not exist',
+      },
+    };
+  }
+
+  const { password: _, ...newUser } = user.dataValues;
+  return newUser;
+};
+
 const createUser = async (displayName, email, password, image) => {
   const existsUser = await findUser(email);
 
@@ -52,4 +68,5 @@ const createUser = async (displayName, email, password, image) => {
 module.exports = {
   resultData,
   createUser,
+  searchUser,
 };
