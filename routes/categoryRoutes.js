@@ -5,6 +5,6 @@ const controller = require('../controllers/categoryController');
 const router = express.Router();
 
 router.post('/', validateUserWithToken, controller.addCategory);
-// router.get('/', );
+router.get('/', validateUserWithToken, controller.getCategories);
 
 module.exports = router;

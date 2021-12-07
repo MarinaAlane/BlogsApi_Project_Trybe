@@ -16,6 +16,19 @@ const addCategory = async (req, res) => {
   }
 };
 
+const getCategories = async (_req, res) => {
+  try {
+    const result = await categoryService.getCategories();
+    if (result.error) return res.status(result.error.code).json({ message: result.error.message });
+
+    return res.status(200).json(result);
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({ message: 'Something went wrong' });
+  }
+};
+
 module.exports = {
   addCategory,
+  getCategories,
 };

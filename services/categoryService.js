@@ -18,7 +18,23 @@ const createCategory = async (name) => {
   return category;
 };
 
+const getCategories = async () => {
+  const categories = await Category.findAll();
+
+  if (categories.length < 1) {
+    return {
+      error: {
+        code: 404,
+        message: '"categories" not found',
+      },
+    };
+  }
+
+  return categories;
+};
+
 module.exports = {
   createCategory,
   validateName,
+  getCategories,
 };
