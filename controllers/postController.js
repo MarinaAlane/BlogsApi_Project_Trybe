@@ -19,8 +19,17 @@ const getById = async (req, res) => {
   return res.status(200).json(result);
 };
 
+const updatePost = async (req, res) => {
+  const { body } = req;
+  const token = req.headers.authorization;
+  const { id } = req.params;
+  const result = await service.updatePost(token, id, body);
+  return res.status(200).json(result);
+};
+
 module.exports = {
   createPost,
   getAll,
   getById,
+  updatePost,
 };

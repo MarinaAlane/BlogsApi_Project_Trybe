@@ -36,6 +36,23 @@ const getById = async (id) => {
     return result;
 };
 
+const verificationUserPost = async (userId, id) => {
+  const findUser = await BlogPost.findOne({ where: { userId, id } });
+  if (!findUser) throw err({ statusCode: 401, message: 'Unauthorized user' });
+};
+
+const validationBodyUpdate = ({ title, content, categoryIds }) => {
+  if (!title) throw err({ statusCode: 400, message: ' "title" is required' });
+  if (!content) throw err({ statusCode: 400, message: '"content" is required' });
+  if (categoryIds) throw err({ statusCode: 400, message: 'Categories cannot be edited' });
+};
+
+const updatePost = async (userId, id, body) => {
+  validationBodyUpdate(body);
+  verificationUserPost(userId, id);
+  await BlogPost.update(body, { where: { id } });
+};
+
 const validationPost = async ({ title, categoryIds, content }, id) => {
   validationTitle(title);
   valdiationCategoryIds(categoryIds);
@@ -47,4 +64,5 @@ const validationPost = async ({ title, categoryIds, content }, id) => {
 module.exports = {
   validationPost,
   getById,
+  updatePost,
 };

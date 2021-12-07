@@ -23,8 +23,17 @@ const getById = async (token, id) => {
   return result;
 };
 
+const updatePost = async (token, id, body) => {
+ const payload = tokenExists(token);
+ const idUser = payload.id;
+  await validationPost.updatePost(idUser, id, body);
+ const result = await BlogPost.findOne({ where: { id } });
+ return result;
+};
+
 module.exports = {
   createPost,
   getAll,
   getById,
+  updatePost,
 };
