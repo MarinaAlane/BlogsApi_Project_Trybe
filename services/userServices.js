@@ -15,7 +15,7 @@ const findByEmail = async (email) =>
 });
 
 const findById = async (id) =>
-  Users.findId(id,
+  Users.findByPk(id,
     { raw: true });
 
 module.exports = {

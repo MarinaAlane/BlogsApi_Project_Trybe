@@ -13,7 +13,7 @@ const create = async (req, res) => {
 // login controller
 const login = async (req, res) => {
   const { email, password } = req.body;
-  const findUser = await UserServices.findUserByEmail(email);
+  const findUser = await UserServices.findByEmail(email);
 
   if (!findUser || findUser.password !== password) {
     return res.status(400).json({ message: 'Invalid fields' });
