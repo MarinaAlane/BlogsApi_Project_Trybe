@@ -7,14 +7,12 @@ module.exports = (sequelize, DataTypes) => {
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
   },
-  {
-    tableName: 'BlogPosts',
-    underscored: true,
-    timestamps: false,
-  });
+  { tableName: 'BlogPosts', underscored: true, timestamps: false });
 
   BlogPost.associate = (models) => {
-    BlogPost.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' });
+    BlogPost.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    BlogPost.hasMany(models.PostsCategorie, { foreignKey: 'postId',
+      attributes: { exclude: ['PostsCategorie'] } });
   };
 
   return BlogPost;

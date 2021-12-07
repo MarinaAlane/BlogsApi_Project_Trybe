@@ -1,10 +1,9 @@
 const express = require('express');
 
-const User = require('./controllers/User');
-const Categorie = require('./controllers/Categorie');
-const Post = require('./controllers/Post');
-
-const Authentication = require('./middlewares/Authenticate');
+const User = require('./routes/User');
+const { login } = require('./controllers/User');
+const Categorie = require('./routes/Categories');
+const Post = require('./routes/Post');
 
 const app = express();
 app.use(express.json());
@@ -14,14 +13,10 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/user', User.create);
-app.post('/login', User.login);
-app.get('/user/:id', Authentication, User.getById);
-app.get('/user', Authentication, User.getAll);
+app.post('/login', login);
 
-app.post('/categories', Authentication, Categorie.create);
-app.get('/categories', Authentication, Categorie.getAll);
-
-app.post('/post', Authentication, Post.create);
+app.use('/user', User);
+app.use('/categories', Categorie);
+app.use('/post', Post);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));

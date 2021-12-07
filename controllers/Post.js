@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 
-const { BlogPost, Categorie } = require('../models');
+const { BlogPost, Categorie, PostsCategorie, User } = require('../models');
 const { validatePost } = require('../middlewares/Validations');
 
 const create = async (req, res) => {
@@ -25,10 +25,22 @@ const create = async (req, res) => {
   const userId = req.user.id;
 
   const { id } = await BlogPost.create({ title, userId, content });
+  categoryIds.forEach(async (cat) => {
+    await PostsCategorie.create({ postId: id, categoryId: cat });
+  });
 
   res.status(201).json({ id, userId, title, content });
 };
 
+const getAll = async (_req, res) => {
+  const posts = await BlogPost.findAll({
+    include: [{ model: User, as: 'user' },
+    { model: Categorie, as: 'categories' }],
+  });
+  res.status(200).json(posts);
+};
+
 module.exports = {
   create,
+  getAll,
 };
