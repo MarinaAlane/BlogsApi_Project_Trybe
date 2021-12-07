@@ -6,12 +6,18 @@ const registerUser = async (user) => {
 };
 
 const findEmail = async (email) => {
-  const newUser = await User.findAll({
-    where: {
-      email,
-    },
-  });
-  return newUser;
+  try {
+    const newUser = await User.findOne({
+      where: {
+        email,
+      },
+    });
+    const { password, ...user } = await newUser.dataValues;
+    return user;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 };
 
 module.exports = {

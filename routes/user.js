@@ -5,6 +5,7 @@ const {
   validateDisplayName,
   validatePassword,
   validateEmail,
+  verifyEmail,
 } = require('../middlewares/validations/user');
 
 router.post(
@@ -12,6 +13,7 @@ router.post(
   validateDisplayName,
   validatePassword,
   validateEmail,
+  verifyEmail,
   registerUser,
 );
 

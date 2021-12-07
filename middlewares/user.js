@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { created } = require('../utils/codes');
+const { created, ok } = require('../utils/codes');
 const service = require('../services/user');
 require('dotenv').config();
 
@@ -17,6 +17,14 @@ const registerUser = async (req, res) => {
   return res.status(created).json({ token });
 };
 
+const loginUser = async (req, res) => {
+  const { email } = req.body;
+  const user = await service.findEmail(email);
+  const token = jwt.sign({ data: { ...user } }, secret, jwtConfig);
+  return res.status(ok).json({ token });
+};
+
 module.exports = {
   registerUser,
+  loginUser,
 };
