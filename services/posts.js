@@ -67,10 +67,26 @@ const deletePostById = async (id) => {
   return postToBeDeleted;
 };
 
+const getPostByQuery = async (query) => {
+  const allPosts = await getAllPosts();
+  console.log(query);
+  console.log(allPosts);
+  if (!query) {
+    return allPosts;
+  }
+
+  const searhedPost = allPosts.filter(
+    (posts) => posts.title.includes(query) || posts.content.includes(query),
+  );
+
+  return searhedPost;
+};
+
 module.exports = {
   createNewPost,
   getAllPosts,
   getPostById,
   updatePostById,
   deletePostById,
+  getPostByQuery,
 };

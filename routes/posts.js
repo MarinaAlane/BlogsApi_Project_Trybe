@@ -6,6 +6,8 @@ const tokenMiddleware = require('../middlewares/token');
 const middlewares = require('../middlewares/posts');
 const controllers = require('../controllers/posts');
 
+routes.get('/search', tokenMiddleware, controllers.getPostByQuery);
+
 routes
   .post('/',
     tokenMiddleware,
