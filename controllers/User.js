@@ -62,9 +62,18 @@ const getById = async (req, res) => {
   res.status(200).json(serchedUser);
 };
 
+const remove = async (req, res) => {
+  const { id } = req.user.dataValues;
+
+  await User.destroy({ where: { id } });
+
+  res.status(204).json();
+};
+
 module.exports = {
   create,
   login,
   getAll,
   getById,
+  remove,
 };

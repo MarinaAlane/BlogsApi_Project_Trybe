@@ -8,5 +8,6 @@ router.use(express.json());
 router.post('/', User.create);
 router.get('/:id', Authentication, User.getById);
 router.get('/', Authentication, User.getAll);
+router.delete('/me', Authentication, User.remove);
 
 module.exports = router;
