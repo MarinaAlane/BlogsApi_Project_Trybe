@@ -14,9 +14,12 @@ const getAllUsers = async () => Users.findAll({ raw: true });
 
 const getUserById = async (id) => Users.findOne({ where: { id }, raw: true });
 
+const deleteUserById = async (id) => Users.destroy({ where: { id } });
+
 module.exports = {
   findUserByEmail,
   createUser,
   getAllUsers,
   getUserById,
+  deleteUserById,
 };

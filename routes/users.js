@@ -14,6 +14,11 @@ routes
   .get('/',
     tokenMiddleware,
     controllers.getAllUsers)
-  .get('/:id', tokenMiddleware, controllers.getUserById);
+  .get('/:id',
+    tokenMiddleware,
+    controllers.getUserById)
+  .delete('/me',
+    tokenMiddleware,
+    controllers.deleteUserById);
 
 module.exports = routes;
