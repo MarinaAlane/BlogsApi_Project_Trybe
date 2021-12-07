@@ -31,9 +31,17 @@ const updatePost = async (token, id, body) => {
  return result;
 };
 
+const deletePost = async (token, id) => {
+  const payload = tokenExists(token);
+  const idUser = payload.id;
+  await validationPost.deletePost(idUser, id);
+  await BlogPost.destroy({ where: { id } });  
+};
+
 module.exports = {
   createPost,
   getAll,
   getById,
   updatePost,
+  deletePost,
 };

@@ -27,9 +27,17 @@ const updatePost = async (req, res) => {
   return res.status(200).json(result);
 };
 
+const deletePost = async (req, res) => {
+  const token = req.headers.authorization;
+  const { id } = req.params;
+  await service.deletePost(token, id);
+  return res.status(204).json();
+};
+
 module.exports = {
   createPost,
   getAll,
   getById,
   updatePost,
+  deletePost,
 };

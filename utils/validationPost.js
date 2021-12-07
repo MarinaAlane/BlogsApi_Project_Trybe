@@ -53,6 +53,16 @@ const updatePost = async (userId, id, body) => {
   await BlogPost.update(body, { where: { id } });
 };
 
+const ifPostExists = async (id) => {
+  const search = await BlogPost.findOne({ where: { id } });
+  if (!search) throw err({ statusCode: 404, message: 'Post doest not exist' });
+};
+
+const deletePost = async (userId, id) => {
+  ifPostExists(id);
+  verificationUserPost(userId, id);
+};
+
 const validationPost = async ({ title, categoryIds, content }, id) => {
   validationTitle(title);
   valdiationCategoryIds(categoryIds);
@@ -65,4 +75,5 @@ module.exports = {
   validationPost,
   getById,
   updatePost,
+  deletePost,
 };
