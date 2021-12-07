@@ -6,6 +6,7 @@ const router = express.Router();
 router.use(express.json());
 
 router.post('/', Authentication, Post.create);
+router.get('/search', Authentication, Post.search);
 router.get('/:id', Authentication, Post.getById);
 router.get('/', Authentication, Post.getAll);
 router.put('/:id', Authentication, Post.update);

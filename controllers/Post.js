@@ -94,10 +94,35 @@ const remove = async (req, res) => {
   res.status(204).json();
 };
 
+const search = async (req, res) => {
+  const { q } = req.query;
+
+  if (q === '') {
+    const allPosts = await BlogPost.findAll({
+      include: [{ model: User, as: 'user' }, { model: Categorie, as: 'categories' }],
+    });
+    return res.status(200).json(allPosts);
+  }
+
+  const post = await BlogPost.findAll({
+    where: {
+      [Op.or]: [{ title: { [Op.substring]: q } }, { content: { [Op.substring]: q } }],
+    },
+    include: [{ model: User, as: 'user' }, { model: Categorie, as: 'categories' }],
+  });
+
+  if (!post) {
+    return res.status(200).json([]);
+  }
+
+  res.status(200).json(post);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
   remove,
+  search,
 };
