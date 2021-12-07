@@ -1,10 +1,18 @@
-const { BlogPost } = require('../models');
+const { BlogPost, Category } = require('../models');
 
 const createPost = async (req, res) => {
   try {
     const { title, content, categoryIds } = req.body;
-    console.log(title, content, categoryIds);
-    const post = await BlogPost.create({ title, content, categoryIds });
+    const { id } = req.user;
+
+    const category = await Category.findOne({ where: { id: categoryIds[0] } });
+    if (!category) {
+      return res.status(400).json({ message: '"categoryIds" not found' });
+    }
+
+    const post = await BlogPost.create(
+      { title, content, userId: id, categoryIds },
+    );
     return res.status(201).json(post);
   } catch (err) {
     console.log(err.message);
