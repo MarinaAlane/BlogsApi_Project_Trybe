@@ -1,7 +1,7 @@
 const { Op } = require('sequelize');
 
 const { BlogPost, Categorie, PostsCategorie, User } = require('../models');
-const { validatePost } = require('../middlewares/Validations');
+const { validatePost, validateUpdate } = require('../middlewares/Validations');
 
 const create = async (req, res) => {
   const error = validatePost(req.body);
@@ -55,8 +55,32 @@ const getById = async (req, res) => {
   res.status(200).json(post);
 };
 
+const update = async (req, res) => {
+  const { id } = req.params;
+  const { title, content, categoryIds } = req.body;
+  if (categoryIds) {
+    return res.status(400).json({ message: 'Categories cannot be edited' });
+  }
+  const error = validateUpdate(req.body);
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
+
+  const { userId, categories } = await BlogPost.findByPk(id,
+    { include: [{ model: User, as: 'user' }, { model: Categorie, as: 'categories' }] });
+  
+  if (userId !== req.user.dataValues.id) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+
+  await BlogPost.update({ title, content }, { where: { id } });
+  
+  res.status(200).json({ title, content, userId, categories });
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  update,
 };

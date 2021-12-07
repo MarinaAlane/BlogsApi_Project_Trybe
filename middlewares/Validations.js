@@ -41,8 +41,22 @@ const validatePost = (postData) => {
   return error;
 };
 
+const validateUpdate = (postData) => {
+  const { error } = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+  }).validate(postData);
+
+  if (!error) {
+    return null;
+  }
+
+  return error;
+};
+
 module.exports = {
   validateUser,
   validateCategorie,
   validatePost,
+  validateUpdate,
 };
