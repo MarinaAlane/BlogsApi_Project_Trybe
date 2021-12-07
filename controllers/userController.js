@@ -17,4 +17,12 @@ const addUser = async (req, res) => {
   }
 };
 
-module.exports = { addUser };
+const getAll = async (_req, res) => {
+  const users = await User.findAll();
+  return res.status(200).json(users);
+};
+
+module.exports = {
+  addUser,
+  getAll,
+};

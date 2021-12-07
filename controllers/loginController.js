@@ -1,12 +1,9 @@
-// const { User } = require('../models');
 const loginService = require('../services/loginService');
 
 const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
     const login = await loginService.signIn(email, password);
-    
-    // await User.create({ email, password });
         
     return login.token
       ? res.status(login.code).json(login.token)
