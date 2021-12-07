@@ -14,6 +14,9 @@ routes
     controllers.createNewPost)
   .get('/',
     tokenMiddleware,
-    controllers.getAllPosts);
+    controllers.getAllPosts)
+  .get('/:id',
+    tokenMiddleware,
+    controllers.getPostById);
 
 module.exports = routes;
