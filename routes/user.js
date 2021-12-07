@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
-const { registerUser } = require('../middlewares/user');
+const { registerUser, getAllUsers } = require('../middlewares/user');
+const auth = require('../middlewares/validations/auth');
 const {
   validateDisplayName,
   validatePassword,
@@ -15,6 +16,12 @@ router.post(
   validateEmail,
   verifyEmail,
   registerUser,
+);
+
+router.get(
+  '/',
+  auth,
+  getAllUsers,
 );
 
 module.exports = router;

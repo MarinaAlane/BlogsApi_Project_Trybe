@@ -12,6 +12,7 @@ module.exports = {
     { message: `"${name}" is required` }
   ),
   length,
+  notFound: (name) => ({ message: `${name} not found` }),
   empty: (name) => ({ message: `"${name}" is not allowed to be empty` }),
   invalidEmail: { message: '"email" must be a valid email' },
   existingEmail: { message: 'User already registered' },

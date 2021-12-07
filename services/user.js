@@ -1,26 +1,44 @@
 const { User } = require('../models');
 
 const registerUser = async (user) => {
-  const { dataValues: { password, ...newUser } } = await User.create(user);
-  return newUser;
+  try {
+    const { dataValues: { password, ...newUser } } = await User.create(user);
+    return newUser;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
 const findEmail = async (email) => {
   try {
-    const newUser = await User.findOne({
+    const user = await User.findOne({
+      attributes: ['id', 'displayName', 'email', 'image'],
       where: {
         email,
       },
     });
-    const { password, ...user } = await newUser.dataValues;
-    return user;
+    return user.dataValues;
   } catch (error) {
-    console.log(error);
-    return false;
+    console.error(error);
+    return null;
+  }
+};
+
+const getAllUsers = async () => {
+  try {
+    const users = await User.findAll({
+      attributes: ['id', 'displayName', 'email', 'image'],
+    });
+    return users;
+  } catch (error) {
+    console.error(error);
+    return null;
   }
 };
 
 module.exports = {
   registerUser,
   findEmail,
+  getAllUsers,
 };
