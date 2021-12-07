@@ -13,6 +13,14 @@ const validateEmail = (req, res, next) => {
   next();
 };
 
+const checkNameCategory = (req, res, next) => {
+  const { name } = req.body;
+  if (!name) {
+    return res.status(400).json({ message: '"name" is required' });
+  }
+  next();
+};
+
 const emailExists = (req, res, next) => {
   const { email } = req.body;
   if (!email) {
@@ -137,4 +145,5 @@ emailNotEmpty,
 checkExistanceUser,
 tokenValid,
 tokenExists,
+checkNameCategory,
  };
