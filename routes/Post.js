@@ -9,5 +9,6 @@ router.post('/', Authentication, Post.create);
 router.get('/:id', Authentication, Post.getById);
 router.get('/', Authentication, Post.getAll);
 router.put('/:id', Authentication, Post.update);
+router.delete('/:id', Authentication, Post.remove);
 
 module.exports = router;
