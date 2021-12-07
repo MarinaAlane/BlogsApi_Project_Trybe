@@ -1,10 +1,14 @@
 const express = require('express');
+const { Home } = require('./routes');
 
 const app = express();
+require('dotenv').config();
 
-app.listen(3000, () => console.log('ouvindo porta 3000!'));
+app.listen(() => console.info(`Ligado na porta ${process.env.PORT}`));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// não remova esse endpoint, e para o avaliador funcionar
-app.get('/', (request, response) => {
-  response.send();
-});
+app.use('/', Home);
+// app.use('/', Home);
+// app.use('/products', Products);
+// app.use('/sales', Sales);
