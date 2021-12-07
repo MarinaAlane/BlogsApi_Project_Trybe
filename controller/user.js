@@ -2,10 +2,8 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const { User } = require('../models');
 
-const findAllUsers = (req, res) => {
-  return User.findAll()
+const findAllUsers = (req, res) => User.findAll()
     .then((users) => res.status(200).json(users.map((e) => e.dataValues)));
-};
 
 const findById = (req, res) => {
   const { id } = req.params;
