@@ -8,9 +8,11 @@ module.exports = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       image: DataTypes.STRING,
     },
+    // options
     { timestamps: false, tableName: 'Users', underscored: true },
   );
 
+  // associations
   Users.associate = (models) => {
     Users.hasMany(
       models.BlogPosts,
