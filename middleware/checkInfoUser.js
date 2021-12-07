@@ -73,7 +73,16 @@ const checkToken = (req, res, next) => {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
   next();
-}; 
+};
+
+const checkName = (req, res, next) => {
+  const { name } = req.body;
+
+  if (!name) {
+    return res.status(400).json({ message: '"name" is required' });
+  }
+  next();
+};
 
 module.exports = {
   checkDisplayName,
@@ -81,4 +90,5 @@ module.exports = {
   checkPassword,
   checkLogin,
   checkToken,
+  checkName,
 };
