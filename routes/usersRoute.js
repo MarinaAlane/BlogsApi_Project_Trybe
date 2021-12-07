@@ -1,5 +1,9 @@
 const Router = require('express').Router();
 const usersController = require('../controllers/usersController');
-const emailValidation = require('../middlewares/validateEmail');
+const validations = require('../middlewares/validateUser');
 
-Router.post('/', emailValidation, usersController.createUser);
+Router.post('/',
+validations.emailValidation, 
+validations.validateName, validations.validatePassword, usersController.createUser);
+
+module.exports = Router;

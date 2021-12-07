@@ -1,8 +1,8 @@
-const { UserModel } = require('../models');
+const { User } = require('../models');
 
 const createUser = async (newUser) => {
 const { displayName, email, password, image } = newUser;
-await UserModel.create({
+await User.create({
     displayName,
     email,
     password,
