@@ -1,8 +1,8 @@
 const { Categories } = require('../models');
 
 const createCategory = async (name) => {
-  if (name === '' || !name) {
-    return { message: '"name" is required' };
+  if (!name) {
+    return ({ message: '"name" is required' });
   }
 
   return name;
