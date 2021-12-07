@@ -1,7 +1,7 @@
 const UserServices = require('../services/userServices');
 const { createToken } = require('../utils/token');
 
-// create user table
+// create user
 const create = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   const { dataValues } = await UserServices.create({ displayName, email, password, image });

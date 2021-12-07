@@ -1,12 +1,7 @@
 const { Users } = require('../models');
 
 const create = async ({ displayName, email, password, image }) =>
-  Users.create({
-    displayName,
-    email,
-    password,
-    image,
-});
+  Users.create({ displayName, email, password, image });
 
 const findAll = async () =>
   Users.findAll({

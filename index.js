@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express');
 
 // routes import
-const UserRoutes = require('./src/routes/userRoutes');
-const LoginRoutes = require('./src/routes/loginRoutes');
-const ErrorMiddleware = require('./src/middlewares/genericError');
+const UserRoutes = require('./routes/userRoutes');
+const LoginRoutes = require('./routes/loginRoutes');
+const ErrorMiddleware = require('./middlewares/genericError');
 
 const app = express();
 
