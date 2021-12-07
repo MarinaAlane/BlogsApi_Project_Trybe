@@ -7,6 +7,17 @@ const findAllUsers = (req, res) => {
     .then((users) => res.status(200).json(users.map((e) => e.dataValues)));
 };
 
+const findById = (req, res) => {
+  const { id } = req.params;
+  User.findOne({ where: { id } })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: 'User does not exist' });
+      }
+      return res.status(200).json(user.dataValues);
+    });
+};
+
 const createUserController = (req, res) => {
   const { displayName, email, password, image } = req.body;
 
@@ -19,4 +30,5 @@ const createUserController = (req, res) => {
 module.exports = {
   createUserController,
   findAllUsers,
+  findById,
 };

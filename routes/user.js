@@ -8,9 +8,10 @@ const {
   checkPassword, 
   checkToken } = require('../middleware/checkInfoUser');
 
-const { findAllUsers, createUserController } = require('../controller/user');
+const { findAllUsers, findById, createUserController } = require('../controller/user');
 
 router.get('/', checkToken, findAllUsers);
+router.get('/:id', checkToken, findById);
 router.post('/', checkDisplayName, checkEmail, checkPassword, createUserController);
 
 module.exports = router;
