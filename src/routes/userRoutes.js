@@ -1,13 +1,13 @@
 const express = require('express');
-const newUserMW = require('../middlewares/validateNewUser');
+const newUserMiddleware = require('../middlewares/validateUser');
 const validateToken = require('../middlewares/validateToken');
 const UserController = require('../controllers/userController');
 
 const route = express.Router();
 
 route.post('/',
-  newUserMW.verifyUser,
-  newUserMW.verifyRegister,
+  newUserMiddleware.validateUser,
+  newUserMiddleware.validateRegister,
   UserController.create);
 
 route.get('/',
