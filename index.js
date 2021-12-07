@@ -1,12 +1,14 @@
 require('dotenv').config();
 const express = require('express');
+// Routes source
 const userRoute = require('./src/routes/userRoute');
 
 const app = express();
-app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
-// Routes
+app.use(express.json());
+
+// Routes use
 app.use('/user', userRoute);
 
 // não remova esse endpoint, e para o avaliador funcionar
