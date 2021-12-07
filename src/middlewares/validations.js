@@ -1,5 +1,5 @@
 const { Users } = require('../models');
-const { verifyJWT } = require('../auth/jwt');
+ const { verifyJWT } = require('../auth/jwt');
 
 const validateEmail = (req, res, next) => {
   const { email } = req.body;
@@ -63,8 +63,8 @@ const checkDisplayName = (req, res, next) => {
 };
 
 const checkEmailonDataBase = async (req, res, next) => {
-  const { email } = req.body;
-  const emailUser = await Users.findOne({ where: { email } });
+  const { email, password } = req.body;
+  const emailUser = await Users.findOne({ where: { email, password } });
   // console.log(user.dataValues.email);
   if (!emailUser) {
     return res.status(400).json({ message: 'Invalid fields' });
@@ -74,37 +74,37 @@ const checkEmailonDataBase = async (req, res, next) => {
 
 const tokenExists = async (req, res, next) => {
   const { authorization: token } = req.headers;
-  console.log(token);
+  // console.log(token);
   if (!token) { 
     return res.status(401).json({ message: 'Token not found' });
   }
   next();
 };
 
-const tokenValid = (req, res, next) => {
+const tokenValid = async (req, res, next) => {
   const { authorization: token } = req.headers;
   try {
-    verifyJWT(token);
-  } catch (error) {
+     verifyJWT(token);
+  } catch (e) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
   next();
 };
 
-// const tokenValid = async (req, res, _next) => {
-//   const { authorization: token } = req.headers;
-//   console.log(`${token} Oiii !`);
-//   if (!token) {
-//     return res.status(401).json({ message: 'Token not found' });
-//   }
- /*  try { 
-      verifyJWT(token);
-  } catch (error) { 
-    if (error) {
-      return res.status(401).json({ message: 'Expired or invalid token' });
-    }
-  } */
-  /* next(); */
+//  const tokenValid = async (req, res, next) => {
+//    const { authorization: token } = req.headers;
+//    console.log(`${token} Oiii !`);
+//    if (!token) {
+//      return res.status(401).json({ message: 'Token not found' });
+//    }
+//    try { 
+//       verifyJWT(token);
+//   } catch (error) { 
+//     if (error) {
+//       return res.status(401).json({ message: 'Expired or invalid token' });
+//     }
+//   } 
+//    next(); 
 // };
 
 const checkUniqueUser = async (req, res, next) => {
@@ -118,7 +118,7 @@ const findByEmail = await Users.findOne({ where: { email } });
 
 const checkExistanceUser = async (req, res, next) => {
   const { id } = req.params;
-  const user = await Users.findOne({ where: { id } });
+  const user = await Users.findOne({ where: { id: Number(id) } });
   if (!user) {
     return res.status(404).json({ message: 'User does not exist' });
   }

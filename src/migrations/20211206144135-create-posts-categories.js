@@ -7,14 +7,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
       },
       categoryId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         references: { model: 'Categories', key: 'id'},
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
       },
     });
   },
