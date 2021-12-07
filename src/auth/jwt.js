@@ -4,7 +4,6 @@ require('dotenv').config();
 const secret = 'secret';
 
 const createJWT = (id, userEmail) => {
-  console.log(id, userEmail);
   const jwtConfig = { 
     expiresIn: '4d',
     algorithm: 'HS256',
