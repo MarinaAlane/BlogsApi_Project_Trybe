@@ -36,7 +36,7 @@ const updatePostById = async (req, res) => {
 
   if (!updatedPost) return res.status(401).json({ message: 'Unauthorized user' });
 
-  return res.status(200).json(response);
+  return res.status(200).json(updatedPost);
 };
 
 module.exports = {

@@ -53,7 +53,7 @@ const updatePostById = async ({ id, title, content, userId }) => {
 
   await models.BlogPosts.update({ title, content }, { where: { id } });
   const { categories } = currentPost;
-  
+
   return { title, content, userId, categories };
 };
 
