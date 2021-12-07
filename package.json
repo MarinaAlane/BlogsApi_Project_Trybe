@@ -15,6 +15,7 @@
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate $",
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "reset": "npm run drop && npm run prestart && npm run seed",
     "drop": "npx sequelize-cli db:drop $",
     "seed": "npx sequelize-cli db:seed:all $",
     "test": "jest --runInBand",
