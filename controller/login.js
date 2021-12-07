@@ -1,7 +1,6 @@
-const jwt = require('jsonwebtoken'); 
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const { User } = require('../models');
-
-const secret = 'segredo';
 
 const loginValidation = (req, res) => {
   const { email, password } = req.body;
@@ -11,7 +10,7 @@ const loginValidation = (req, res) => {
       if (result.length === 0) {
         return res.status(400).json({ message: 'Invalid fields' }); 
       }
-      return res.status(200).json({ token: jwt.sign({ email, password }, secret) });
+      return res.status(200).json({ token: jwt.sign({ email, password }, process.env.JWT_SECRET) });
     })
     .catch(() => res.status(500).json({ error: '500' }));
 };

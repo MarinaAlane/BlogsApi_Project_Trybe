@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const { User } = require('../models');
 
 const checkDisplayName = (req, res, next) => {
@@ -60,9 +62,23 @@ const checkLogin = (req, res, next) => {
   next();
 };
 
+const checkToken = (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+  const decodeToken = jwt.decode(token, process.env.JWT_SECRET);
+  if (!decodeToken) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+  next();
+}; 
+
 module.exports = {
   checkDisplayName,
   checkEmail,
   checkPassword,
   checkLogin,
+  checkToken,
 };
