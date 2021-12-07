@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const Caregory = sequelize.define(
-    'Caregory',
+  const Category = sequelize.define(
+    'Category',
     {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
       name: DataTypes.STRING,
@@ -11,5 +11,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  return Caregory;
+  // User.associate = (models) => {
+  //   User.hasMany(models.BlosPost, { foreignKey: 'userId', as: 'autor' });
+  // };
+
+  return Category;
 };
