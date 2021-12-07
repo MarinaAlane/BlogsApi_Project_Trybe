@@ -115,6 +115,26 @@ const tokenValid = async (req, res, next) => {
 //    next(); 
 // };
 
+const checkTitle = async (req, res, next) => {
+  const { title } = req.body;
+  if (!title) {
+    return res.status(400).json({ message: '"title" is required' });
+  }
+  next();
+};
+
+const checkContent = async (req, res, next) => {
+  const { content } = req.body;
+  if (!content) { return res.status(400).json({ message: '"content" is required' }); }
+  next();
+};
+
+const checkCategoryIds = async (req, res, next) => {
+  const { categoryIds } = req.body;
+  if (!categoryIds) { return res.status(400).json({ message: '"categoryIds" is required' }); }
+  next();
+};
+
 const checkUniqueUser = async (req, res, next) => {
   const { email } = req.body;
 const findByEmail = await Users.findOne({ where: { email } });
@@ -146,4 +166,7 @@ checkExistanceUser,
 tokenValid,
 tokenExists,
 checkNameCategory,
+checkTitle,
+checkContent,
+checkCategoryIds,
  };
