@@ -1,7 +1,7 @@
 const express = require('express');
 const rescue = require('express-rescue');
 const controller = require('../controllers/loginControllers');
-const { loginMiddlewares } = require('../middlewares/loginMiddlewares');
+const loginMiddlewares = require('../middlewares/loginMiddlewares');
 
 const router = express.Router();
 
