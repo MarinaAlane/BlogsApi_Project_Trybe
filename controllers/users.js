@@ -19,7 +19,7 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
   
   const alreadyRegisteredUser = await services.findUserByEmail(email);
-  console.log(alreadyRegisteredUser);
+
   if (!alreadyRegisteredUser || alreadyRegisteredUser.password !== password) {
     return res.status(400).json({ message: 'Invalid fields' });
   }
@@ -38,7 +38,6 @@ const getAllUsers = async (_req, res) => {
 
 const getUserById = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   const user = await services.getUserById(id);
   
   if (!user) return res.status(404).json({ message: 'User does not exist' });

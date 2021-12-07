@@ -36,8 +36,30 @@ const getPostById = async (id) => models.BlogPosts.findOne({
   ],
 });
 
+const updatePostById = async ({ id, title, content, userId }) => {
+  const currentPost = await models.BlogPosts.findOne({
+    where: { id },
+    include: [
+      {
+        model: models.Categories,
+        as: 'categories',
+        through: { attributes: [] },
+        attributes: { exclude: ['PostCategories'] },
+      },
+    ],
+  });
+  
+  if (!currentPost || currentPost.userId !== userId) return null;
+
+  await models.BlogPosts.update({ title, content }, { where: { id } });
+  const { categories } = currentPost;
+  
+  return { title, content, userId, categories };
+};
+
 module.exports = {
   createNewPost,
   getAllPosts,
   getPostById,
+  updatePostById,
 };

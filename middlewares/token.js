@@ -9,7 +9,6 @@ module.exports = (req, res, next) => {
     const { payload: { id } } = validateToken(authorization);
     
     req.userId = id;
-
     next();
   } catch (error) {
     res.status(401).json({ message: 'Expired or invalid token' });

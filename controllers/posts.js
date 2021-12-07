@@ -1,3 +1,4 @@
+const { response } = require('express');
 const services = require('../services/posts');
 
 const createNewPost = async (req, res) => {
@@ -27,8 +28,20 @@ const getPostById = async (req, res) => {
   return res.status(200).json(postById);
 };
 
+const updatePostById = async (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  const { userId } = req;
+  const updatedPost = await services.updatePostById({ id, title, content, userId });
+
+  if (!updatedPost) return res.status(401).json({ message: 'Unauthorized user' });
+
+  return res.status(200).json(response);
+};
+
 module.exports = {
   createNewPost,
   getAllPosts,
   getPostById,
+  updatePostById,
 };

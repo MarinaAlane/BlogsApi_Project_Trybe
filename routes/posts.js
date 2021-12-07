@@ -17,6 +17,10 @@ routes
     controllers.getAllPosts)
   .get('/:id',
     tokenMiddleware,
-    controllers.getPostById);
+    controllers.getPostById)
+  .put('/:id',
+    tokenMiddleware,
+    middlewares.validateUpdatePostWithJoi,
+    controllers.updatePostById);
 
 module.exports = routes;
