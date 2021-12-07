@@ -1,11 +1,15 @@
+// general imports
 require('dotenv').config();
 const express = require('express');
 
-// routes import
-const UserRoutes = require('./routes/userRoutes');
-const LoginRoutes = require('./routes/loginRoutes');
-const ErrorMiddleware = require('./middlewares/genericError');
+// routes imports
+const Users = require('./routes/user');
+const Login = require('./routes/login');
+const Categories = require('./routes/categories');
+const Post = require('./routes/post');
+const ErrorMW = require('./middlewares/genericError');
 
+// express use
 const app = express();
 
 // PORT
@@ -13,17 +17,21 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // routes use
-app.use('/user', UserRoutes);
-app.use('/login', LoginRoutes);
+app.use('/user', Users);
+app.use('/login', Login);
+app.use('/categories', Categories);
+app.use('/post', Post);
+
+// middlewares
+app.use(ErrorMW);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
 });
 
-// middlewares
-app.use(ErrorMiddleware);
+// PORT in use
+app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
 
-app.listen(PORT, () => console.log(`Listening on the PORT: ${PORT}`));
-
+// exports
 module.exports = app;

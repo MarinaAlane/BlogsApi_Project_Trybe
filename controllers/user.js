@@ -1,19 +1,17 @@
-const UserServices = require('../services/userServices');
+const Users = require('../services/user');
 const { createToken } = require('../utils/token');
 
-// create user
 const create = async (req, res) => {
   const { displayName, email, password, image } = req.body;
-  const { dataValues } = await UserServices.create({ displayName, email, password, image });
+  const { dataValues } = await Users.create({ displayName, email, password, image });
   delete dataValues.password;
   const token = createToken({ payload: dataValues });
   res.status(201).json({ token });
 };
 
-// login controller
 const login = async (req, res) => {
   const { email, password } = req.body;
-  const findUser = await UserServices.findByEmail(email);
+  const findUser = await Users.findUserByEmail(email);
 
   if (!findUser || findUser.password !== password) {
     return res.status(400).json({ message: 'Invalid fields' });
@@ -24,11 +22,10 @@ const login = async (req, res) => {
   res.status(200).json({ token });
 };
 
-// find  user by Id
 const findById = async (req, res) => {
   const { id } = req.params;
-  const user = await UserServices.findById(id);
-  
+  const user = await Users.findById(id);
+
   if (!user) {
     return res.status(404).json({ message: 'User does not exist' });
   }
@@ -36,9 +33,8 @@ const findById = async (req, res) => {
   res.status(200).json(user);
 };
 
-// list all users
-const listAll = async (_req, res) => {
-  const allUsers = await UserServices.findAll();
+const findAll = async (_req, res) => {
+  const allUsers = await Users.findAll();
   res.status(200).json(allUsers);
 };
 
@@ -46,5 +42,5 @@ module.exports = {
   create,
   login,
   findById,
-  listAll,
+  findAll,
 };

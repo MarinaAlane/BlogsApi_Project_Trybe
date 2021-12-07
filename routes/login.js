@@ -1,11 +1,11 @@
 const express = require('express');
 const LoginMiddleware = require('../middlewares/validateLogin');
-const UserController = require('../controllers/userController');
+const Users = require('../controllers/user');
 
 const route = express.Router();
 
 route.post('/',
-  LoginMiddleware.validateLogin,
-  UserController.login);
+  LoginMiddleware.validateLoginBody,
+  Users.login);
 
 module.exports = route;

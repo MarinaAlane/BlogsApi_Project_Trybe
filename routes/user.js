@@ -1,21 +1,21 @@
 const express = require('express');
 const newUserMiddleware = require('../middlewares/validateUser');
 const validateToken = require('../middlewares/validateToken');
-const UserController = require('../controllers/userController');
+const Users = require('../controllers/user');
 
 const route = express.Router();
 
 route.post('/',
-  newUserMiddleware.validateUser,
-  newUserMiddleware.validateRegister,
-  UserController.create);
-
-route.get('/',
-  validateToken,
-  UserController.listAll);
+  newUserMiddleware.validateUserBody,
+  newUserMiddleware.validateUserRegister,
+  Users.create);
 
 route.get('/:id',
   validateToken,
-  UserController.findById);
+  Users.findById);
+
+route.get('/',
+  validateToken,
+  Users.findAll);
 
 module.exports = route;

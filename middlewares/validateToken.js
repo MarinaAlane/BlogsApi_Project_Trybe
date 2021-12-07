@@ -1,7 +1,5 @@
 const { validateToken } = require('../utils/token');
 
-// References: // https://developer.mozilla.org/en-US/docs/Glossary/Request_header
-
 module.exports = (req, res, next) => {
   try {
     const { authorization } = req.headers;
@@ -9,7 +7,7 @@ module.exports = (req, res, next) => {
     if (!authorization) {
       return res.status(401).json({ message: 'Token not found' });
     }
-
+  
     const { payload: { id } } = validateToken(authorization);
     req.userId = id;
     next();
