@@ -2,6 +2,11 @@
 require('dotenv').config();
 const { Categories } = require('../models');
 
+const findAllCategories = (req, res) => {
+  Categories.findAll()
+    .then((results) => res.status(200).json(results.map((e) => e.dataValues)));
+};
+
 const createCategory = (req, res) => {
   const { name } = req.body;
   Categories.create({ name })
@@ -11,4 +16,5 @@ const createCategory = (req, res) => {
 
 module.exports = {
   createCategory,
+  findAllCategories,
 };
