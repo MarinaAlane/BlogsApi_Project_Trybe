@@ -11,6 +11,10 @@ route.post('/',
   newPostMiddleware.validatePostRegister,
   Post.create);
 
+route.get('/:id',
+  validateToken,
+  Post.findById);
+
 route.get('/',
   validateToken,
   Post.findAll);

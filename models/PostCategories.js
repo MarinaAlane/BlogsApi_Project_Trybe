@@ -1,10 +1,7 @@
 module.exports = (sequelize, _DataTypes) => {
-  const PostsCategories = sequelize.define(
-    'PostsCategories',
-    {},
+  const PostsCategories = sequelize.define('PostsCategories', {},
     // options
-    { timestamps: false, tableName: 'PostsCategories', underscored: true },
-  );
+    { timestamps: false, tableName: 'PostsCategories', underscored: true });
 
   // associations
   PostsCategories.associate = (models) => {

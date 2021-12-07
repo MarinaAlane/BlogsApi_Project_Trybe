@@ -18,7 +18,11 @@ const findAll = async () => BlogPosts.findAll({
   ],
 });
 
+const findById = async (id) =>
+  Users.findByPk(id, { raw: true });
+
 module.exports = {
   create,
   findAll,
+  findById,
 };

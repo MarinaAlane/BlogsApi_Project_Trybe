@@ -15,7 +15,19 @@ const findAll = async (_req, res) => {
   res.status(200).json(allPosts);
 };
 
+const findById = async (req, res) => {
+  const { id } = req.params;
+  const user = await Post.findById(id);
+
+  if (!user) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+
+  res.status(200).json(user);
+};
+
 module.exports = {
   create,
   findAll,
+  findById,
 };
