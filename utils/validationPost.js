@@ -1,6 +1,6 @@
-const { BlogPost, Category } = require('../models');
+const { BlogPost, Category, User } = require('../models');
 
-const err = (statusCode) => ({statusCode});
+const err = (statusCode) => ({ statusCode });
 
 const validationTitle = (title) => {
   if (!title) throw err({ statusCode: 400, message: '"title" is required' });
@@ -28,6 +28,14 @@ const createPost = async (title, categoryIds, content, id) => {
   return result;
 };
 
+const getById = async (id) => {
+  const result = await BlogPost.findOne({ where: { id }, 
+  include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } },
+    { model: Category, as: 'categories', through: { attributes: [] } }] });
+    if (!result) throw err({ statusCode: 401, message: 'Post does not exists' });
+    return result;
+};
+
 const validationPost = async ({ title, categoryIds, content }, id) => {
   validationTitle(title);
   valdiationCategoryIds(categoryIds);
@@ -38,4 +46,5 @@ const validationPost = async ({ title, categoryIds, content }, id) => {
 
 module.exports = {
   validationPost,
+  getById,
 };

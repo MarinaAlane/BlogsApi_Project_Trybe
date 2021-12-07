@@ -12,7 +12,15 @@ const getAll = async (req, res) => {
   return res.status(200).json(result);
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const token = req.headers.authorization;
+  const result = await service.getById(token, id);
+  return res.status(200).json(result);
+};
+
 module.exports = {
   createPost,
   getAll,
+  getById,
 };
