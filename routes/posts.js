@@ -21,6 +21,9 @@ routes
   .put('/:id',
     tokenMiddleware,
     middlewares.validateUpdatePostWithJoi,
-    controllers.updatePostById);
+    controllers.updatePostById)
+  .delete('/:id',
+    tokenMiddleware,
+    controllers.deletePostById);
 
 module.exports = routes;

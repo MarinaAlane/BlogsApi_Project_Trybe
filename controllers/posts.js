@@ -1,4 +1,3 @@
-const { response } = require('express');
 const services = require('../services/posts');
 
 const createNewPost = async (req, res) => {
@@ -39,9 +38,22 @@ const updatePostById = async (req, res) => {
   return res.status(200).json(updatedPost);
 };
 
+const deletePostById = async (req, res) => {
+  const { id } = req.params;
+  const { userId } = req;
+
+  const deletedPost = await services.deletePostById(id);
+
+  if (!deletedPost) return res.status(404).json({ message: 'Post does not exist' });
+  if (deletedPost.userId !== userId) return res.status(401).json({ message: 'Unauthorized user' });
+
+  return res.status(204).end();
+};
+
 module.exports = {
   createNewPost,
   getAllPosts,
   getPostById,
   updatePostById,
+  deletePostById,
 };

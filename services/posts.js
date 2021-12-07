@@ -57,9 +57,20 @@ const updatePostById = async ({ id, title, content, userId }) => {
   return { title, content, userId, categories };
 };
 
+const deletePostById = async (id) => {
+  const postToBeDeleted = await models.BlogPosts.findOne({ where: { id } });
+  
+  if (!postToBeDeleted) return null;
+
+  await models.BlogPosts.destroy({ where: { id } });
+
+  return postToBeDeleted;
+};
+
 module.exports = {
   createNewPost,
   getAllPosts,
   getPostById,
   updatePostById,
+  deletePostById,
 };
