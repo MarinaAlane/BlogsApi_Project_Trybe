@@ -1,6 +1,7 @@
 const { validateToken } = require('../utils/token');
 
 module.exports = (req, res, next) => {
+  // References: https://developer.mozilla.org/en-US/docs/Glossary/Request_header
   try {
     const { authorization } = req.headers;
     
