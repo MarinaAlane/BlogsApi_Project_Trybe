@@ -1,10 +1,9 @@
-const { User } = require('../models');
 const { createJWT } = require('../middlewares/createJWT');
 const userService = require('../services/userService');
 
 const getAllUsers = async (_req, res) => {
   try {
-    const users = await User.findAll();
+    const users = await userService.getUsers();
 
     if (!users) return res.status(404).json({ message: 'User not found' });
 

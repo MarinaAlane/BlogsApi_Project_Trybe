@@ -55,6 +55,11 @@ const searchUser = async (id) => {
   return newUser;
 };
 
+const getUsers = async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+  return users;
+};
+
 const createUser = async (displayName, email, password, image) => {
   const existsUser = await findUser(email);
 
@@ -69,4 +74,5 @@ module.exports = {
   resultData,
   createUser,
   searchUser,
+  getUsers,
 };
