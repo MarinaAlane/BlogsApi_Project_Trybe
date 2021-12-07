@@ -5,7 +5,7 @@ const { User } = require('../models');
 const loginValidation = (req, res) => {
   const { email, password } = req.body;
 
-  User.findAll({ where: { email, password } })
+  return User.findAll({ where: { email, password } })
     .then((result) => {
       if (result.length === 0) {
         return res.status(400).json({ message: 'Invalid fields' }); 

@@ -3,13 +3,13 @@ require('dotenv').config();
 const { User } = require('../models');
 
 const findAllUsers = (req, res) => {
-  User.findAll()
+  return User.findAll()
     .then((users) => res.status(200).json(users.map((e) => e.dataValues)));
 };
 
 const findById = (req, res) => {
   const { id } = req.params;
-  User.findOne({ where: { id } })
+  return User.findOne({ where: { id } })
     .then((user) => {
       if (!user) {
         return res.status(404).json({ message: 'User does not exist' });
@@ -21,7 +21,7 @@ const findById = (req, res) => {
 const createUserController = (req, res) => {
   const { displayName, email, password, image } = req.body;
 
-  User.create({ displayName, email, password, image })
+  return User.create({ displayName, email, password, image })
     .then((user) => res.status(201)
       .json({ token: jwt.sign(user.dataValues, process.env.JWT_SECRET) }))
     .catch(() => res.status(500).json({ error: '500' }));
