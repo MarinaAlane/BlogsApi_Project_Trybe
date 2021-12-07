@@ -12,7 +12,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', router.user);
-
+app.use('/login', router.login);
 app.use(middlewares.error);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
