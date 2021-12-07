@@ -1,6 +1,6 @@
 const express = require('express');
-// const bodyParser = require('body-parser');
 const usersRoutes = require('./src/routes/usersRoutes');
+const loginRoutes = require('./src/routes/loginRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -8,8 +8,6 @@ const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
-
-// app.use(bodyParser.json);
 
 app.listen(PORT, () => console.log('ouvindo porta 3000!'));
 
@@ -19,3 +17,4 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', usersRoutes);
+app.use('/login', loginRoutes);
