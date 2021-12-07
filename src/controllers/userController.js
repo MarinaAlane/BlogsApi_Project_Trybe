@@ -13,8 +13,8 @@ const createUser = async (req, res) => {
       return res.status(409).json({ message: 'User already registered' });
     }
 
-    await User.create({ displayName, email, password, image });
-    const payload = { displayName, email, image };
+    const create = await User.create({ displayName, email, password, image });
+    const payload = { id: create.id, displayName, email, image };
     const token = jwt.sign(payload, JWT_SECRET, jwtConfig);
     return res.status(201).json({ token });
   } catch (err) {

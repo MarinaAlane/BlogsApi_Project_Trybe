@@ -14,7 +14,7 @@ const login = async (req, res) => {
       return res.status(400).json({ message: 'Invalid fields' });
     }
 
-    const payload = { email, name: user.displayName, image: user.image };
+    const payload = { id: user.id, email, name: user.displayName, image: user.image };
     const token = jwt.sign(payload, JWT_SECRET, jwtConfig);
     return res.status(200).json({ token });
   } catch (err) {
