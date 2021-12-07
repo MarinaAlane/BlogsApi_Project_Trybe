@@ -1,5 +1,5 @@
-const { User } = require('../models');
-// const { verifyJWT } = require('../auth/jwt');
+const { Users } = require('../models');
+const { verifyJWT } = require('../auth/jwt');
 
 const validateEmail = (req, res, next) => {
   const { email } = req.body;
@@ -64,7 +64,7 @@ const checkDisplayName = (req, res, next) => {
 
 const checkEmailonDataBase = async (req, res, next) => {
   const { email } = req.body;
-  const emailUser = await User.findOne({ where: { email } });
+  const emailUser = await Users.findOne({ where: { email } });
   // console.log(user.dataValues.email);
   if (!emailUser) {
     return res.status(400).json({ message: 'Invalid fields' });
@@ -73,23 +73,23 @@ const checkEmailonDataBase = async (req, res, next) => {
 };
 
 const tokenExists = async (req, res, next) => {
-  const token = req.headers.authorization;
+  const { authorization: token } = req.headers;
+  console.log(token);
   if (!token) { 
     return res.status(401).json({ message: 'Token not found' });
   }
   next();
 };
 
-// const tokenValid = (req, res, next) => {
-//   const { token } = req;
-//   console.log(token);
-//   try {
-//     verifyJWT(token);
-//   } catch (error) {
-//     return res.status(401).json({ message: 'Expired or invalid token' });
-//   }
-//   next();
-// };
+const tokenValid = (req, res, next) => {
+  const { authorization: token } = req.headers;
+  try {
+    verifyJWT(token);
+  } catch (error) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+  next();
+};
 
 // const tokenValid = async (req, res, _next) => {
 //   const { authorization: token } = req.headers;
@@ -109,11 +109,20 @@ const tokenExists = async (req, res, next) => {
 
 const checkUniqueUser = async (req, res, next) => {
   const { email } = req.body;
-const findByEmail = await User.findOne({ where: { email } });
+const findByEmail = await Users.findOne({ where: { email } });
  if (findByEmail) {
   return res.status(409).json({ message: 'User already registered' });
  }
  next();
+};
+
+const checkExistanceUser = async (req, res, next) => {
+  const { id } = req.params;
+  const user = await Users.findOne({ where: { id } });
+  if (!user) {
+    return res.status(404).json({ message: 'User does not exist' });
+  }
+  next();
 };
 
 module.exports = { validateEmail, 
@@ -125,5 +134,7 @@ checkDisplayName,
 checkEmailonDataBase,
 passwordNotEmpty,
 emailNotEmpty,
+checkExistanceUser,
+tokenValid,
 tokenExists,
-/* tokenValid */ };
+ };

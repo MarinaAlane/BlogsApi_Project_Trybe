@@ -6,13 +6,19 @@ const userCreate = async (req, res) => {
   return res.status(201).json({ token });
 };
 
-const getAllUsers = async (req, res) => {
-  const { token } = req.headers.authorization;
-  const AllUsers = await serviceUser.getUsers(token);
-  if (AllUsers.message) {
-    return res.status(401).json({ message: 'Expired or invalid token' });
-  }
-  return res.status(200).json(AllUsers);
+const getUsers = async (_req, res) => {
+  // const { token } = req.headers.authorization;
+  const Users = await serviceUser.getUsers();
+  // if (AllUsers.message) {
+  //   return res.status(401).json({ message: 'Expired or invalid token' });
+  // }
+   res.status(200).json(Users);
 };
 
-module.exports = { userCreate, getAllUsers };
+const getUser = async (req, res) => {
+  const { id } = req.params;
+  const user = await serviceUser.getUser(id);
+  res.status(200).json(user);
+};
+
+module.exports = { userCreate, getUsers, getUser };
