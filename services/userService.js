@@ -9,7 +9,10 @@ const create = async (displayName, email, password, image) => Users.create({
   displayName, email, password, image,
 });
 
+const getAllUser = async () => Users.findAll();
+
 module.exports = {
   create,
   findByEmail,
+  getAllUser,
 };

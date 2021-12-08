@@ -22,7 +22,13 @@ const login = async (req, res) => {
   return res.status(200).json(token);
 };
 
+const getAllUser = async (req, res) => {
+  const response = await services.getAllUser();
+  return res.status(200).json(response);
+};
+
 module.exports = {
   create,
   login,
+  getAllUser,
 };
