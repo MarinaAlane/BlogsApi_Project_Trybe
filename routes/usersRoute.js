@@ -7,6 +7,8 @@ Router.post('/',
 validations.emailValidation, 
 validations.validateName, validations.validatePassword, usersController.createUser);
 
- Router.get('/', tokenValidation, usersController.getUsers);
+Router.get('/', tokenValidation, usersController.getUsers);
+
+Router.get('/:id', tokenValidation, usersController.getUserById);
 
 module.exports = Router;
