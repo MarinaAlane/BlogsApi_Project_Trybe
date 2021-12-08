@@ -9,10 +9,13 @@ const errorMessage = {
   blankPassword: '"password" is required',
   blankToken: 'Token not found',
   displayName: '"displayName" length must be at least 8 characters long',
-  usedEmail: 'User already registered',
+  emptyEmail: '"email" is not allowed to be empty',
+  emptyPassword: '"password" is not allowed to be empty',
   invalidEmail: '"email" must be a valid email',
+  invalidLogin: 'Invalid fields',
   invalidPassword: '"password" length must be 6 characters long',
   invalidToken: 'Expired or invalid token',
+  usedEmail: 'User already registered',
 };
 
 const errorStatus = {
@@ -44,10 +47,38 @@ const isEmailValid = (email) => {
   }
 };
 
+const isEmailBlank = (email) => {
+  const error = new Error('');
+  if (email === '') {
+    error.message = errorMessage.emptyEmail;
+    error.status = errorStatus.badRequest;
+    throw error;
+  }
+  if (!email) {
+    error.message = errorMessage.blankEmail;
+    error.status = errorStatus.badRequest;
+    throw error;
+  }
+};
+
+const isPasswordBlank = (password) => {
+  if (password === '') {
+    const error = new Error('');
+    error.message = errorMessage.emptyPassword;
+    error.status = errorStatus.badRequest;
+    throw error;
+  }
+};
+
 const isPasswordValid = (password) => {
   const error = new Error('');
   if (!password) {
     error.message = errorMessage.blankPassword;
+    error.status = errorStatus.badRequest;
+    throw error;
+  }
+  if (password === '') {
+    error.message = errorMessage.emptyPassword;
     error.status = errorStatus.badRequest;
     throw error;
   }
@@ -68,6 +99,15 @@ const isEmailRegistered = async (email) => {
   }
 };
 
+const loginAuthentication = async (email, _password) => {
+  const isLoginValid = await userService.findUserByEmail(email);
+  if (isLoginValid === null) {
+    const error = new Error(errorMessage.invalidLogin);
+    error.status = errorStatus.badRequest;
+    throw error;
+  }
+};
+
 const tokenRequired = (token) => {
   if (!token) {
     const error = new Error(errorMessage.blankToken);
@@ -84,6 +124,15 @@ const isTokenValid = (token) => {
     err.status = errorStatus.unauthorized;
     throw err;
   }
+};
+
+const loginValidation = async (req, _res, next) => {
+  const { email, password } = req.body;
+  isEmailBlank(email);
+  isPasswordBlank(password);
+  isPasswordValid(password);
+  await loginAuthentication(email, password);
+  next();
 };
 
 const tokenValidation = (req, _res, next) => {
@@ -107,4 +156,5 @@ const newUserValidation = async (req, _res, next) => {
 module.exports = {
   newUserValidation,
   tokenValidation,
+  loginValidation,
 };
