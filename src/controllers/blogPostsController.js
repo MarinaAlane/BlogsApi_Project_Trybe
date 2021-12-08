@@ -1,4 +1,4 @@
-const { BlogPost, Category } = require('../models');
+const { BlogPost, Category, User } = require('../models');
 
 const createPost = async (req, res) => {
   try {
@@ -14,21 +14,26 @@ const createPost = async (req, res) => {
       { title, content, userId: id, categoryIds },
     );
     return res.status(201).json(post);
-  } catch (err) {
-    console.log(err.message);
+  } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: 'Ocorreu um erro' });
   }
 };
 
+// source, vi no repositório do Tarcisio Meneses como usar o through: { attributes: [] }
+
 const getAllPosts = async (req, res) => {
   try {
     const posts = await BlogPost.findAll({
-      include: { all: true },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
     });
 
     return res.status(200).json(posts);
-  } catch (e) {
-    console.log(e.message);
+  } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: 'Ocorreu um erro' });
   }
 };
@@ -39,14 +44,17 @@ const getPostById = async (req, res) => {
 
     const post = await BlogPost.findOne({
       where: { id },
-      include: { all: true },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
     });
 
     if (!post) { return res.status(404).json({ message: 'Post does not exist' }); }
 
     return res.status(200).json(post);
-  } catch (e) {
-    console.log(e.message);
+  } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: 'Ocorreu um erro' });
   }
 };
