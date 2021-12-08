@@ -13,6 +13,12 @@ const creatingUser = async (user) => {
   return { message: 'User already registered' };
 };
 
+const gettingAllUsers = async () => {
+  const result = await User.findAll();
+  return result;
+};
+
 module.exports = {
   creatingUser,
+  gettingAllUsers,
 };
