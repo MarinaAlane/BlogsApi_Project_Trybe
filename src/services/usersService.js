@@ -18,7 +18,17 @@ const gettingAllUsers = async () => {
   return result;
 };
 
+const gettingUserById = async (id) => {
+  const result = await User.findOne({ where: { id } });
+
+  if (result === null) {
+    return { message: 'User does not exist' };
+  }
+  return result;
+};
+
 module.exports = {
   creatingUser,
   gettingAllUsers,
+  gettingUserById,
 };

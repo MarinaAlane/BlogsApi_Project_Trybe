@@ -12,5 +12,6 @@ usersRoute.post('/',
   usersCtrl.createUser);
 
 usersRoute.get('/', validateJwt, usersCtrl.getAllUsers);
+usersRoute.get('/:id', validateJwt, usersCtrl.getUserById);
 
 module.exports = usersRoute;
