@@ -27,8 +27,16 @@ const getAllUser = async (req, res) => {
   return res.status(200).json(response);
 };
 
+const findById = async (req, res) => {
+  const { id } = req.params;
+  const response = await services.findById(id);
+  if (!response) return res.status(404).json({ message: 'User does not exist' });
+  return res.status(200).json(response);
+};
+
 module.exports = {
   create,
   login,
   getAllUser,
+  findById,
 };

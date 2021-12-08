@@ -11,7 +11,10 @@ const create = async (displayName, email, password, image) => Users.create({
 
 const getAllUser = async () => Users.findAll({ attributes: { exclude: ['password'] } });
 
-const findById = async (id) => Users.findOne({ where: { id } });
+const findById = async (id) => {
+  const response = await Users.findOne({ where: { id }, attributes: { exclude: ['password'] } });
+  return response;
+};
 
 module.exports = {
   create,
