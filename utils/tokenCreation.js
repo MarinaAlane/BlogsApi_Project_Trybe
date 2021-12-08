@@ -8,10 +8,7 @@ const jwtConfig = {
   expiresIn: '7d',
 };
 
-const createToken = (displayName) => {
-  const payload = {
-    displayName,
-  };
+const createToken = (payload) => {
   const token = Jwt.sign(payload, SECRET, jwtConfig);
   return token;
 };

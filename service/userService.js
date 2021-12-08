@@ -2,8 +2,9 @@ const { User } = require('../models');
 const { createToken } = require('../utils/tokenCreation');
 
 const createUser = async (displayName, email, password, image) => {
-  await User.create({ displayName, email, password, image });
-  return createToken(displayName);
+  const user = await User.create({ displayName, email, password, image });
+  const { password: _, ...payload } = user.dataValues;
+  return createToken(payload);
 };
 
 const findUserByEmail = async (email) => {
