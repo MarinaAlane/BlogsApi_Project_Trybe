@@ -17,6 +17,17 @@ const emailValidation = async (req, res, next) => {
     }
     next();
   };
+ 
+  const validateEmptyLogin = (req, res, next) => {
+    const { email, password } = req.body;
+    if (email === '') {
+      return res.status(400).json({ message: '"email" is not allowed to be empty' });
+    }
+      if (password === '') {
+        return res.status(400).json({ message: '"password" is not allowed to be empty' });
+      }
+      next();
+  };
 
   const validateName = (req, res, next) => {
     const { displayName } = req.body;
@@ -38,4 +49,4 @@ const emailValidation = async (req, res, next) => {
     next();
   };
 
-  module.exports = { emailValidation, validateName, validatePassword };
+  module.exports = { emailValidation, validateName, validatePassword, validateEmptyLogin };
