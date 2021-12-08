@@ -1,9 +1,12 @@
 const router = require('express').Router();
 const controller = require('../controllers/blogPostsController');
 const { validateToken } = require('../middlewares/validateToken');
-const { validateTitle, 
+const { 
+  validateTitle, 
   validateContent, 
-  validateCategorysId } = require('../middlewares/blogPostValidation');
+  validateCategorysId,
+  validateUpdatePostNoCategories,
+  validateAuthorizedUser } = require('../middlewares/blogPostValidation');
 
 router.post('/post', 
   validateToken,
@@ -15,5 +18,13 @@ router.post('/post',
 router.get('/post', validateToken, controller.getAllPosts);
 
 router.get('/post/:id', validateToken, controller.getPostById);
+
+router.put('/post/:id', 
+  validateToken, 
+  validateAuthorizedUser,
+  validateUpdatePostNoCategories,
+  validateTitle, 
+  validateContent, 
+  controller.updatePostById);
 
 module.exports = router;
