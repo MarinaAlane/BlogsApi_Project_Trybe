@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { user } = require('../../models');
+const { Users } = require('../../models');
 
 const newUser = (displayName, email, password) => {
   const { error } = Joi.object({
@@ -19,7 +19,7 @@ const newUser = (displayName, email, password) => {
 };
 
 const alreadyExist = async (email) => {
-  const exists = await user.findOne({ where: { email } });
+  const exists = await Users.findOne({ where: { email } });
   if (exists) {
     const error = new Error('User already registered');
     error.code = 409;
