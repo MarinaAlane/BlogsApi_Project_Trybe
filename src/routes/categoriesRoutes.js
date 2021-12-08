@@ -1,7 +1,8 @@
 const { Router } = require('express');
+const categoriesCtrl = require('../controllers/categoriesController');
 
 const categoriesRoutes = new Router();
 
-categoriesRoutes.post('/', (req, res) => res.status(200).json({ message: 'rota categories' }));
+categoriesRoutes.post('/', categoriesCtrl.createCategory);
 
 module.exports = categoriesRoutes;
