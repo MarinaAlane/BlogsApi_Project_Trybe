@@ -17,4 +17,5 @@ module.exports = {
   invalidEmail: { message: '"email" must be a valid email' },
   existingEmail: { message: 'User already registered' },
   invalidFields: { message: 'Invalid fields' },
+  nonexistent: { message: 'User does not exist' },
 };

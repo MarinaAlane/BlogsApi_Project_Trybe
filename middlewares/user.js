@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const { created, ok } = require('../utils/codes');
+const { created, ok, notFound } = require('../utils/codes');
+const { nonexistent } = require('../utils/errMsg');
 const service = require('../services/user');
 require('dotenv').config();
 
@@ -29,8 +30,19 @@ const getAllUsers = async (_req, res) => {
   return res.status(ok).json(users);
 };
 
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await service.getUserById(id);
+    return user ? res.status(ok).json(user) : res.status(notFound).json(nonexistent);
+  } catch (error) {
+    return res.status(notFound).json(error.message);
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   getAllUsers,
+  getUserById,
 };

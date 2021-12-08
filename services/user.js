@@ -25,6 +25,21 @@ const findEmail = async (email) => {
   }
 };
 
+const getUserById = async (id) => {
+  try {
+    const user = await User.findOne({
+      attributes: ['id', 'displayName', 'email', 'image'],
+      where: {
+        id,
+      },
+    });
+    return user.dataValues;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const getAllUsers = async () => {
   try {
     const users = await User.findAll({
@@ -41,4 +56,5 @@ module.exports = {
   registerUser,
   findEmail,
   getAllUsers,
+  getUserById,
 };
