@@ -17,18 +17,18 @@ const checkEmail = (req, res, next) => {
   // encontrei a muito tempo na internet e trago de projeto em projeto, acabei perdendo o link de referência.
   const emailPattern = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
   const emailIsValid = emailPattern.test(email);
-  User.findAll({ where: { email } }).then((e) => {
-    if (e.length > 0) {
-      return res.status(409).json({ message: 'User already registered' });
-    }
-  });
   if (!email) {
     return res.status(400).json({ message: '"email" is required' });
   }
   if (!emailIsValid) {
     return res.status(400).json({ message: '"email" must be a valid email' });
   }
+  return User.findAll({ where: { email } }).then((e) => {
+    if (e.length > 0) {
+      return res.status(409).json({ message: 'User already registered' });
+    }
   next();
+  });
 };
 
 const checkPassword = (req, res, next) => {
