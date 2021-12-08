@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const {
   registerCategory,
+  getAllCategories,
 } = require('../middlewares/category');
 const {
   validateName,
@@ -13,6 +14,12 @@ router.post(
   auth,
   validateName,
   registerCategory,
+);
+
+router.get(
+  '/',
+  auth,
+  getAllCategories,
 );
 
 module.exports = router;

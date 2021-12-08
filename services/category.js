@@ -10,6 +10,17 @@ const registerCategory = async (name) => {
   }
 };
 
+const getAllCategories = async () => {
+  try {
+    const categories = await Category.findAll();
+    return categories.map((element) => element.dataValues).sort((a, b) => a.id - b.id);
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 module.exports = {
   registerCategory,
+  getAllCategories,
 };
