@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const { User } = require('../models');
+const { User, Categories } = require('../models');
 
 const checkDisplayName = (req, res, next) => {
   const { displayName } = req.body;
@@ -84,6 +84,32 @@ const checkName = (req, res, next) => {
   next();
 };
 
+const checkBlogPost = (req, res, next) => {
+  const { title, categoryIds, content } = req.body;
+  if (!title) {
+    return res.status(400).json({ message: '"title" is required' });
+  }
+  if (!categoryIds) {
+    return res.status(400).json({ message: '"categoryIds" is required' });
+  }
+  if (!content) {
+    return res.status(400).json({ message: '"content" is required' });
+  }
+  next();
+};
+
+const checkCategoryIds = (req, res, next) => {
+  const { categoryIds } = req.body;
+
+  categoryIds.map((e) => Categories.findOne({ where: { id: e } })
+    .then((result) => {
+    if (!result) {
+      return res.status(400).json({ message: '"categoryIds" not found' });
+    }
+  }));
+  next();
+};
+
 module.exports = {
   checkDisplayName,
   checkEmail,
@@ -91,4 +117,6 @@ module.exports = {
   checkLogin,
   checkToken,
   checkName,
+  checkBlogPost,
+  checkCategoryIds,
 };

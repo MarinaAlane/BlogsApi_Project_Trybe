@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('BlogPosts', {
@@ -17,8 +18,8 @@ module.exports = {
         allowNull: false,
       },
       userId: {
-        type: Sequelize.INTEGER,
         allowNull: false,
+        type: Sequelize.INTEGER,
         references: {
           model: 'Users',
           key: 'id',
@@ -33,10 +34,22 @@ module.exports = {
       updated: {
         type: Sequelize.DATE,
         allowNull: false,
-      }
+      },
+    }, {
+      // https://github.com/tryber/sd-011-project-blogs-api/pull/149/files Tive que consultar o mestre, pois estava preso =/
+      hooks: {
+        beforeCreate: (newBlogPost, _options) => {
+          newBlogPost.published = new Date();
+          newBlogPost.updated = new Date();
+        },
+        beforeUpdate: (updatedBlogPost, _options) => {
+          updatedBlogPost.updated = new Date();
+        },
+      },
     });
   },
-  down: async (queryInterface, Sequelize) => {
+
+  down: async (queryInterface, _Sequelize) => {
     await queryInterface.dropTable('BlogPosts');
-  }
+  },
 };

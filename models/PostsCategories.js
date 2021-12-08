@@ -1,7 +1,7 @@
 const PostsCategories = (sequelize, DataTypes) => {
   const PostsCategorie = sequelize.define('PostsCategories', {
-    postId: DataTypes.INTEGER,
-    categoryId: DataTypes.INTEGER,
+    postId: { type: DataTypes.INTEGER, foreignKey: true },
+    categoryId: { type: DataTypes.INTEGER, foreignKey: true },
   }, {
     timestamps: false,
   });
