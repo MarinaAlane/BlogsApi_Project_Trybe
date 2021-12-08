@@ -14,7 +14,13 @@ const getById = async (token, { id }) => {
   return result;
 };
 
+const deleteUser = async (token) => {
+  const { id } = validationToken(token);
+  await User.destroy({ where: { id } });
+};
+
 module.exports = {
   getAll,
   getById,
+  deleteUser,
 };
