@@ -11,6 +11,17 @@ const registerCategory = async (req, res) => {
   }
 };
 
+const getAll = async (req, res) => {
+    try {
+      const categories = await categoryServices.getAll();
+      return res.status(200).json(categories);
+    } catch (e) {
+      console.log(e);
+      return res.status(404).json({ message: e.message });
+    }
+  };
+
 module.exports = {
   registerCategory,
+  getAll,
 };

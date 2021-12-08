@@ -4,5 +4,6 @@ const categoryController = require('../controllers/categoryControllers');
 
 router.post('/', validations.validateJWT, validations.registerCategoryValidation, 
 categoryController.registerCategory);
+router.get('/', validations.validateJWT, categoryController.getAll);
 
 module.exports = router;
