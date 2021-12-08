@@ -10,4 +10,6 @@ categoriesRoutes.post('/',
   validateMid.validateName,
   categoriesCtrl.createCategory);
 
+categoriesRoutes.get('/', validateJwt, categoriesCtrl.getAllCategories);
+
 module.exports = categoriesRoutes;

@@ -8,12 +8,12 @@ const createCategory = async (req, res) => {
   return res.status(201).json(result);
 };
 
-const findCategory = (_req, res) => {
-  const message = { message: 'nada alem de tolices' };
-  return res.send(message);
+const getAllCategories = async (_req, res) => {
+  const result = await categoryServ.gettingAllCategories();
+  return res.status(200).json(result);
 };
 
 module.exports = {
   createCategory,
-  findCategory,
+  getAllCategories,
 };
