@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const usersRoute = require('./routes/usersRoute');
 const loginRoute = require('./routes/loginRoute');
+const categoriesRoute = require('./routes/categories');
 
 const app = express();
 
@@ -16,3 +17,4 @@ app.get('/', (request, response) => {
 
 app.use('/user', usersRoute);
 app.use('/login', loginRoute);
+app.use('/categories', categoriesRoute);
