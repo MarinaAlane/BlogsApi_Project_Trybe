@@ -20,4 +20,17 @@ const createPost = async (req, res) => {
   }
 };
 
-module.exports = { createPost };
+const getAllPosts = async (req, res) => {
+  try {
+    const posts = await BlogPost.findAll({
+      include: { all: true },
+    });
+
+    return res.status(200).json(posts);
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({ message: 'Ocorreu um erro' });
+  }
+};
+
+module.exports = { createPost, getAllPosts };
