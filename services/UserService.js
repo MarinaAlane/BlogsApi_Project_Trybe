@@ -37,7 +37,13 @@ const userLogin = async (data) => {
   return { status: 200, token };
 };
 
+const getUsers = async () => {
+  const users = await User.findAll();
+  return { status: 200, data: users };
+};
+
 module.exports = {
   createUser,
   userLogin,
+  getUsers,
 };

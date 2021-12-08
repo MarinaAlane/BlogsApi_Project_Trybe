@@ -27,3 +27,8 @@ app.post('/login', [
   Validations.validatePassword,
   Users.userLogin,
 ]);
+
+app.get('/user', [
+  Validations.checkToken,
+  Users.getUsers,
+]);
