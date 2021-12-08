@@ -11,4 +11,6 @@ checkTitle, checkContent, checkCategoryIds, blogPostsController.createBlogPost);
 router.get('/', tokenExists, 
 tokenValid, blogPostsController.getAllPosts);
 
+router.get('/:id', tokenExists, tokenValid, blogPostsController.findPostById);
+
 module.exports = router;
