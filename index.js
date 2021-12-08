@@ -1,6 +1,8 @@
 const express = require('express');
 const usersRoutes = require('./src/routes/usersRoutes');
 const loginRoutes = require('./src/routes/loginRoutes');
+const categRoutes = require('./src/routes/categoriesRoutes');
+
 require('dotenv').config();
 
 const app = express();
@@ -18,3 +20,4 @@ app.get('/', (request, response) => {
 
 app.use('/user', usersRoutes);
 app.use('/login', loginRoutes);
+app.use('/categories', categRoutes);
