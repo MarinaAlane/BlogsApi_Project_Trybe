@@ -11,6 +11,16 @@ const registerUser = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await service.getAllUsers();
+    return res.status(200).json(allUsers);
+  } catch (e) {
+    return res.status(409).json({ message: e.message });
+  }
+};
+
 module.exports = {
   registerUser,
+  getAllUsers,
 };
