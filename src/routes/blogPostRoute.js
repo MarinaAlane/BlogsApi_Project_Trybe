@@ -17,6 +17,8 @@ router.post('/post',
 
 router.get('/post', validateToken, controller.getAllPosts);
 
+router.get('/post/search', validateToken, controller.getPostByQueryString);
+
 router.get('/post/:id', validateToken, controller.getPostById);
 
 router.put('/post/:id', 
