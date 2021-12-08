@@ -7,7 +7,7 @@ const newUser = (displayName, email, password) => {
       .min(8)
       .required(),
     email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string().min(6).rule({ 'message': '"password" length must be 6 characters long' }).required()
   }).validate({ displayName, email, password });
   
   if (error) {
