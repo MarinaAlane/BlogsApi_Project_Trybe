@@ -101,13 +101,13 @@ const checkBlogPost = (req, res, next) => {
 const checkCategoryIds = (req, res, next) => {
   const { categoryIds } = req.body;
 
-  categoryIds.map((e) => Categories.findOne({ where: { id: e } })
+  return categoryIds.map((e) => Categories.findOne({ where: { id: e } })
     .then((result) => {
     if (!result) {
       return res.status(400).json({ message: '"categoryIds" not found' });
     }
+    next();
   }));
-  next();
 };
 
 module.exports = {
