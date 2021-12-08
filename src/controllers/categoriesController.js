@@ -1,11 +1,11 @@
-const createCategory = (req, res) => {
+const categoryServ = require('../services/categoriesService');
+
+const createCategory = async (req, res) => {
   const { name } = req.body;
+  const category = { name };
 
-  // const category = { name };
-
-  const result = { id: 666, name };
-
-  return res.status(200).json(result);
+  const result = await categoryServ.creatingCategory(category);
+  return res.status(201).json(result);
 };
 
 const findCategory = (_req, res) => {
