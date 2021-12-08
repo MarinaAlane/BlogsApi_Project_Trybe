@@ -17,8 +17,8 @@ const createUser = async (req, res) => {
     const payload = { id: create.id, displayName, email, image };
     const token = jwt.sign(payload, JWT_SECRET, jwtConfig);
     return res.status(201).json({ token });
-  } catch (err) {
-    console.log(err.message);
+  } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: 'Ocorreu um erro' });
   }
 };
@@ -28,8 +28,8 @@ const getAllUsers = async (req, res) => {
     const user = await User.findAll({ attributes: { exclude: ['password'] } });
 
     return res.status(200).json(user);
-  } catch (e) {
-    console.log(e.message);
+  } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: 'Ocorreu um erro' });
   }
 };
@@ -45,10 +45,23 @@ const getUsersById = async (req, res) => {
     if (!user) { return res.status(404).json({ message: 'User does not exist' }); }
 
     return res.status(200).json(user);
-  } catch (e) {
-    console.log(e.message);
+  } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: 'Algo deu errado' });
   }
 };
 
-module.exports = { createUser, getAllUsers, getUsersById };
+const deleteCurrentUser = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const userToDelete = await User.findByPk(id);
+    await userToDelete.destroy();
+
+    return res.status(204).end();
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: 'Algo deu errado' });
+  }
+};
+
+module.exports = { createUser, getAllUsers, getUsersById, deleteCurrentUser };
