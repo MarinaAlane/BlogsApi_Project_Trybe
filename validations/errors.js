@@ -31,6 +31,18 @@ const errors = {
     code: '400',
     message: '"password" is not allowed to be empty',
   },
+  missingTitle: {
+    code: '400',
+    message: '"title" is required',
+  },
+  missingContent: {
+    code: '400',
+    message: '"content" is required',
+  },
+  missingCategoryId: {
+    code: '400',
+    message: '"categoryIds" is required',
+  },
 };
 
 module.exports = errors;
