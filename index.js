@@ -32,3 +32,5 @@ app.get('/user', [
   Validations.checkToken,
   Users.getUsers,
 ]);
+
+app.get('/user/:id', Validations.checkToken, Users.getUserById);
