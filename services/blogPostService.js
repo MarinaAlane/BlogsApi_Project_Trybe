@@ -9,24 +9,31 @@ const addPost = async (categoryIds, userId, title, content) => {
 
   const foundCategory = await Category.findByPk(categoryIds[0]);
   if (!foundCategory) return ({ code: '400', message: '"categoryIds" not found' });
+  const getPosts = await BlogPost.findAll();
 
-  const countPosts = await BlogPost.findAll();
-  const { password, ...userData } = await User.findByPk(userId);
-  const userWithoutPassword = userData;
-  const post = {
-    id: countPosts.length + 1,
+  const postData = {
+    id: getPosts.length + 1,
+    userId,
     title,
     content,
-    userId,
-    user: userWithoutPassword,
-    categories: foundCategory,
   };
-  console.log(post);
-  await BlogPost.create(post);
 
-  return { code: '201', postData: { id: countPosts.length + 1, userId, title, content } };
+  await BlogPost.create(postData);
+
+  return { code: '201', postData };
+};
+
+const getAllPosts = async () => {
+  const allPosts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'users' },
+      { model: Category, as: 'categories' },
+    ],
+  });
+  return { code: '200', posts: allPosts };
 };
 
 module.exports = {
   addPost,
+  getAllPosts,
 };
