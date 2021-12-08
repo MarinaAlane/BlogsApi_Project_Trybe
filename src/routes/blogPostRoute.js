@@ -27,4 +27,9 @@ router.put('/post/:id',
   validateContent, 
   controller.updatePostById);
 
+router.delete('/post/:id', 
+  validateToken, 
+  validateAuthorizedUser,
+  controller.deletePostById);
+
 module.exports = router;
