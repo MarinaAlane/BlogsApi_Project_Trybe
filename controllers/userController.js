@@ -32,7 +32,7 @@ const getById = async (req, res) => {
 
   return user.message
     ? res.status(user.code).json({ message: user.message })
-    : res.status(user.code).json(user.userWithoutPwd)
+    : res.status(user.code).json(user.userWithoutPwd);
 };
 
 module.exports = {

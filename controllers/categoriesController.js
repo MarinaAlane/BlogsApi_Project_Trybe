@@ -6,8 +6,8 @@ const addCategory = async (req, res) => {
     const category = await categoriesService.addCategory(name);
    
     return category.categoryData
-      ? res.status(category.code).json(category.categoryData)
-      : res.status(category.code).json({ message: category.message });
+    ? res.status(category.code).json(category.categoryData)
+    : res.status(category.code).json({ message: category.message });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: 'Algo deu errado' });  
@@ -15,7 +15,7 @@ const addCategory = async (req, res) => {
 };
 
 const getAllCategories = async (_req, res) => {
-  const allCategories = await categoriesService.getAllCategories()
+  const allCategories = await categoriesService.getAllCategories();
   return res.status(200).json(allCategories);
 };
 

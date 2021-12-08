@@ -5,5 +5,4 @@ const validateToken = require('../auth/validateToken');
 router.post('/', validateToken, categoriesController.addCategory);
 router.get('/', validateToken, categoriesController.getAllCategories);
 
-
 module.exports = router;
