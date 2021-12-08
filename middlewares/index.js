@@ -2,7 +2,7 @@ const { validateUser } = require('./userMiddlewares');
 const { loginMiddlewares } = require('./loginMiddlewares');
 const { validateJWT } = require('./ValidateJWT');
 const { registerCategoryValidation } = require('./categoryMiddlewares');
-const { postValidation } = require('./BlogPostsMiddlewares');
+const { postValidation, updateValidation } = require('./BlogPostsMiddlewares');
 
 module.exports = {
   validateUser,
@@ -10,4 +10,5 @@ module.exports = {
   validateJWT,
   registerCategoryValidation,
   postValidation,
+  updateValidation,
 };
