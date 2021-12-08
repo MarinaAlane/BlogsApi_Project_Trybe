@@ -9,29 +9,29 @@ const err = (statusCode) => ({ statusCode });
 // };
 
 const validationEmail = (email) => {
+  if (email === '') throw err({ statusCode: 400, message: '"email" is not allowed to be empty' });
   if (!email) throw err({ statusCode: 400, message: '"email" is required' });
-  if (email === '') throw err({ statusCode: 400, message: '"Email" is not allowed to be empty' });
 };
 
 const validationPassword = (password) => {
-  if (!password) throw err({ statusCode: 400, message: '"password" is required' });
   if (password === '') { 
     throw err({ statusCode: 400, message: '"password" is not allowed to be empty' });
   }
+  if (!password) throw err({ statusCode: 400, message: '"password" is required' });
 };
 
 const makeLogin = async (email, password) => {
   const search = await User.findOne({ where: { email, password } });
+  if (!search) throw err({ statusCode: 400, message: 'Invalid fields' });
   const token = generationToken(search);
-  if (!search) throw err({ statusCode: 400, message: 'invalid fields' });
   return token;
 };
 
-const validationLogin = (email, password) => {
+const validationLogin = async (email, password) => {
   validationEmail(email);
   validationPassword(password);
-  makeLogin(email, password);
-  // searchUSer(email),
+  const result = await makeLogin(email, password);
+  return result;
 };
 
 module.exports = {

@@ -5,6 +5,4 @@ const makelogin = async ({ email, password }) => {
   return token;
 };
 
-module.exports = {
-  makelogin,
-};
+module.exports = { makelogin };

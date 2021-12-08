@@ -32,8 +32,6 @@ const validationEmail = (email) => {
 
 const searchifEmailExists = async (email) => {
   const search = await User.findOne({ where: { email } });
-  console.log(search);
-
   if (search) {
     throw err({ statusCode: 409, message: 'User already registered' });
   }
