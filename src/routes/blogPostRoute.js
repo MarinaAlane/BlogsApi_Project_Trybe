@@ -14,4 +14,6 @@ router.post('/post',
 
 router.get('/post', validateToken, controller.getAllPosts);
 
+router.get('/post/:id', validateToken, controller.getPostById);
+
 module.exports = router;
