@@ -1,5 +1,5 @@
 const router = require('express').Router();
 
-router.get('/', (_req, res) => res.send());
+router.post('/', (_req, res) => res.send('página login'));
 
 module.exports = router;

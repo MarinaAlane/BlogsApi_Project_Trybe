@@ -8,17 +8,24 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id: {
-        type: Sequelize.INTEGER
-      },
-      createdAt: {
+      displayName: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.STRING
       },
-      updatedAt: {
+      email: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.STRING
+      },
+      password: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      image: {
+        allowNull: false,
+        type: Sequelize.STRING
       }
+    }, {
+      
     });
   },
   down: async (queryInterface, Sequelize) => {
