@@ -9,7 +9,7 @@ const registerUserValidation = async (req, res, next) => {
   const isEmailValid = await helpers.validateEmail(email);
   if (isEmailValid) return res.status(isEmailValid.code).json({ message: isEmailValid.message });
 
-  const isPwdValid = await helpers.validatePassword(password);
+  const isPwdValid = await helpers.validatePwd(password);
   if (isPwdValid) return res.status(isPwdValid.code).json({ message: isPwdValid.message });
 
   next();

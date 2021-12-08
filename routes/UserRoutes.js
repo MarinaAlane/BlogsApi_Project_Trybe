@@ -1,13 +1,15 @@
 const router = require('express').Router();
-const controller = require('../controllers/userController');
-const validations = require('../middlewares/index');
+const UserController = require('../controllers/userController');
+const Validations = require('../middlewares/index');
   
-  router.get('/', validations.validateJWT, controller.getAllUsers);
+ router.get('/', Validations.validateJWT, UserController.getAllUsers);
 
-  router.post('/', validations.validateUser, controller.registerUser);
+  // router.post('/', Validations.validateUser, UserController.registerUser);
 
-  router.get('/:id', validations.validateJWT, controller.getOneUser);
+  router.get('/:id', Validations.validateJWT, UserController.getOneUser);
   
-  router.delete('/me', validations.validateJWT, controller.deleteOwnUser);
+  router.delete('/me', Validations.validateJWT, UserController.deleteOwnUser);
+
+  router.post('/', Validations.registerUserValidation, UserController.signUpUser);
 
 module.exports = router;

@@ -1,14 +1,14 @@
 const jwt = require('jsonwebtoken');
 const { Users } = require('../models/index');
 
-const secret = process.env.JWT_SECRET;
+const secret = process.env.SECRET || 'secret';
 
 const jwtConfiguration = {
   expiresIn: '14d',
   algorithm: 'HS256',
 };
 
-const userRegister = async (displayName, email, password, image) => {
+const signUpUser = async (displayName, email, password, image) => {
   const emailExists = await Users.findOne({ where: { email } });
 
   if (emailExists) throw new Error('User already registered');
@@ -23,7 +23,7 @@ const userRegister = async (displayName, email, password, image) => {
   return token;
 };
 
-const getAllUsers = async () => {
+ const getAllUsers = async () => {
   const allUsers = await Users.findAll();
 
   if (!allUsers) throw new Error('No users found');
@@ -44,7 +44,7 @@ const deleteOwnUser = async (id) => {
 };
 
 module.exports = {
-  userRegister,
+  signUpUser,
   getAllUsers,
   getOneUser,
   deleteOwnUser,
