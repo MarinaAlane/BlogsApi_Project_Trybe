@@ -7,4 +7,9 @@ if (message) { res.status(status).json({ message }); }
 return res.status(status).json(newCategory);
 }; 
 
-module.exports = { createCategory };
+const getCategories = async (req, res) => {
+const { status, categories } = await categoriesService.getCategories();
+return res.status(status).json(categories);
+};
+
+module.exports = { createCategory, getCategories }; 
