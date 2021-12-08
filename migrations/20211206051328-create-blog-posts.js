@@ -25,16 +25,16 @@ module.exports = {
         primaryKey: true,
       },
       published: {
-        allowNull: false,
         type: Sequelize.DATE,
+        isDate: true,
       },
       updated: {
-        allowNull: false,
         type: Sequelize.DATE,
+        isDate: true,
       },
     });
   },
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface, _Sequelize) => {
     await queryInterface.dropTable('BlogPosts');
   }
 };

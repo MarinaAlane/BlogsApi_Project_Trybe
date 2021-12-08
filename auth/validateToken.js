@@ -2,17 +2,15 @@ const jwt = require('jsonwebtoken');
 
 const secret = process.env.JWT_SECRET;
 
-const verifyToken = (req, res, token) => {
+const verifyToken = (token) => {
   const decodedResult = jwt.verify(token, secret, (err, decoded) => {
     if (err) {
       return false; 
     }
     return decoded;    
   });
-  if (decodedResult === false) {
-    return res.status(401).json({ message: 'Expired or invalid token' });
-  }
-  req.decoded = decodedResult;
+
+  return decodedResult;
 };
 
 /*  REF: https://imasters.com.br/desenvolvimento/json-web-token-conhecendo-o-jwt-na-teoria-e-na-pratica */
@@ -21,7 +19,11 @@ module.exports = (req, res, next) => {
   if (!token) {
     return res.status(401).json({ message: 'Token not found' });
   } if (token) {
-    verifyToken(req, res, token); 
+    const a = verifyToken(token);
+    if (a === false) {
+      return res.status(401).json({ message: 'Expired or invalid token' });
+    }
+    req.decoded = a;
     next();
   }
 };
