@@ -17,8 +17,15 @@ const findUsers = async (_req, res) => {
   return res.status(200).json(foundUsers);
 };
 
+const findUserById = async (req, res) => {
+  const data = req.params;
+  const foundUser = await userService.findUserById(data);
+  return res.status(200).json(foundUser);
+};
+
 module.exports = {
   createUser,
   login,
   findUsers,
+  findUserById,
 };

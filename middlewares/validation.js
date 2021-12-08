@@ -15,12 +15,14 @@ const errorMessage = {
   invalidLogin: 'Invalid fields',
   invalidPassword: '"password" length must be 6 characters long',
   invalidToken: 'Expired or invalid token',
+  invalidUserId: 'User does not exist',
   usedEmail: 'User already registered',
 };
 
 const errorStatus = {
   badRequest: 400,
   conflict: 409,
+  notFound: 404,
   unauthorized: 401,
 };
 
@@ -108,6 +110,17 @@ const loginAuthentication = async (email, _password) => {
   }
 };
 
+const userExists = async (req, _res, next) => {
+  const data = req.params;
+  const exists = await userService.findUserById(data);
+  if (!exists) {
+    const error = new Error(errorMessage.invalidUserId);
+    error.status = errorStatus.notFound;
+    throw error;
+  }
+  next();
+};
+
 const tokenRequired = (token) => {
   if (!token || token === '') {
     const error = new Error(errorMessage.blankToken);
@@ -157,4 +170,5 @@ module.exports = {
   newUserValidation,
   tokenValidation,
   loginValidation,
+  userExists,
 };
