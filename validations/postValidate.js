@@ -26,7 +26,24 @@ const validateExistCategories = async (req, res, next) => {
   next();
 };
 
+const validatePostUpdate = (req, res, next) => {
+  const { categoryIds } = req.body;
+  if (categoryIds) {
+    return res.status(400).json({ message: 'Categories cannot be edited' });
+  }
+  const { error } = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+  }).validate(req.body);
+
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
+  next();
+};
+
 module.exports = {
   validatePost,
   validateExistCategories,
+  validatePostUpdate,
 };
