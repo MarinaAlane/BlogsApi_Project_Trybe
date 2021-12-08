@@ -15,4 +15,7 @@ router.get('/', Validations.validateJWT, BlogPostController.getAllPost);
 router.put('/:id', Validations.validateJWT, Validations.updateValidation,
   BlogPostController.updateOnePost);
 
+router.delete('/:id', Validations.validateJWT,
+  Validations.deleteValidation, BlogPostController.deleteOnePost);
+
 module.exports = router;
