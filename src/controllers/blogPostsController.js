@@ -59,8 +59,31 @@ const getPostById = async (req, res) => {
   }
 };
 
+const updatePostById = async (req, res) => {
+  try {
+    const { title, content } = req.body;
+    const { id } = req.params;
+
+    await BlogPost.update({ title, content }, { where: { id } });
+
+    const post = await BlogPost.findOne({
+      where: { id },
+      attributes: { exclude: ['published', 'updated'] }, 
+      include: [
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+
+    return res.status(200).json(post);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: 'Algo deu errado' });
+  }
+};
+
 module.exports = { 
   createPost, 
   getAllPosts,
   getPostById,
+  updatePostById,
  };
