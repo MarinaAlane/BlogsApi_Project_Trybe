@@ -8,4 +8,7 @@ const { tokenExists, tokenValid,
 router.post('/', tokenExists, tokenValid, 
 checkTitle, checkContent, checkCategoryIds, blogPostsController.createBlogPost);
 
+router.get('/', tokenExists, 
+tokenValid, blogPostsController.getAllPosts);
+
 module.exports = router;

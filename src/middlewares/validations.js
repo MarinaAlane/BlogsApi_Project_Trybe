@@ -1,5 +1,5 @@
-const { Users } = require('../models');
- const { verifyJWT } = require('../auth/jwt');
+const { Users, Categories } = require('../models');
+const { verifyJWT } = require('../auth/jwt');
 
 const validateEmail = (req, res, next) => {
   const { email } = req.body;
@@ -123,6 +123,13 @@ const checkTitle = async (req, res, next) => {
   next();
 };
 
+const validateCategories = async (categoryIds) => {
+  const categories = await Categories.findAll();
+  const categoriesIdArray = categories.map((category) => category.id);
+  return categoryIds.every((ids) => categoriesIdArray.includes(ids));
+ // console.log(categoriesArray);
+};
+
 const checkContent = async (req, res, next) => {
   const { content } = req.body;
   if (!content) { return res.status(400).json({ message: '"content" is required' }); }
@@ -169,4 +176,5 @@ checkNameCategory,
 checkTitle,
 checkContent,
 checkCategoryIds,
+validateCategories,
  };

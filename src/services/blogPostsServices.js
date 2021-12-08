@@ -1,12 +1,5 @@
-const { BlogPosts, Categories } = require('../models');
-
-const validateCategories = async (categoryIds) => {
-  const categories = await Categories.findAll();
-  const categoriesArray = categories.map((category) => category.id);
-  const Ids = categoryIds.every((ids) => categoriesArray.includes(ids));
- // console.log(categoriesArray);
-  return Ids;
-};
+const { BlogPosts, Categories, Users } = require('../models');
+const { validateCategories } = require('../middlewares/validations');
 
 const createBlogPost = async ({ title, categoryIds, content }) => {
   const validCatIds = await validateCategories(categoryIds);
@@ -16,4 +9,15 @@ const createBlogPost = async ({ title, categoryIds, content }) => {
   }
 };
 
-module.exports = { createBlogPost, validateCategories };
+const getAllPosts = async () => {
+    const Posts = await BlogPosts.findAll({
+      include: [
+        { model: Categories, as: 'categories', through: { attributes: [] },
+      }, {
+        model: Users, as: 'user',
+      }],
+    });
+    return Posts;
+};
+
+module.exports = { createBlogPost, validateCategories, getAllPosts };
