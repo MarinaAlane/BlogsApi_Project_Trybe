@@ -1,10 +1,7 @@
-const express = require('express');
-const rescue = require('express-rescue');
-const controller = require('../controllers/loginControllers');
-const loginMiddlewares = require('../middlewares/loginMiddlewares');
+const router = require('express').Router();
+const LoginController = require('../controllers/loginControllers');
+const Validations = require('../middlewares/index');
 
-const router = express.Router();
-
-router.post('/', loginMiddlewares.validateLogin, rescue(controller.loginControllers));
+router.post('/', Validations.loginValidation, LoginController.signIn);
 
 module.exports = router;

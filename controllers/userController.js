@@ -1,10 +1,16 @@
 const service = require('../services/userService');
 
-const create = async (req, res) => {
-  const token = await service.createUser(req.body);
-  return res.status(201).json({ token });
+const registerUser = async (req, res) => {
+  try {
+    const { displayName, email, password, image } = req.body;
+    const token = await service.registerUser(displayName, email, password, image);
+    return res.status(201).json({ token });
+  } catch (e) {
+    console.log(e);
+    return res.status(409).json({ message: e.message });
+  }
 };
 
 module.exports = {
-  create,
+  registerUser,
 };

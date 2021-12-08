@@ -2,7 +2,7 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 
-const secret = process.env.SECRET || 'senha_dificil';
+const secret = process.env.SECRET || 'secret';
 
 const create = async (email) => {
   const { dataValues: { password, ...user } } = await User.findOne({ where: { email } });

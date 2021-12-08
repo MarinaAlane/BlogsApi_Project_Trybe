@@ -1,7 +1,7 @@
-const error = require('./error');
-const userMiddlewares = require('./userMiddlewares');
+const { validateUser } = require('./userMiddlewares');
+const { loginValidation } = require('./loginMiddlewares');
 
 module.exports = {
-  error,
-  userMiddlewares,
+  validateUser,
+  loginValidation,
 };
