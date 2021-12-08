@@ -12,6 +12,11 @@ const findUserByEmail = async (email) => {
   return foundUser;
 };
 
+const findUsers = async () => {
+  const foundUsers = await User.findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
+  return foundUsers;
+};
+
 const login = async (email) => {
   const foundUser = await User.findOne({ where: { email } });
   const { password: _, ...payload } = foundUser.dataValues;
@@ -22,4 +27,5 @@ module.exports = {
   createUser,
   findUserByEmail,
   login,
+  findUsers,
 };

@@ -12,7 +12,13 @@ const login = async (req, res) => {
   return res.status(200).json({ token: newToken });
 };
 
+const findUsers = async (_req, res) => {
+  const foundUsers = await userService.findUsers();
+  return res.status(200).json(foundUsers);
+};
+
 module.exports = {
   createUser,
   login,
+  findUsers,
 };

@@ -109,7 +109,7 @@ const loginAuthentication = async (email, _password) => {
 };
 
 const tokenRequired = (token) => {
-  if (!token) {
+  if (!token || token === '') {
     const error = new Error(errorMessage.blankToken);
     error.status = errorStatus.unauthorized;
     throw error;
