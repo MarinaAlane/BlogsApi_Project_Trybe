@@ -43,6 +43,10 @@ const validateAuthorizedUser = async (req, res, next) => {
     ],
   });
 
+  if (!post) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+
   if (userId !== post.userId) {
     return res.status(401).json({ message: 'Unauthorized user' });
   }
