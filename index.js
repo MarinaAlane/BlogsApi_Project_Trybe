@@ -1,5 +1,7 @@
 const express = require('express');
+
 const userRouter = require('./routes/routesOfUsers');
+const LoginRouter = require('./routes/Login');
 
 const PORT = 3000;
 
@@ -14,3 +16,4 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', userRouter);
+app.use('/login', LoginRouter);
