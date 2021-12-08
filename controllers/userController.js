@@ -13,7 +13,7 @@ const getById = async (req, res) => {
 const deleteUser = async (req, res) => {
   const token = req.headers.authorization;
   service.deleteUser(token);
-  return res.status(200).json();
+  return res.status(204).json();
 };
 
 module.exports = {

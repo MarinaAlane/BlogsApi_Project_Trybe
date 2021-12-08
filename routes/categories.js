@@ -4,3 +4,5 @@ const controller = require('../controllers/categoriesController');
 
 route.post('/', rescue(controller.createCategorie));
 route.get('/', rescue(controller.getAll));
+
+module.exports = route;

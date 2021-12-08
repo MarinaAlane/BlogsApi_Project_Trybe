@@ -10,6 +10,10 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', route.user);
+app.use('/login', route.login);
+app.use('/post', route.post);
+app.use('/categories', route.categories);
+app.use('/user', route.createUser);
 
 app.use((err, _req, res, _next) => {
   if (err.statusCode) {

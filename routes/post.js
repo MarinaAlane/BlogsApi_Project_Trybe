@@ -3,8 +3,10 @@ const rescue = require('express-rescue');
 
 const controller = require('../controllers/postController');
 
-route.get('/', rescue(controller.getById));
+route.get('/:id', rescue(controller.getById));
 route.get('/', rescue(controller.getAll));
 route.post('/', rescue(controller.createPost));
-route.put('/', rescue(controller.updatePost));
-route.delete('/', rescue(controller.deletePost));
+route.put('/:id', rescue(controller.updatePost));
+route.delete('/:id', rescue(controller.deletePost));
+
+module.exports = route;
