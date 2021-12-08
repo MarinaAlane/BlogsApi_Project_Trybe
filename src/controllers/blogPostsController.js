@@ -81,9 +81,23 @@ const updatePostById = async (req, res) => {
   }
 };
 
+const deletePostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const postToDelete = await BlogPost.findByPk(id);
+    await postToDelete.destroy();
+
+    return res.status(204).end();
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: 'Algo deu errado' });
+  }
+};
+
 module.exports = { 
   createPost, 
   getAllPosts,
   getPostById,
   updatePostById,
+  deletePostById,
  };
