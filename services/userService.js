@@ -9,10 +9,13 @@ const create = async (displayName, email, password, image) => Users.create({
   displayName, email, password, image,
 });
 
-const getAllUser = async () => Users.findAll();
+const getAllUser = async () => Users.findAll({ attributes: { exclude: ['password'] } });
+
+const findById = async (id) => Users.findOne({ where: { id } });
 
 module.exports = {
   create,
   findByEmail,
   getAllUser,
+  findById,
 };
