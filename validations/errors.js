@@ -11,6 +11,10 @@ const errors = {
     code: '400',
     message: '"email" is required',
   },
+  missingName: {
+    code: '400',
+    message: '"name" is required',
+  },
   passwordLength: {
     code: '400',
     message: '"password" length must be 6 characters long',

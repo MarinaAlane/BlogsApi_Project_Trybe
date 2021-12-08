@@ -4,4 +4,6 @@ const validateToken = require('../auth/validateToken');
 
 router.post('/', userController.addUser);
 router.get('/', validateToken, userController.getAll);
+router.get('/:id', validateToken, userController.getById);
+
 module.exports = router;

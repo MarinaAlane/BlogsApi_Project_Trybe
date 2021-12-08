@@ -18,11 +18,25 @@ const addUser = async (req, res) => {
 };
 
 const getAll = async (_req, res) => {
-  const users = await User.findAll();
-  return res.status(200).json(users);
+  try {
+    const users = await User.findAll();
+    return res.status(200).json(users);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const user = await userService.getById(id);
+
+  return user.message
+    ? res.status(user.code).json({ message: user.message })
+    : res.status(user.code).json(user.userWithoutPwd)
 };
 
 module.exports = {
   addUser,
   getAll,
+  getById,
 };

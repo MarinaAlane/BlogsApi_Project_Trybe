@@ -11,8 +11,21 @@ const addUser = async (user) => {
   const foundUser = await User.findOne({ where: { email: user.email } });
   if (foundUser) return { code: 409, message: 'User already registered' };
 
-  const token = generateToken(user);
+  const token = generateToken({ displayName, email });
   return { code: 201, token };
 };
 
-module.exports = { addUser };
+const getById = async (id) => {
+  const user = await User.findByPk(id);
+  if (!user) return { code: 404, message: 'User does not exist' };
+
+  const { dataValues } = user;
+  const { password, ...userData } = dataValues;
+
+  return { code: 200, userWithoutPwd: userData };
+};
+
+module.exports = {
+  addUser,
+  getById,
+};

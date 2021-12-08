@@ -10,7 +10,7 @@ const signIn = async (email, password) => {
   const foundUser = await User.findOne({ where: { email } });
   if (!foundUser) return { code: 400, message: 'Invalid fields' };
 
-  const token = generateToken(foundUser.displayName, email, password);
+  const token = generateToken({ id: foundUser.id, displayName: foundUser.displayName, email });
   return { code: 200, token };
 };
 

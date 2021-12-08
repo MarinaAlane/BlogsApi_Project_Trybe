@@ -6,7 +6,7 @@ const signIn = async (req, res) => {
     const login = await loginService.signIn(email, password);
         
     return login.token
-      ? res.status(login.code).json(login.token)
+      ? res.status(login.code).json({ token: login.token })
       : res.status(login.code).json({ message: login.message });
   } catch (error) {
     console.log(error.message);
