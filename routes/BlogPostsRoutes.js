@@ -10,6 +10,7 @@ router.post(
 );
 
 router.get('/:id', Validations.validateJWT, BlogPostController.getOnePost);
+
 router.get('/', Validations.validateJWT, BlogPostController.getAllPost);
 
 router.put('/:id', Validations.validateJWT, Validations.updateValidation,

@@ -1,12 +1,12 @@
-const { validateUser } = require('./userMiddlewares');
-const { loginMiddlewares } = require('./loginMiddlewares');
+const { registerUserValidation } = require('./UserValidations');
+const { loginValidation } = require('./LoginValidations');
 const { validateJWT } = require('./ValidateJWT');
-const { registerCategoryValidation } = require('./categoryMiddlewares');
-const { postValidation, updateValidation, deleteValidation } = require('./BlogPostsMiddlewares');
+const { registerCategoryValidation } = require('./CategoryValidations');
+const { postValidation, updateValidation, deleteValidation } = require('./BlogPostsValidations');
 
 module.exports = {
-  validateUser,
-  loginMiddlewares,
+  registerUserValidation,
+  loginValidation,
   validateJWT,
   registerCategoryValidation,
   postValidation,

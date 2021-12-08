@@ -19,7 +19,7 @@ const validateDisplayName = (displayName) => {
     return null;
   };
   
-  const validatePassword = (pwd) => {
+  const validatePwd = (pwd) => {
     if (!pwd) return { code: 400, message: '"password" is required' };
     if (pwd.length !== 6) {
       return { code: 400, message: '"password" length must be 6 characters long' };
@@ -31,5 +31,5 @@ const validateDisplayName = (displayName) => {
   module.exports = {
     validateEmail,
     validateDisplayName,
-    validatePassword,
+    validatePwd,
   };

@@ -1,9 +1,9 @@
-const loginServices = require('../services/loginService');
+const loginServices = require('../services/loginServices');
 
-const loginControllers = async (req, res) => {
+const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const token = await loginServices.loginControllers(email, password);
+    const token = await loginServices.signIn(email, password);
     return res.status(200).json({ token });
   } catch (e) {
     console.log(e);
@@ -12,5 +12,5 @@ const loginControllers = async (req, res) => {
 };
 
 module.exports = {
-  loginControllers,
+  signIn,
 };
