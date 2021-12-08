@@ -1,5 +1,17 @@
+const jwt = require('jsonwebtoken');
 const { User } = require('../models/User');
-const { createToken } = require('../middlewares/CreateToken');
+
+const createToken = (user, email) => {
+  const secret = 'secret';
+  const jwtConfig = {
+    expiresIn: '8h',
+    algorithm: 'HS256',
+  };
+  const { id } = user;
+  const userInfoToken = { id, email };
+  const token = jwt.sign({ data: userInfoToken }, secret, jwtConfig);
+  return { token };
+};
 
 const displayNameValidation = (displayName) => {
   if (displayName.length < 8) {
