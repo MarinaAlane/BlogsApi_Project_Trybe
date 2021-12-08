@@ -6,14 +6,14 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.STRING,
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
-  }, { timestamps: true, createdAt: 'published', updatedAt: 'updated' }); // Declarando timestamps false, porque tirei os campos de criação e atualização quando criei as migrations.
-  // timestamps é true, porem altero o nome para como foi pedido no requisito.
-   
+  }, { timestamps: true, createdAt: 'published', updatedAt: 'updated' }); // Declarando timestamps false, porque tirei os campos de criação e atualização quando criei as migrations.  
+  // belongsTo - pertenca a
+  // Ou seja esta referindo que meu userId da tabela BlogPosts pertence ao compo id tabela Users com alias de user.
   blogPost.associate = (models) => {
-    blogPost.belongsTp(models.Users,
+    blogPost.belongsTo(models.Users,
     // belongsTo - pertenca a
-    // Esta referindo que post no campo userId pertence a tabela users.  
+    // Esta referindo que post no campo userId pertence a tabela users.    
       { foreignKey: 'userId', as: 'user' });
   };
-  return blogPost;
+  return blogPost; 
 };
