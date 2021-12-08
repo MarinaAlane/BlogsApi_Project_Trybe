@@ -14,15 +14,15 @@ const valdiationCategoryIds = (categoryIds) => {
   if (!categoryIds) throw err({ statusCode: 400, message: '"categoryId" is riqured' });
 };
 
-const ifCategorieExists = async (categoryIds) => {
-  const search = await Category.getAll({ where: { id: categoryIds } });
+const ifCategorieExists = async (categoryId) => {
+  const search = await Category.getAll({ where: { id: categoryId } });
   if (!search) throw err({ statusCode: 401, mensage: '"categoryIds" not found' });
 };
 
-const createPost = async (title, categoryIds, content, id) => {
-  const result = await BlogPost.create({ userId: id, title, content, categoryIds })
+const createPost = async (title, categoryId, content, id) => {
+  const result = await BlogPost.create({ userId: id, title, content, categoryId })
   .then((post) => {
-    post.addCategory(categoryIds);
+    post.addCategory(categoryId);
     return ({ id: post.id, userId: post.userId, title: post.title, content: post.content });
   });
   return result;
@@ -41,10 +41,10 @@ const verificationUserPost = async (userId, id) => {
   if (!findUser) throw err({ statusCode: 401, message: 'Unauthorized user' });
 };
 
-const validationBodyUpdate = ({ title, content, categoryIds }) => {
+const validationBodyUpdate = ({ title, content, categoryId }) => {
   if (!title) throw err({ statusCode: 400, message: ' "title" is required' });
   if (!content) throw err({ statusCode: 400, message: '"content" is required' });
-  if (categoryIds) throw err({ statusCode: 400, message: 'Categories cannot be edited' });
+  if (categoryId) throw err({ statusCode: 400, message: 'Categories cannot be edited' });
 };
 
 const updatePost = async (userId, id, body) => {
@@ -63,12 +63,12 @@ const deletePost = async (userId, id) => {
   verificationUserPost(userId, id);
 };
 
-const validationPost = async ({ title, categoryIds, content }, id) => {
+const validationPost = async ({ title, categoryId, content }, id) => {
   validationTitle(title);
-  valdiationCategoryIds(categoryIds);
+  valdiationCategoryIds(categoryId);
   validationContent(content);
-  await ifCategorieExists(categoryIds);
-  await createPost(title, categoryIds, content, id);
+  await ifCategorieExists(categoryId);
+  await createPost(title, categoryId, content, id);
 };
 
 module.exports = {

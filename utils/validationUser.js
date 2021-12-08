@@ -3,8 +3,9 @@ const { User } = require('../models');
 const err = (statusCode) => ({ statusCode });
 
 const validationName = (displayName) => {
-  if (typeof displayName !== 'string' || displayName > 8) {
-  throw err({ statusCode: 400, message: 'displayName length must be at least 8 characters long' });
+  if (typeof displayName !== 'string' || displayName.length < 8) {
+  throw err({ statusCode: 400, 
+    message: '"displayName" length must be at least 8 characters long' });
   }
 };
 
@@ -14,7 +15,7 @@ const validationPassword = (password) => {
     statusCode: 400, message: '"password" is required' });
   }
 
-  if (typeof password !== 'string' || password > 6) {
+  if (password.length < 6) {
     throw err({ statusCode: 400, message: '"password" length must be 6 characters long' });
   }
 };
@@ -31,8 +32,10 @@ const validationEmail = (email) => {
 
 const searchifEmailExists = async (email) => {
   const search = await User.findOne({ where: { email } });
+  console.log(search);
+
   if (search) {
-    throw err({ statusCode: 400, message: 'User already registered' });
+    throw err({ statusCode: 409, message: 'User already registered' });
   }
 };
 
@@ -45,9 +48,9 @@ const existsById = async (id) => {
   return search;
 };
 
-const cadastration = (email, displayName, password) => {
+const cadastration = async (email, displayName, password) => {
   validationEmail(email);
-  searchifEmailExists(email);
+  await searchifEmailExists(email);
   validationName(displayName);
   validationPassword(password);
 };
