@@ -9,16 +9,9 @@ const userCreate = async ({ displayName, email, password, image }) => {
 };
 
 const getUsers = async () => {
-  // try {
-  //   jwt.verifyJWT(token);
- const UsersAll = await Users.findAll(/* {
-    attributes: ['id', 'displayName', 'email', 'image'],
-  } */);
+ const UsersAll = await Users.findAll();
   return UsersAll;
 };
-// } catch (error) {
-//   return { message: 'Expired or invalid token' };
-// }
 
 const getUser = async (id) => {
   const user = await Users.findByPk(id, {
