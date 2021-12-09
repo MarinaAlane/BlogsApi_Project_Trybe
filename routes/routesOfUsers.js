@@ -5,8 +5,10 @@ const {
   validateName,
   validateEmail,
   validatePassword,
+  validateJWT,
 } = require('../middlewares/rules');
 
 router.post('/', validateName, validateEmail, validatePassword, User.create);
+router.get('/', validateJWT, User.getAll);
 
 module.exports = router;
