@@ -6,7 +6,9 @@ const {
   passwordValidation } = require('../middlewares/validateUser');
 
 const validations = [emailValidation, nameValidation, passwordValidation];
+const tokenValidation = require('../middlewares/validateToken');
 
 router.post('/', validations, UserController.createUser);
+router.get('/', tokenValidation, UserController.getAllUsers);
 
 module.exports = router;
