@@ -1,4 +1,4 @@
-const { Categories } = require('../models');
+const { Category } = require('../models');
 const categoryService = require('../services/Category');
 
 const createCategory = async (req, res) => {
@@ -11,8 +11,8 @@ const createCategory = async (req, res) => {
     return res.status(400).json({ message: newCategory.message });
   }  
 
-  await Categories.create({ name: newCategory });  
-  const createdCategory = await Categories.findOne({ where: { name: newCategory } });   
+  await Category.create({ name: newCategory });  
+  const createdCategory = await Category.findOne({ where: { name: newCategory } });   
   console.log(createdCategory);   
 
   return res.status(201).json(createdCategory);  
