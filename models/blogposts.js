@@ -6,9 +6,20 @@ const BlogPosts = (sequelize, DataTypes) => {
       userId: DataTypes.INTEGER,
     },
     { 
-      timestamps: false,
+      // timestamps: false,
+      /* Para alterar ou indicar o nome da tabela ou alguma coluna do banco,
+      podemos indicar nesse segundo parâmetro do model:
+      https://cursos.alura.com.br/forum/topico-renomear-as-colunas-createdat-e-updatedat-130933
+      https://sequelize.org/master/manual/model-basics.html#providing-the-table-name-directly */
+      tableName: 'BlogPosts',
+      createdAt: 'published',
+      updatedAt: 'updated',
     },
   );
+
+  blogPost.associate = (models) => {
+    blogPost.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+  };
 
   return blogPost;
 };

@@ -1,5 +1,5 @@
 const PostsCategories = (sequelize, DataTypes) => {
-  const PostsCategorie = sequelize.define(
+  const postsCategories = sequelize.define(
     'PostsCategories', {
       postId: DataTypes.INTEGER,
     },
@@ -8,7 +8,7 @@ const PostsCategories = (sequelize, DataTypes) => {
     },
   );
 
-  return PostsCategorie;
+  return postsCategories;
 };
 
 module.exports = PostsCategories;
