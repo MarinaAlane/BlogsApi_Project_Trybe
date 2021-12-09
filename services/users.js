@@ -4,7 +4,6 @@ const utils = require('../utils/validationUser');
 
 const getAll = async (token) => {
   tokenExists.validationToken(token);
-  console.log('oiii');
   const findAll = await User.findAll();
   return findAll;
 };
