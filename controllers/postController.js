@@ -50,9 +50,22 @@ const updatePostForId = async (req, res) => {
   return res.status(200).json(result);
 };
 
+const removePost = async (req, res) => {
+  const { id } = req.params;
+  const { id: userId } = req.user;
+
+  const validData = await postService.removePostById(id, userId);
+  if (validData.error) {
+    return res.status(validData.error.code).json({ message: validData.error.message });
+  }
+
+  return res.status(204).send();
+};
+
 module.exports = {
   addPost,
   blogsPostList,
   postForId,
   updatePostForId,
+  removePost,
 };

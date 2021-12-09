@@ -9,6 +9,6 @@ router.get('/:id', validateUserWithToken, rescue(postController.postForId));
 router.get('/', validateUserWithToken, rescue(postController.blogsPostList));
 router.post('/', validateUserWithToken, rescue(postController.addPost));
 router.put('/:id', validateUserWithToken, rescue(postController.updatePostForId));
-router.delete('/me', rescue((req, res) => res.send('oi')));
+router.delete('/:id', validateUserWithToken, rescue(postController.removePost));
 
 module.exports = router;

@@ -110,7 +110,7 @@ const validatePost = (data) => {
   return true;
 };
 
-const updatePostForId = async (id, userId, title, content) => {
+const validateUser = async (id, userId) => {
   const blogPost = await BlogPost.findByPk(id);
   const isValidPost = validatePost(blogPost);
   if (isValidPost.error) return isValidPost;
@@ -118,6 +118,13 @@ const updatePostForId = async (id, userId, title, content) => {
   const userExists = blogPost.dataValues.id === userId;
   const notExists = validatePost(userExists);
   if (notExists.error) return notExists;
+
+  return true;
+};
+
+const updatePostForId = async (id, userId, title, content) => {
+  const userIsValid = await validateUser(id, userId);
+  if (userIsValid.error) return userIsValid;
 
   await BlogPost.update(
     { title, content },
@@ -130,10 +137,34 @@ const updatePostForId = async (id, userId, title, content) => {
   return findBlogPost;
 };
 
+const postExists = async (id) => {
+  const exists = await BlogPost.findByPk(id);
+  return exists;
+};
+
+const removePostById = async (id, userId) => {
+  const result = await postExists(id);
+  if (!result) {
+    return {
+      error: {
+        code: 404,
+        message: 'Post does not exist',
+      },
+    };
+  }
+
+  const userIsValid = await validateUser(id, userId);
+  if (userIsValid.error) return userIsValid;
+
+  // await BlogPost.destroy({ where: { id } });
+  return true;
+};
+
 module.exports = {
   resultData,
   createPost,
   allBlogsPost,
   searchPostById,
   updatePostForId,
+  removePostById,
 };
