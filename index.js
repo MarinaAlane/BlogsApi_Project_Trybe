@@ -3,24 +3,20 @@ require('dotenv').config();
 const express = require('express');
 
 // routes imports
-// const Users = require('./routes/userRoutes');
-// const Categories = require('./routes/categoryRoutes');
-// const Post = require('./routes/postRoutes');
+const Users = require('./routes/userRoutes');
 
 // MW imports
-// const errorMW = require('./middlewares/error');
+const errorMW = require('./middlewares/error');
 
 // express use
 const app = express();
 app.use(express.json());
 
 // routes use
-// app.use(Users);
-// app.use(Categories);
-// app.use(Post);
+app.use(Users);
 
 // middlewares
-// app.use(errorMW);
+app.use(errorMW);
 
 // PORT
 const PORT = process.env.PORT || 3000;
