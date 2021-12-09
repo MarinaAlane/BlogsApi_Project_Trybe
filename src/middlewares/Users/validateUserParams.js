@@ -1,12 +1,10 @@
 const { HTTP_BAD_REQUEST_STATUS } = require('../../utils/statusCode');
+const { emailIsValid } = require('../../utils/checkEmail');
 
 const validateEmail = (email) => {
     if (!email) return { erro: HTTP_BAD_REQUEST_STATUS, message: '"email" is required' };
-    
-    const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-    const emailIsValid = regex.test(email);
-    
-    if (!emailIsValid) {
+       
+    if (!emailIsValid(email)) {
       return { erro: HTTP_BAD_REQUEST_STATUS, message: '"email" must be a valid email' };
     }
     return {};
