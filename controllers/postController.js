@@ -39,7 +39,7 @@ const updatePostForId = async (req, res) => {
     return res.status(400).json({ message: 'Categories cannot be edited' });
   }
 
-  const validData = postService.resultData(title, content);
+  const validData = postService.resultData(title, content, 'PUT');
   if (validData.error) {
     return res.status(validData.error.code).json({ message: validData.error.message });
   }

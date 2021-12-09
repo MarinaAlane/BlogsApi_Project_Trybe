@@ -17,13 +17,13 @@ const validaDataNotPassWord = (title, content) => {
 };
 
 const searchForError = (title, content, categoryIds) => {
-  if (categoryIds) {
-    const result = validaData(title, content, categoryIds);
+  if (categoryIds === 'PUT') {
+    const result = validaDataNotPassWord(title, content);
     const find = result.filter((item) => item.error);
     return find;
   }
 
-  const result = validaDataNotPassWord(title, content);
+  const result = validaData(title, content, categoryIds);
   const find = result.filter((item) => item.error);
   return find;
 };
