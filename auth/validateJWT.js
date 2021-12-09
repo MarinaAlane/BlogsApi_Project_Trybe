@@ -11,8 +11,7 @@ const validateJWT = async (req, res, next) => {
   if (!token) {    
     return res.status(401).json({ message: 'Token not found' });
   }  
-  const { data } = jwt.verify(token, JWT_SECRET); 
-  console.log(data, 'BBBBBBBBBBBBBBBBBBBBBBBB');
+  const { data } = jwt.verify(token, JWT_SECRET);   
   
   req.token = data.email;
   req.user = data.id;  

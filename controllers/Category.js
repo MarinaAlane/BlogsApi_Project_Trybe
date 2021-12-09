@@ -4,16 +4,14 @@ const categoryService = require('../services/Category');
 const createCategory = async (req, res) => {
   try {
   const { name } = req.body;
-  const newCategory = await categoryService.createCategory(name); 
-  console.log(newCategory); 
+  const newCategory = await categoryService.createCategory(name);   
   
   if (newCategory.message) {
     return res.status(400).json({ message: newCategory.message });
   }  
 
   await Category.create({ name: newCategory });  
-  const createdCategory = await Category.findOne({ where: { name: newCategory } });   
-  console.log(createdCategory);   
+  const createdCategory = await Category.findOne({ where: { name: newCategory } });     
 
   return res.status(201).json(createdCategory);  
 } catch (error) {

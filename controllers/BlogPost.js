@@ -16,7 +16,7 @@ const createBlogPost = async (req, res) => {
 
   const blogPost = await BlogPostService.createBlogPost(newPost);
   if (blogPost.message) return res.status(400).json({ message: blogPost.message });
-  
+  // Construído com a ajuda do Pablo <3
   const createdNewPost = await BlogPost.create(newPost);
   await PostCategory.bulkCreate(categoryIds.map((category) => 
   ({ postId: createdNewPost.id, categoryId: category })));
@@ -28,6 +28,18 @@ const createBlogPost = async (req, res) => {
   }
 };
 
+const getBlogPosts = async (req, res) => {
+  try {
+    const blogPosts = await BlogPostService.getBlogPosts();
+
+    return res.status(200).json(blogPosts);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: 'deu algum erro aqui' });
+  }
+};
+
 module.exports = {
   createBlogPost,
+  getBlogPosts,
 };
