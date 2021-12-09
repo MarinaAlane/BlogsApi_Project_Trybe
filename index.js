@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const userRouter = require('./router/user-router');
 const loginRouter = require('./router/login-router');
 const CategoryRouter = require('./router/category-router');
+const blogPostRouter = require('./router/blog-post-router');
 
 const app = express();
 
@@ -19,3 +20,4 @@ app.get('/', (request, response) => {
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
 app.use('/categories', CategoryRouter);
+app.use('/post', blogPostRouter);
