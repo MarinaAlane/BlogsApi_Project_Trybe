@@ -21,26 +21,53 @@ const resultData = (title, content, categoryIds) => {
   return true;
 };
 
-const allBlogsPost = async () => {
-  const blogsPost = await BlogPost.findAll({
-    include: [
-      {
-        model: User,
-        as: 'user',
-        attributes: { exclude: ['password'] },
-      },
-      { model: Category, as: 'categories', through: { attributes: [] } },
-    ],
-  });
-  return blogsPost;
-};
-
 const findCategory = async (category) => {
   const data = await Category.findAll();
   const categories = data.map(({ id }) => id);
 
   const isValidCateg = category.every((id) => categories.includes(id));
   return isValidCateg;
+};
+
+const allBlogsPost = async () => {
+  const blogsPost = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  if (blogsPost.length < 1) {
+    return {
+      error: {
+        code: 404,
+        message: 'Not found "post"',
+      },
+    };
+  }
+
+  return blogsPost;
+};
+
+const searchPostById = async (id) => {
+  const blogsPost = await BlogPost.findByPk(id,
+    {
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+
+  if (!blogsPost) {
+    return {
+      error: {
+        code: 404,
+        message: 'Post does not exist',
+      },
+    };
+  }
+
+  return blogsPost;
 };
 
 const createPost = async (title, content, categoryIds, userId) => {
@@ -62,4 +89,5 @@ module.exports = {
   resultData,
   createPost,
   allBlogsPost,
+  searchPostById,
 };

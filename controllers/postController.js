@@ -20,9 +20,25 @@ const addPost = async (req, res) => {
   }
 };
 
-const blogsPostList = async (req, res) => {
+const blogsPostList = async (_req, res) => {
   try {
     const result = await postService.allBlogsPost();
+
+    if (result.error) return res.status(result.error.code).json({ message: result.error.message });
+
+    return res.status(200).json(result);
+  } catch (e) {
+    console.log(e.message);
+    return res.status(500).json({ message: 'Something went wrong' });
+  }
+};
+
+const postForId = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await postService.searchPostById(id);
+
+    if (result.error) return res.status(result.error.code).json({ message: result.error.message });
 
     return res.status(200).json(result);
   } catch (e) {
@@ -34,4 +50,5 @@ const blogsPostList = async (req, res) => {
 module.exports = {
   addPost,
   blogsPostList,
+  postForId,
 };
