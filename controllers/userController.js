@@ -1,11 +1,13 @@
-const { User } = require('../models');
+const userService = require('../services/userService');
 
 const createUser = async (req, res) => {
   try {
-    const { displayName, email, password, image } = req.body;
-    const newUserToken = await User.create({ displayName, email, password, image });
+    const newUserToken = await userService.createUser(req.body);
 
-    res.status(201).json(newUserToken);
+    if (newUserToken.err) {
+      return res.status(newUserToken.err.status).json({ message: newUserToken.err.message });
+    } 
+    return res.status(201).json({ token: newUserToken });
   } catch (err) {
     console.log(err.message);
 
