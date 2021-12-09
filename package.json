@@ -21,7 +21,8 @@
     "test-coverage": "jest --runInBand --coverage",
     "debug": "nodemon index.js",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
-    "createuser": "npx sequelize model:create --name Users --attributes displayName:string,password:string,email:string,image:string"
+    "createuser": "npx sequelize model:create --name Users --attributes displayName:string,password:string,email:string,image:string",
+    "createcategories": "npx sequelize model:create --name Categories --attributes name:string"
   },
   "devDependencies": {
     "eslint": "6.8.0",
