@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const userRouter = require('./router/user-router');
+const userRouter = require('./router/createUser-router');
+const loginRouter = require('./router/login-router');
 
 const app = express();
 
@@ -15,3 +16,4 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', userRouter);
+app.use('/login', loginRouter);

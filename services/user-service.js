@@ -8,6 +8,9 @@ const createUser = async ({ displayName, email, password, image }) =>
     image,
   });
 
+const loginUser = async (email) => User.findOne({ where: { email } });
+
 module.exports = {
   createUser,
+  loginUser,
 };
