@@ -49,3 +49,5 @@ app.post('/post', [
 ]);
 
 app.get('/post', Validations.checkToken, BlogPosts.getPosts);
+
+app.get('/post/:id', Validations.checkToken, BlogPosts.getPostById);
