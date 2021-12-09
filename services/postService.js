@@ -3,9 +3,8 @@ const { BlogPost, Category, User } = require('../models');
 const validate = require('../validations/postValidations');
 const validateCategories = require('../validations/categoryValidations');
 
-const categoryOptions = { 
-  model: Category,
-  as: 'categories', 
+const categoryConfig = { model: Category,
+  as: 'categories',
   through: { attributes: { exclude: ['PostsCategory', 'postId', 'categoryId'] } },
 };
 
@@ -21,20 +20,20 @@ const validateCategory = async (categories) => {
   });
 };
 
-const createPost = async (payload) => {
+const newPost = async (payload) => {
   await validateCategory(payload.categoryIds);
   return BlogPost.create(payload);
 };
 
 const getPosts = () => BlogPost.findAll({
   include: [{ model: User, as: 'user' }, 
-  { ...categoryOptions }],
+  { ...categoryConfig }],
 });
 
 const getPostById = async (id) => {
   const post = await BlogPost.findByPk(id, {
     include: [{ model: User, as: 'user' }, 
-    { ...categoryOptions }],
+    { ...categoryConfig }],
   });
   validate.post(post);
   return post;
@@ -44,7 +43,7 @@ const editPost = async ({ title, content }, id, token) => {
   const post = await BlogPost.findByPk(id);
   validate.userIsOwner(post, token.id);
   await BlogPost.update({ title, content }, { where: { id } });
-  return BlogPost.findByPk(id, { include: { ...categoryOptions } });
+  return BlogPost.findByPk(id, { include: { ...categoryConfig } });
 };
 
 const deletePost = async (postId, token) => {
@@ -57,11 +56,11 @@ const queryPost = async (param) => BlogPost.findAll({
   where: {
     [Op.or]: [{ title: { [Op.substring]: param } },
       { content: { [Op.substring]: param } }] },
-    include: [{ model: User, as: 'user' }, { ...categoryOptions }],
+    include: [{ model: User, as: 'user' }, { ...categoryConfig }],
 });
 
 module.exports = {
-  createPost,
+  newPost,
   getPosts,
   getPostById,
   editPost,

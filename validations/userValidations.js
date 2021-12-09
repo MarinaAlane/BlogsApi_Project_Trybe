@@ -1,6 +1,6 @@
 const error = require('../utils/errorTemplates');
 
-const displayNameValidation = (name) => {
+const validDisplayName = (name) => {
   if (!name) {
     throw error('displayNameError');
   }
@@ -9,7 +9,7 @@ const displayNameValidation = (name) => {
   }
 };
 
-const emailValidation = (email) => {
+const validEmail = (email) => {
   if (email === '') {
     throw error('notEmptyEmailAllowed');
   }
@@ -25,24 +25,22 @@ const emailValidation = (email) => {
   }
 };
 
-const passwordValidation = (password) => {
+const validPassword = (password) => {
   if (password === '') {
     throw error('notPassEmptyAllowed');
   }
-
   if (!password) {
     throw error('passwordRequired');
   }
-
   if (password.length !== 6) {
     throw error('invalidPassword');
   }
 };
 
 const newUserInformation = ({ displayName, email, password }) => {  
-  displayNameValidation(displayName);
-  emailValidation(email);
-  passwordValidation(password);
+  validDisplayName(displayName);
+  validEmail(email);
+  validPassword(password);
 };
 
 const uniqueEmail = (user) => {
@@ -52,8 +50,8 @@ const uniqueEmail = (user) => {
 };
 
 const login = ({ email, password }) => {
-  emailValidation(email);
-  passwordValidation(password);
+  validEmail(email);
+  validPassword(password);
 };
 
 const user = (payload) => {
@@ -69,9 +67,9 @@ const userById = (payload) => {
 };
 
 module.exports = {
+  newUserInformation,
+  uniqueEmail,
   login,
   user,
   userById,
-  newUserInformation,
-  uniqueEmail,
 };

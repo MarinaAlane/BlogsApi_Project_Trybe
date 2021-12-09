@@ -1,7 +1,7 @@
 const userService = require('../services/userService');
 
-const createUser = async (req, res) => {
-  const token = await userService.createUser(req.body);
+const newUser = async (req, res) => {
+  const token = await userService.newUser(req.body);
   return res.status(201).json({ token });
 };
 
@@ -20,15 +20,15 @@ const getUser = async (req, res) => {
   return res.status(200).json(users);
 };
 
-const deleteUser = async (req, res) => {
-  await userService.deleteUser(req.token.id);
+const deleteMe = async (req, res) => {
+  await userService.deleteMe(req.token.id);
   return res.status(204).end();
 };
 
 module.exports = {
-  createUser,
+  newUser,
   login,
   getUsers,
   getUser,
-  deleteUser,
+  deleteMe,
 };

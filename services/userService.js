@@ -14,7 +14,7 @@ const validateUser = async ({ email }, validationType) => {
   return user;
 };
 
-const createUser = async (payload) => {
+const newUser = async (payload) => {
   await validateUser(payload, 'email');
   const user = await User.create(payload);
   return generateToken(user);
@@ -33,14 +33,12 @@ const getUser = async (id) => {
   return user;
 };
 
-const deleteUser = async (id) => User.destroy({
-  where: { id },
-});
+const deleteMe = async (id) => User.destroy({ where: { id } });
 
 module.exports = {
-  createUser,
+  newUser,
   login,
   getUsers,
   getUser,
-  deleteUser,
+  deleteMe,
 };

@@ -1,6 +1,6 @@
 const error = require('../utils/errorTemplates');
 
-const createCategory = (payload) => {
+const newCategory = (payload) => {
   if (!payload.name) {
     throw error('newCategoryError');
   }
@@ -13,6 +13,6 @@ const categoryExists = (payload) => {
 };
 
 module.exports = {
-  createCategory,
+  newCategory,
   categoryExists,
 };

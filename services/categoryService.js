@@ -1,12 +1,12 @@
 const { Category } = require('../models');
 
-const createCategory = (payload) =>
-  Category.create(payload);
-
 const getCategories = () => 
   Category.findAll();
 
+const newCategory = (payload) =>
+  Category.create(payload);
+
 module.exports = {
-  createCategory,
   getCategories,
+  newCategory,
 };

@@ -6,14 +6,13 @@ const validateField = (field, errorMessage) => {
   }
 };
 
-const createPost = ({ title, content, categoryIds }) => {
+const newPost = ({ title, content, categoryIds }) => {
   validateField(title, 'titleError');
   validateField(content, 'contentError');
   validateField(categoryIds, 'categoryIDError');
 };
 
-const post = (payload) =>
-  validateField(payload, 'postNotFound');
+const post = (payload) => validateField(payload, 'postNotFound');
 
 const editPost = (payload) => {
   Object.keys(payload).forEach((key) => {
@@ -37,7 +36,7 @@ const userIsOwner = (userPost, userId) => {
 };
 
 module.exports = {
-  createPost,
+  newPost,
   post,
   editPost,
   userIsOwner,
