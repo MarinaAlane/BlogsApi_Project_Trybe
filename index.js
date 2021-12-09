@@ -59,3 +59,5 @@ app.put('/post/:id', [
 ]);
 
 app.delete('/post/:id', Validations.checkToken, BlogPosts.deletePost);
+
+app.delete('/user/me', Validations.checkToken, Users.deleteMe);
