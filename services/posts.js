@@ -16,8 +16,16 @@ const getPosts = async () => {
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
       });
-      console.log(allPosts);
-      return allPosts;
+      return { status: 200, allPosts };
   };
 
-module.exports = { createPost, getPosts };
+  const getPostById = async (postId) => {
+    const postById = await BlogPost.findByPk(postId, {
+      include: [{ model: User, as: 'user' },
+        { model: Category, as: 'categories', through: { attributes: [] } }],
+        });
+        if (!postById) { return { status: 404, message: 'Post does not exist' }; }
+        return { status: 200, postById };
+    };
+
+module.exports = { createPost, getPosts, getPostById };

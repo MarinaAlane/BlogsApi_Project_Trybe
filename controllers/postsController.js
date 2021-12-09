@@ -8,9 +8,16 @@ const createPost = async (req, res) => {
   return res.status(status).json(addPost);
 };
 
-const getPosts = async (_req, res) => {
-    const allPosts = await posts.getPosts();
-    return res.status(200).json(allPosts);
+const getPosts = async (req, res) => {
+    const { status, allPosts } = await posts.getPosts();
+    return res.status(status).json(allPosts);
   };
 
-module.exports = { createPost, getPosts };
+const getPostById = async (req, res) => {
+    const { id } = req.params;
+    const { status, postById, message } = await posts.getPostById(id);
+    if (message) { res.status(status).json({ message }); }
+    return res.status(status).json(postById);
+  };
+
+module.exports = { createPost, getPosts, getPostById };

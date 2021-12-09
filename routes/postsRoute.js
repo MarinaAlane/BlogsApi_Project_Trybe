@@ -7,4 +7,6 @@ Router.post('/', tokenValidation, validateCategory.checkCategory, postController
 
 Router.get('/', tokenValidation, postController.getPosts);
 
+Router.get('/:id', tokenValidation, postController.getPostById);
+
 module.exports = Router;
