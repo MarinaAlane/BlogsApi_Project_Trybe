@@ -46,10 +46,17 @@ const deletePost = async (req, res) => {
   return res.status(status).send();
 };
 
+const findPostByQuery = async (req, res) => {
+  const { q } = req.query;
+  const { status, data } = await BlogPosts.findPostByQuery(q);
+  return res.status(status).json(data);
+};
+
 module.exports = {
   createPost,
   getPosts,
   getPostById,
   updatePost,
   deletePost,
+  findPostByQuery,
 };
