@@ -1,13 +1,16 @@
 const jwt = require('jsonwebtoken');
+const { User } = require('../models');
 
-const secret = 'secretLoginSecret';
+const LOGIN_SECRET = 'secretLoginSecret';
 
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const payload = { email, password };
+  const { dataValues } = await User.findOne({ email });
 
-  const token = jwt.sign(payload, secret);
+  const payload = { email, password, dataValues };
+
+  const token = jwt.sign(payload, LOGIN_SECRET);
 
   res.status(200).json({ token });
 };

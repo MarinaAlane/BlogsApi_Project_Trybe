@@ -6,9 +6,9 @@ const USER_SECRET = 'secretUserSecret';
 const createNewUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
 
-  await User.create({ displayName, email, password, image });
+  const { dataValues } = await User.create({ displayName, email, password, image });
 
-  const payload = { email, displayName };
+  const payload = { email, dataValues };
 
   const token = JWT.sign(payload, USER_SECRET);
 

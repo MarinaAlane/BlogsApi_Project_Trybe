@@ -7,11 +7,16 @@ const loginController = require('./controllers/loginController');
 
 const categoryController = require('./controllers/categoryController');
 
+const blogPostController = require('./controllers/blogPostController');
+
 const {
   isValidDisplayName,
   isValidEmail,
   isValidPassword,
-  isValidName } = require('./middlewares/validations');
+  isValidName,
+  isValidTitle,
+  isValidContent,
+  isValidCategoryIds } = require('./middlewares/validations');
 
 const {
   isValidLoginEmail,
@@ -40,5 +45,20 @@ app.get('/user/:id', validateToken, userController.getUserById);
 app.post('/categories', validateToken, isValidName, categoryController.createNewCategory);
 
 app.get('/categories', validateToken, categoryController.getAllCategory);
+
+app.post('/post',
+  validateToken,
+  isValidTitle,
+  isValidContent,
+  isValidCategoryIds,
+  blogPostController.createNewPost);
+
+app.get('/post', validateToken, blogPostController.getAllPosts);
+
+app.get('/post/:id', validateToken, blogPostController.getPostById);
+
+app.put('/post/:id', validateToken, blogPostController.updatePostById);
+
+app.delete('/post/:id', blogPostController.deletePost);
 
 app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}!`));

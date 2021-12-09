@@ -12,7 +12,6 @@ const findByUserEmail = async (email) => {
 
 const isValidLoginEmail = async (req, res, next) => {
   const { email } = req.body;
-  console.log(email, 'Email do body');
 
   if (!email && email === '') {
     return res.status(400).json({ message: '"email" is not allowed to be empty' });
@@ -23,7 +22,6 @@ const isValidLoginEmail = async (req, res, next) => {
   }
 
   const user = await findByUserEmail(email);
-  console.log(user, 'Estou no isValidLogin');
 
   if (!user) {
     return res.status(400).json({ message: 'Invalid fields' });

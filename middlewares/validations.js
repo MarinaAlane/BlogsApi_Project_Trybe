@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Category } = require('../models');
 
 const isValidDisplayName = (req, res, next) => {
   const { displayName } = req.body;
@@ -69,9 +69,57 @@ const isValidName = (req, res, next) => {
   next();
 };
 
+const isValidTitle = (req, res, next) => {
+  const { title } = req.body;
+
+  if (!title) {
+    return res.status(400).json({ message: '"title" is required' });
+  }
+
+  next();
+};
+
+const isValidContent = (req, res, next) => {
+  const { content } = req.body;
+
+  if (!content) {
+    return res.status(400).json({ message: '"content" is required' });
+  }
+
+  next();
+};
+
+// Falta comparação pelo categoryIds
+const isValidCategoryIds = async (req, res, next) => {
+  const { categoryIds } = req.body;
+
+  if (!categoryIds) {
+    return res.status(400).json({ message: '"categoryIds" is required' });
+  }
+
+  const cat = await Category.findAll({ raw: true });
+
+  const catIds = [];
+  cat.forEach((element) => catIds.push(element.id));
+
+  const existsIds = categoryIds.every((elem) => catIds.includes(elem));
+
+  console.log(existsIds, cat);
+
+  if (!existsIds) {
+    return res.status(400).json(
+      { message: '"categoryIds" not found' },
+    );
+  }
+  next();
+};
+
 module.exports = {
   isValidDisplayName,
   isValidEmail,
   isValidPassword,
   isValidName,
+  isValidTitle,
+  isValidContent,
+  isValidCategoryIds,
 };
