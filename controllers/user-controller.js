@@ -1,4 +1,5 @@
 const Service = require('../services/user-service');
+const Model = require('../models');
 const { newToken } = require('../auth/token');
 
 const createUser = async (req, res) => {
@@ -24,7 +25,14 @@ const loginUser = async (req, res) => {
   return res.status(200).json({ token });
 };
 
+const listAllUsers = async (_req, res) => {
+  const getUsers = await Model.User.findAll();
+
+  return res.status(200).json(getUsers);
+};
+
 module.exports = {
   createUser,
   loginUser,
+  listAllUsers,
 };

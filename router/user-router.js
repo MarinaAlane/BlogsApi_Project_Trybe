@@ -7,7 +7,12 @@ const {
   userExists,
 } = require('../middlewares/verifyUserFields');
 
-const { createUser } = require('../controllers/user-controller');
+const { validToken } = require('../middlewares/validateToken');
+
+const {
+  createUser,
+  listAllUsers,
+} = require('../controllers/user-controller');
 
 const router = express.Router();
 
@@ -17,5 +22,9 @@ validEmail,
 passwordField,
 userExists,
 createUser);
+
+router.get('/',
+validToken,
+listAllUsers);
 
 module.exports = router;
