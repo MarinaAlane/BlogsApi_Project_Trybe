@@ -1,29 +1,31 @@
-// const { Category } = require('../models');
+const { Category } = require('../models');
 // const { MESSAGE_ERROR7 } = require('../validations/messageError');
 
 async function createCategory(req, res) {
-  // try {
-  //   const { name } = req.body;
-  //   // const users = await User.findAll({ where: { displayName } });
-  //   // if (users.length >= 1) return res.status(409).json({ message: MESSAGE_ERROR7 });
+  try {
+    const { name } = req.body;
+    const category = await Category.create({ name });
 
-  //   await User.create({ displayName, email, password, image });
-  //   console.log(displayName);
+    console.log(category);
+    // if (users.length >= 1) return res.status(409).json({ message: MESSAGE_ERROR7 });
 
-  //   const token = jwt.sign(
-  //     {
-  //       data: { displayName, email, password, image } },
-  //       process.env.JWT_SECRET,
-  //       jwtConfig,
-  //     );
+    return res.status(201).json(category);
+  } catch (e) {
+    console.log(e.message);
+  }
+}
 
-  //   return res.status(201).json({ token });
-  // } catch (e) {
-  //   console.log(e);
-  // }
-  res.send('controller category');
+async function allCategories(_req, res) {
+  try {
+    const category = await Category.findAll();
+
+    return res.send(category);
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 module.exports = {
   createCategory,
+  allCategories,
 };

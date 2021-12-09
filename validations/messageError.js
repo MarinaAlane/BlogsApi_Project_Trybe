@@ -9,6 +9,8 @@ const MESSAGE_ERROR8 = 'Invalid fields';
 const MESSAGE_ERROR9 = '"password" is not allowed to be empty';
 const MESSAGE_ERROR10 = '"email" is not allowed to be empty';
 const MESSAGE_ERROR11 = 'Token not found';
+const MESSAGE_ERROR12 = '"name" is required';
+
 module.exports = {
   MESSAGE_ERROR1,
   MESSAGE_ERROR2,
@@ -21,4 +23,5 @@ module.exports = {
   MESSAGE_ERROR9,
   MESSAGE_ERROR10,
   MESSAGE_ERROR11,
+  MESSAGE_ERROR12,
 };
