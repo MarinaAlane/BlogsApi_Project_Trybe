@@ -12,10 +12,18 @@ const isNotValidCategoryIds = (categoryIds) => {
   if (!categoryIds) return errors.missingCategoryId;
 };
 
-const validatePost = (title, content, categoryIds) => {
+const validateCreatePost = (title, content, categoryIds) => {
   if (isNotValidTitle(title)) return isNotValidTitle(title);  
   if (isNotValidContent(content)) return isNotValidContent(content);  
   if (isNotValidCategoryIds(categoryIds)) return isNotValidCategoryIds(categoryIds);  
 };
 
-module.exports = { validatePost };
+const validateEditPost = (title, content) => {
+  if (isNotValidTitle(title)) return isNotValidTitle(title);  
+  if (isNotValidContent(content)) return isNotValidContent(content);
+};
+
+module.exports = {
+  validateCreatePost,
+  validateEditPost,
+};

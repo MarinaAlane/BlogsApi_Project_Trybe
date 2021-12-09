@@ -35,8 +35,16 @@ const getById = async (req, res) => {
     : res.status(user.code).json(user.userWithoutPwd);
 };
 
+const deleteUser = async (req) => {
+  const { id } = req.decoded;
+  console.log(id);
+  await User.destroy({ where: { id } });
+  return { code: '204' };
+};
+
 module.exports = {
   addUser,
   getAll,
   getById,
+  deleteUser,
 };
