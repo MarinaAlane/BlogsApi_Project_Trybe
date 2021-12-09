@@ -128,7 +128,7 @@ const listAllUsers = async () => {
 
 // Requisito 4
 const listUserById = async (id) => {
-    const userById = await User.findByPk({ id, raw: true });
+    const userById = await User.findByPk(id, { raw: true });
     // Req. 04 - Se o usuário for inexistente o resultado retornado deverá ser um status http 404:
     if (!userById) {
         return { err: { code: 404, message: { message: 'User does not exist' } } };
