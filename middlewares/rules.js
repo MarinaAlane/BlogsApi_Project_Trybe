@@ -78,7 +78,7 @@ const validateJWT = (req, res, next) => {
   }
 
   try {
-    const { email } = jwt.verify(token, JWT_SECRET);
+    const email = jwt.verify(token, JWT_SECRET);
     req.user = email;
     next();
   } catch (err) {

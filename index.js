@@ -3,6 +3,7 @@ const express = require('express');
 const userRouter = require('./routes/routesOfUsers');
 const LoginRouter = require('./routes/Login');
 const CategoriesRouter = require('./routes/routesOfCategories');
+const PostRouter = require('./routes/routesOfBlogs');
 
 const PORT = 3000;
 
@@ -19,3 +20,4 @@ app.get('/', (request, response) => {
 app.use('/user', userRouter);
 app.use('/login', LoginRouter);
 app.use('/categories', CategoriesRouter);
+app.use('/post', PostRouter);
