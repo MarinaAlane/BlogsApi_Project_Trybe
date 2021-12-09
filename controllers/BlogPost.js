@@ -1,9 +1,9 @@
 const BlogPost = require('../services/BlogPost');
 
-const createNewBlog = async (req, res) => {
+const create = async (req, res) => {
   const { title, content, categoryIds } = req.body;
   const { email } = req.user;
-  const { post, status, message } = await BlogPost.createNewBlog({ 
+  const { post, status, message } = await BlogPost.create({ 
     title, content, categoryIds, email });
 
   if (message) {
@@ -13,6 +13,13 @@ const createNewBlog = async (req, res) => {
   res.status(status).json(post);
 };
 
+const getAll = async (req, res) => {
+  const { status, posts } = await BlogPost.getAll();
+
+  res.status(status).json(posts);
+};
+
 module.exports = {
-  createNewBlog,
+  create,
+  getAll,
 };
