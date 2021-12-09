@@ -5,4 +5,6 @@ const tokenValidation = require('../api/auth/validatejwt');
 
 Router.post('/', tokenValidation, validateCategory.checkCategory, postController.createPost);
 
+Router.get('/', tokenValidation, postController.getPosts);
+
 module.exports = Router;
