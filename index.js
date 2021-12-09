@@ -19,4 +19,4 @@ app.get('/', (request, response) => {
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
 app.use('/categories', categoryRouter);
-app.use('/', postRouter);
+app.use('/post', postRouter);
