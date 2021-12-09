@@ -1,6 +1,8 @@
 const { createToken } = require('../auth/validaJWT');
 const services = require('../services/userService');
 
+// Consultei este repositorio na validação https://github.com/tryber/sd-011-project-blogs-api/tree/erick-marinho-blogs-api 
+
 const create = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   const existUser = await services.findByEmail(email);
@@ -34,9 +36,17 @@ const findById = async (req, res) => {
   return res.status(200).json(response);
 };
 
+const deleta = async (req, res) => {
+  // Passando o userId, quando executa a função delete no model, exclui o meu usuario.
+  const { userId } = req;
+  await services.deleta(userId);
+  return res.status(204).end();
+};
+
 module.exports = {
   create,
   login,
   getAllUser,
   findById,
+  deleta,
 };
