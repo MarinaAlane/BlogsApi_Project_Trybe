@@ -58,7 +58,7 @@ const userExists = async (req, res, next) => {
     });
   }
   next();
-}
+};
 
 module.exports = {
   displayNameField,
