@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const auth = require('../middlewares/validations/auth');
-const { createPost } = require('../middlewares/post');
+const {
+  createPost,
+  getAllPosts,
+  getPostById,
+} = require('../middlewares/post');
 const {
   validateTitle,
   validateContent,
@@ -16,6 +20,18 @@ router.post(
   validateCategoryId,
   validateCategory,
   createPost,
+);
+
+router.get(
+  '/',
+  auth,
+  getAllPosts,
+);
+
+router.get(
+  '/:id',
+  auth,
+  getPostById,
 );
 
 module.exports = router;

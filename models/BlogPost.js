@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
   BlogPost.associate = (models) => {
-    BlogPost.belongsTo(models.User, { foreignKey: 'userId', as: 'Users' });
+    BlogPost.belongsTo(models.User, { foreignKey: 'userId' });
   };
   BlogPost.associate = (models) => {
     BlogPost.hasMany(models.PostsCategory, { foreignKey: 'postId', as: 'PostsCategories' });

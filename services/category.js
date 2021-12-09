@@ -32,8 +32,23 @@ const getIds = async () => {
   }
 };
 
+const getCategoryById = async (id) => {
+  try {
+    const category = await Category.findOne({
+      where: {
+        id,
+      },
+    });
+    return category.dataValues;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 module.exports = {
   registerCategory,
   getAllCategories,
+  getCategoryById,
   getIds,
 };
