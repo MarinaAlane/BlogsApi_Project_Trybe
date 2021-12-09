@@ -1,4 +1,4 @@
-const { BlogPosts, User } = require('../models');
+const { BlogPosts, User, Categories } = require('../models');
 
 const createPost = async (req, res) => {
   try {
@@ -15,7 +15,7 @@ const createPost = async (req, res) => {
 const getPosts = async (req, res) => {
   try {
     const data = await BlogPosts.findAll({
-      include: [{ model: User, as: 'user' }],
+      include: [{ model: User, as: 'user' }, { model: Categories, as: 'categories' }],
     });
     return res.status(200).json(data);
   } catch (error) {
