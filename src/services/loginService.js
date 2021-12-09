@@ -1,13 +1,39 @@
 const jwt = require('jsonwebtoken');
-const { HTTP_BAD_REQUEST_STATUS, HTTP_CREATED_STATUS } = require('../utils/statusCode');
+const { HTTP_BAD_REQUEST_STATUS, HTTP_OK_STATUS } = require('../utils/statusCode');
 const { emailIsValid } = require('../utils/checkEmail');
 const { User } = require('../models');
 
+const validateEmail = (email) => {
+  let result = {};
+  if (!email || !emailIsValid(email)) {
+    result = { erro: HTTP_BAD_REQUEST_STATUS, message: '"email" is required' };
+  }
+  if (email === '') {
+    result = { erro: HTTP_BAD_REQUEST_STATUS, message: '"email" is note allowed to be empty' };
+  }
+  return result;
+};
+
+const validatePassword = (password) => {
+  let result = {};
+  if (!password) {
+    result = { erro: HTTP_BAD_REQUEST_STATUS, message: '"password" is required' };
+  }
+  if (password === '') {
+    result = { erro: HTTP_BAD_REQUEST_STATUS, message: '"password" is note allowed to be empty' };
+  }
+  return result;
+};
+
 const login = async (userData) => {
   const { email, password } = userData;
-  if (!email || !emailIsValid(email) || !password) {
-    return { erro: HTTP_BAD_REQUEST_STATUS, message: 'invalid fields' };
-  }
+  
+  const validatedEmail = validateEmail(email);
+  const validatedPassword = validatePassword(password);
+
+  if (validatedEmail.erro) return validatedEmail;
+  if (validatedPassword.erro) return validatedPassword;
+
   const [user] = await User.findAll({ where: { email, password } });
   if (!user) {
     return { erro: HTTP_BAD_REQUEST_STATUS, message: 'invalid fields' };
@@ -16,7 +42,7 @@ const login = async (userData) => {
 
   const token = jwt.sign(payload, process.env.JWT_SECRET);
 
-  return { code: HTTP_CREATED_STATUS, token };
+  return { code: HTTP_OK_STATUS, token };
 };
 
 module.exports = {
