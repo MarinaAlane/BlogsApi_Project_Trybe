@@ -1,5 +1,5 @@
 const express = require('express');
-const { Home, User, Login, Categories } = require('./routes');
+const { Home, User, Login, Categories, Posts } = require('./routes');
 
 const app = express();
 require('dotenv').config();
@@ -12,3 +12,4 @@ app.use('/', Home);
 app.use('/user', User);
 app.use('/login', Login);
 app.use('/categories', Categories);
+app.use('/post', Posts);
