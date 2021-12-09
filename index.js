@@ -9,7 +9,7 @@ const PORT = 3000;
 const app = express();
 app.use(express.json());
 
-app.listen(PORT, () => console.log(`listening on the port  ${PORT}!`));
+app.listen(PORT, () => console.log(`listening on the port ${PORT}!`));
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {

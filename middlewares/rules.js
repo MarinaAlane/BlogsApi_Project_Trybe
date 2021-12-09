@@ -111,4 +111,3 @@ module.exports = {
   validateJWT,
   validatePostEntries,
 };
-// só para testar o avaliador
