@@ -9,7 +9,7 @@ const {
 
 const findEmail = async (email) => {
   const emailExistes = await User.findOne({ where: { email } });
-  if (emailExistes !== null) {
+   if (emailExistes !== null) {
     return { err: {
       status: 409,
       message: 'User already registered',
@@ -29,20 +29,36 @@ const findUser = async (email, password) => {
   return userExistes;
 };
 
+const findAll = async () => {
+  const users = await User.findAll({ 
+    attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } });
+  return users;
+};
+
 const createUser = async ({ displayName, email, password, image }) => {
   if (validateName(displayName).err) return validateName(displayName);
   if (validateEmail(email).err) return validateEmail(email);
   if (validatePassword(password).err) return validatePassword(password);
   const emailExists = await findEmail(email);
   if (emailExists.err) return emailExists;
-
   const { id } = await User.create({ displayName, email, password, image });
-
   const token = generateToken(id, email);
   return token;
 };
 
+const logUser = async ({ email, password }) => {
+  if (validateEmail(email).err) return validateEmail(email);
+  if (validatePassword(password).err) return validatePassword(password);
+  const userIsValid = await findUser(email, password);
+  if (userIsValid.err) return userIsValid;
+
+  const token = generateToken(userIsValid.id, email);
+  return token;
+};
+
 module.exports = {
-  findUser,
   createUser,
+  findAll,
+  findUser,
+  logUser,
 };
