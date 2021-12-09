@@ -119,7 +119,15 @@ const login = async ({ email, password }) => {
     return token;
 };
 
+// Requisito 3
+// Req. 03 - Será validado que é possível listar todos os usuários:
+const listAllUsers = async () => {
+    const allUsers = User.findAll();
+    return allUsers;
+};
+
 module.exports = {
     createNewUser,
     login,
+    listAllUsers,
 };
