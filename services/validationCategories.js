@@ -9,8 +9,8 @@ const createCategorie = async ({ name }, token) => {
 };
 
 const getAll = async (token) => {
-  tokenExists.validateToken(token);
-  const result = await Category.findAll();
+  tokenExists.validationToken(token);
+  const result = await Category.findAll({});
   return result;
 };
 
