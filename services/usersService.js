@@ -108,8 +108,8 @@ const checkLoginInfo = (email, password) => {
 const login = async ({ email, password }) => {
     if (checkLoginInfo(email, password)) return checkLoginInfo(email, password);
 
-    // Req. 02 - Se o login for com usuário inexistente o resultado retornado deverá ser um status http 400:
     const user = await User.findOne({ where: { email } });
+    // Req. 02 - Se o login for com usuário inexistente o resultado retornado deverá ser um status http 400:
     if (!user || user.password !== password) {
         return { err: { code: 400, message: { message: 'Invalid fields' } } };
     }
@@ -126,8 +126,19 @@ const listAllUsers = async () => {
     return allUsers;
 };
 
+// Requisito 4
+const listUserById = async (id) => {
+    const userById = await User.findByPk(id);
+    // Req. 04 - Se o usuário for inexistente o resultado retornado deverá ser um status http 404:
+    if (!userById) {
+        return { err: { code: 404, message: { message: 'User does not exist' } } };
+    }
+    return userById;
+};
+
 module.exports = {
     createNewUser,
     login,
     listAllUsers,
+    listUserById,
 };

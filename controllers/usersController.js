@@ -33,12 +33,23 @@ const login = async (req, res) => {
 // Requisito 3
 const listAllUsers = async (req, res) => {
     try {
-        const allUsers = await usersService.listAllUsers();
-        // if (allUsers.err) {
-        //     return res.status(allUsers.err.code).json(allUsers.err.message);
-        // }
         // Req. 03 - Ao listar usuários com sucesso o resultado retornado deverá ser um status http 200:
+        const allUsers = await usersService.listAllUsers();
         return res.status(200).json(allUsers);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong. Try again later' });
+    }
+};
+
+// Requisito 4
+const listUserById = async (req, res) => {
+    // Req. 04 - Ao listar um usuário com sucesso o resultado retornado deverá ser um status http 200:
+    try {
+        const userById = await usersService.listUserById(req.params.id);
+        if (userById.err) {
+            return res.status(userById.err.code).json(userById.err.message);
+        }
+        return res.status(200).json(userById);
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong. Try again later' });
     }
@@ -48,4 +59,5 @@ module.exports = {
     createNewUser,
     login,
     listAllUsers,
+    listUserById,
 };
