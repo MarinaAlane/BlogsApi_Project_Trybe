@@ -1,8 +1,8 @@
-const { Users } = require('../models');
+const { User } = require('../models');
 
 const createNewUser = async (body) => {
-  const { email } = body;  
-  const user = await Users.findOne({ where: { email } });  
+  const { email } = body;    
+  const user = await User.findOne({ where: { email } });  
 
   if (user) return { message: 'User already registered' };
   
@@ -10,7 +10,7 @@ const createNewUser = async (body) => {
 };
 
 const loginUser = async ({ email, password }) => {
-  const user = await Users.findOne({
+  const user = await User.findOne({
     where: {
       email,
     },
@@ -28,13 +28,13 @@ const loginUser = async ({ email, password }) => {
 };
 
 const getAllUsers = async () => {
-  const users = await Users.findAll();
+  const users = await User.findAll();
 
   return users;
 };
 
 const getUserById = async (id) => {
-  const user = await Users.findOne({ where: { id } });
+  const user = await User.findOne({ where: { id } });
   console.log(user);
   
   if (!user) return { message: 'User does not exist' };

@@ -12,8 +12,10 @@ const validateJWT = async (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }  
   const { data } = jwt.verify(token, JWT_SECRET); 
-  // Ver com o Lima ou os meninos
+  console.log(data, 'BBBBBBBBBBBBBBBBBBBBBBBB');
+  
   req.token = data.email;
+  req.user = data.id;  
 
   next();
   } catch (err) {

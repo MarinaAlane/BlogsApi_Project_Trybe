@@ -1,7 +1,7 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const userService = require('../services/User');
-const { Users } = require('../models');
+const { User } = require('../models');
 
 const { JWT_SECRET } = process.env;
 
@@ -15,13 +15,13 @@ const createNewUser = async (req, res) => {
     return res.status(409).json({ message: newUser.message });
   }
 
-  await Users.create(user);
+  const createdUser = await User.create(user);
   
   const jwtConfig = {
     expiresIn: '7d',
     algorithm: 'HS256',
   };    
-  const token = jwt.sign({ data: user }, JWT_SECRET, jwtConfig);  
+  const token = jwt.sign({ data: createdUser }, JWT_SECRET, jwtConfig);  
 
   return res.status(201).json({ token });  
 } catch (e) {
@@ -35,8 +35,7 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
   const user = { email, password };
 
-  const doesUserExists = await userService.loginUser(user);
-  console.log(doesUserExists);  
+  const doesUserExists = await userService.loginUser(user);  
   
   if (doesUserExists.message) {
     return res.status(400).json({ message: doesUserExists.message });
@@ -46,7 +45,7 @@ const loginUser = async (req, res) => {
     expiresIn: '7d',
     algorithm: 'HS256',
   };    
-  const token = jwt.sign({ data: user }, JWT_SECRET, jwtConfig);
+  const token = jwt.sign({ data: doesUserExists }, JWT_SECRET, jwtConfig);
   return res.status(200).json({ token });
 } catch (e) {
   console.log(e);
