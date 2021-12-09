@@ -122,13 +122,13 @@ const login = async ({ email, password }) => {
 // Requisito 3
 // Req. 03 - Será validado que é possível listar todos os usuários:
 const listAllUsers = async () => {
-    const allUsers = User.findAll();
+    const allUsers = User.findAll({ raw: true });
     return allUsers;
 };
 
 // Requisito 4
 const listUserById = async (id) => {
-    const userById = await User.findByPk(id);
+    const userById = await User.findByPk({ id, raw: true });
     // Req. 04 - Se o usuário for inexistente o resultado retornado deverá ser um status http 404:
     if (!userById) {
         return { err: { code: 404, message: { message: 'User does not exist' } } };
