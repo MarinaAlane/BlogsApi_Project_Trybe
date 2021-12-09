@@ -22,7 +22,8 @@
     "debug": "nodemon index.js",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
     "createuser": "npx sequelize model:create --name Users --attributes displayName:string,password:string,email:string,image:string",
-    "createcategories": "npx sequelize model:create --name Categories --attributes name:string"
+    "createcategories": "npx sequelize model:create --name Categories --attributes name:string",
+    "createblog": "npx sequelize model:create --name BlogPosts --attributes title:string,content:string,userId:integer" 
   },
   "devDependencies": {
     "eslint": "6.8.0",
