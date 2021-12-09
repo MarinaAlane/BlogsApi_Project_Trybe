@@ -73,8 +73,6 @@ const validateJWT = (req, res, next) => {
   const token = req.headers.authorization;
   const { JWT_SECRET } = process.env;
 
-  console.log(token);
-
   if (!token) {
     return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Token not found' });
   }
@@ -84,7 +82,6 @@ const validateJWT = (req, res, next) => {
     req.user = email;
     next();
   } catch (err) {
-    console.log(err);
     return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Expired or invalid token' });
   }
 };

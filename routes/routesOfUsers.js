@@ -10,5 +10,6 @@ const {
 
 router.post('/', validateName, validateEmail, validatePassword, User.create);
 router.get('/', validateJWT, User.getAll);
+router.get('/:id', validateJWT, User.getByID);
 
 module.exports = router;
