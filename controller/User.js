@@ -28,8 +28,19 @@ async function createUser(req, res) {
   }
 }
 
+async function allUsers(req, res) {
+  try {
+    const users = await User.findAll();
+
+    res.status(200).json(users);
+  } catch (e) {
+    console.log(e.message);
+  }
+}
+
 module.exports = {
   createUser,
+  allUsers,
 };
 
 /*

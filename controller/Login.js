@@ -4,7 +4,7 @@ const { MESSAGE_ERROR8 } = require('../validations/messageError');
 
 const jwtConfig = { expiresIn: '7d', algorithm: 'HS256' };
 
-async function Login(req, res) {
+async function login(req, res) {
   const { email, password } = req.body;
 
   try {
@@ -19,7 +19,9 @@ async function Login(req, res) {
   }
 }
 
-module.exports = Login;
+module.exports = {
+  login,
+};
 
 /*
 const router = require('express').Router()
