@@ -1,5 +1,5 @@
 const { validateTitle, validateCategory, validateContent } = require('../middlewares/validatePost');
-const { BlogPost, Category } = require('../models');
+const { BlogPost, Category, User } = require('../models');
 
 const validaData = (title, content, categoryIds) => {
   const nM = validateTitle(title);
@@ -19,6 +19,20 @@ const resultData = (title, content, categoryIds) => {
   const result = searchForError(title, content, categoryIds);
   if (result.length > 0) return result[0];
   return true;
+};
+
+const allBlogsPost = async () => {
+  const blogsPost = await BlogPost.findAll({
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: { exclude: ['password'] },
+      },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return blogsPost;
 };
 
 const findCategory = async (category) => {
@@ -47,4 +61,5 @@ const createPost = async (title, content, categoryIds, userId) => {
 module.exports = {
   resultData,
   createPost,
+  allBlogsPost,
 };

@@ -20,6 +20,18 @@ const addPost = async (req, res) => {
   }
 };
 
+const blogsPostList = async (req, res) => {
+  try {
+    const result = await postService.allBlogsPost();
+
+    return res.status(200).json(result);
+  } catch (e) {
+    console.log(e.message);
+    return res.status(500).json({ message: 'Something went wrong' });
+  }
+};
+
 module.exports = {
   addPost,
+  blogsPostList,
 };
