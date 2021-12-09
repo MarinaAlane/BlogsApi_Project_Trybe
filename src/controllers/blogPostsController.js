@@ -3,7 +3,7 @@ const servicesBlogPost = require('../services/blogPostsServices');
 
 const createBlogPost = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const post = await servicesBlogPost.createBlogPost(req.body);
     const { id, userId, title, content } = post;
      res.status(201).json({ id, userId, title, content });
@@ -23,7 +23,7 @@ const getAllPosts = async (_req, res) => {
     return res.status(200).json(Posts);
 };
 
-const findPostById = async (req, res) => {
+const findPostId = async (req, res) => {
     const { id } = req.params;
     const post = await servicesBlogPost.findPostById(id);
     if (!post) {
@@ -32,4 +32,11 @@ const findPostById = async (req, res) => {
     return res.status(200).json(post);
 };
 
-module.exports = { createBlogPost, getAllPosts, findPostById };
+const updatePost = async (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  const updatedPost = await servicesBlogPost.updatePost(id, title, content);
+  return res.status(200).json(updatedPost);
+};
+
+module.exports = { createBlogPost, getAllPosts, findPostId, updatePost };

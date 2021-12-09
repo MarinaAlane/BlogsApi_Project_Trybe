@@ -1,4 +1,4 @@
-const { Users, Categories } = require('../models');
+const { Users, Categories, BlogPosts } = require('../models');
 const { verifyJWT } = require('../auth/jwt');
 
 const validateEmail = (req, res, next) => {
@@ -92,28 +92,23 @@ const tokenExists = async (req, res, next) => {
 const tokenValid = async (req, res, next) => {
   const { authorization: token } = req.headers;
   try {
-     verifyJWT(token);
+     const infoUser = verifyJWT(token);
+     req.user = infoUser;
   } catch (e) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
   next();
 };
 
-//  const tokenValid = async (req, res, next) => {
-//    const { authorization: token } = req.headers;
-//    console.log(`${token} Oiii !`);
-//    if (!token) {
-//      return res.status(401).json({ message: 'Token not found' });
-//    }
-//    try { 
-//       verifyJWT(token);
-//   } catch (error) { 
-//     if (error) {
-//       return res.status(401).json({ message: 'Expired or invalid token' });
-//     }
-//   } 
-//    next(); 
-// };
+const validateUser = async (req, res, next) => {
+  const { id } = req.params;
+  const { payload: { id: { userId } } } = req.user;
+  const user = await BlogPosts.findOne({ where: { id } });
+  if (user.userId !== userId) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+  next();
+};
 
 const checkTitle = async (req, res, next) => {
   const { title } = req.body;
@@ -160,6 +155,14 @@ const checkExistanceUser = async (req, res, next) => {
   next();
 };
 
+const notUpdateCategory = async (req, res, next) => {
+  const { categoryIds } = req.body;
+  if (categoryIds) {
+    return res.status(400).json({ message: 'Categories cannot be edited' });
+  }
+  next();
+};
+
 module.exports = { validateEmail, 
   checkUniqueUser,
 validPassword,
@@ -177,4 +180,6 @@ checkTitle,
 checkContent,
 checkCategoryIds,
 validateCategories,
+notUpdateCategory,
+validateUser,
  };
