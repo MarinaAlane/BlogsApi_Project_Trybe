@@ -6,6 +6,7 @@ const SECRET = process.env.JWT_SECRET;
 
 const errorMessage = {
   blankEmail: '"email" is required',
+  blankName: '"name" is required',
   blankPassword: '"password" is required',
   blankToken: 'Token not found',
   displayName: '"displayName" length must be at least 8 characters long',
@@ -166,9 +167,21 @@ const newUserValidation = async (req, _res, next) => {
   next();
 };
 
+const newCategoryValidation = (req, _res, next) => {
+  const { name } = req.body;
+  console.log(name);
+  if (!name) {
+    const error = new Error(errorMessage.blankName);
+    error.status = errorStatus.badRequest;
+    throw error;
+  }
+  next();
+};
+
 module.exports = {
   newUserValidation,
   tokenValidation,
   loginValidation,
   userExists,
+  newCategoryValidation,
 };
