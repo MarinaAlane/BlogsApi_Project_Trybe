@@ -17,4 +17,6 @@ checkUniqueUser,
  router.get('/:id', tokenExists, tokenValid, checkExistanceUser, userController.getUser);
  router.get('/', tokenExists, tokenValid, userController.getUsers);
 
+ router.delete('/me', tokenExists, tokenValid, userController.userDelete);
+
 module.exports = router;

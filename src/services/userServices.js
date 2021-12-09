@@ -8,6 +8,11 @@ const userCreate = async ({ displayName, email, password, image }) => {
  return token;
 };
 
+const userDelete = async (id) => {
+  const deletedUser = await Users.destroy({ where: { id } });
+  return deletedUser;
+};
+
 const getUsers = async () => {
  const UsersAll = await Users.findAll();
   return UsersAll;
@@ -19,4 +24,4 @@ const getUser = async (id) => {
   });
   return user;
 };
-module.exports = { userCreate, getUsers, getUser };
+module.exports = { userCreate, getUsers, getUser, userDelete };

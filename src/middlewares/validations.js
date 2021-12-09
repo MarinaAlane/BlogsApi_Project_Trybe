@@ -122,7 +122,6 @@ const validateCategories = async (categoryIds) => {
   const categories = await Categories.findAll();
   const categoriesIdArray = categories.map((category) => category.id);
   return categoryIds.every((ids) => categoriesIdArray.includes(ids));
- // console.log(categoriesArray);
 };
 
 const checkContent = async (req, res, next) => {
@@ -148,7 +147,7 @@ const findByEmail = await Users.findOne({ where: { email } });
 
 const checkExistanceUser = async (req, res, next) => {
   const { id } = req.params;
-  const user = await Users.findOne({ where: { id: Number(id) } });
+  const user = await Users.findOne({ where: { id } });
   if (!user) {
     return res.status(404).json({ message: 'User does not exist' });
   }
