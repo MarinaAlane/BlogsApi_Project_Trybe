@@ -57,3 +57,5 @@ app.put('/post/:id', [
   Validations.validatePostTitle,
   BlogPosts.updatePost,
 ]);
+
+app.delete('/post/:id', Validations.checkToken, BlogPosts.deletePost);
