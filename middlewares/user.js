@@ -34,7 +34,7 @@ const getUserById = async (req, res) => {
   const { id } = req.params;
   try {
     const user = await service.getUserById(id);
-    return user ? res.status(ok).json(user) : res.status(notFound).json(nonexistent);
+    return user ? res.status(ok).json(user) : res.status(notFound).json(nonexistent('User'));
   } catch (error) {
     return res.status(notFound).json(error.message);
   }
