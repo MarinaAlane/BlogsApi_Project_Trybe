@@ -1,4 +1,4 @@
-const { Categories } = require('../models');
+const { Category } = require('../models');
 
 const createCategory = async (name) => {
   if (!name) {
@@ -9,7 +9,7 @@ const createCategory = async (name) => {
 };
 
 const getCategories = async () => {
-  const categories = await Categories.findAll();
+  const categories = await Category.findAll();  
 
   return categories;
 };
