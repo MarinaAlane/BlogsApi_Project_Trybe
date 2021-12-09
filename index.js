@@ -3,12 +3,12 @@ require('dotenv').config();
 const express = require('express');
 
 // routes imports
-const Users = require('./routes/userRoutes');
-const Categories = require('./routes/categoryRoutes');
-const Post = require('./routes/postRoutes');
+const Users = require('./src/routes/userRoutes');
+const Categories = require('./src/routes/categoryRoutes');
+const Post = require('./src/routes/postRoutes');
 
 // MW imports
-const errorMW = require('./middlewares/error');
+const errorMW = require('./src/middlewares/error');
 
 // express use
 const app = express();
