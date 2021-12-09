@@ -48,8 +48,23 @@ const getUserById = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const { id: currentUser } = req.currentUser.userWithoutPassword.dataValues;
+    await User.destroy({
+      where: { id: currentUser },
+    });
+
+    return res.status(204).json();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Aconteceu um erro ao deletar o usuário' });
+  }
+};
+
 module.exports = {
   createUser,
   getUsers,
   getUserById,
+  deleteUser,
 };
