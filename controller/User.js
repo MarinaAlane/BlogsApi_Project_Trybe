@@ -1,15 +1,30 @@
+const jwt = require('jsonwebtoken');
 const { User } = require('../models');
+const { MESSAGE_ERROR7 } = require('../validations/messageError');
+
+const jwtConfig = { expiresIn: '7d', algorithm: 'HS256' };
 
 // Este endpoint usa o método create do Sequelize para salvar um usuário no banco.
 async function createUser(req, res) {
   try {
     const { displayName, email, password, image } = req.body;
-    const newUser = await User.create({ displayName, email, password, image });
+    const users = await User.findAll({ where: { displayName } });
+    
+    if (users.length >= 1) return res.status(409).json({ message: MESSAGE_ERROR7 });
+  
+    await User.create({ displayName, email, password, image });
+    console.log(displayName);
+  
+    const token = jwt.sign(
+      {
+        data: { displayName, email, password, image } },
+        process.env.JWT_SECRET,
+        jwtConfig,
+      );
 
-    return res.status(201).json(newUser);
+    return res.status(201).json({ token });
   } catch (e) {
-    console.log(e.message);
-    res.status(500).json({ message: 'Algo deu errado' });
+    console.log(e);
   }
 }
 

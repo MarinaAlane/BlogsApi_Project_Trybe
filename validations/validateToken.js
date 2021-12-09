@@ -1,6 +1,6 @@
 // validateJWT.js
 const jwt = require('jsonwebtoken');
-const User = require('../model/User');
+const User = require('../models');
 const { MESSAGE_ERROR7 } = require('./messageError');
 
 const segredo = process.env.JWT_SECRET;
