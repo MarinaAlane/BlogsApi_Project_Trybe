@@ -2,8 +2,8 @@ const utils = require('../utils/validationCategories');
 const tokenExists = require('../utils/validationToken');
 const { Category } = require('../models');
 
-const createCategorie = async (name, token) => {
-  tokenExists.validateToken(token);
+const createCategorie = async ({ name }, token) => {
+  tokenExists.validationToken(token);
   const result = await utils.validationCategories(name);
   return result;
 };

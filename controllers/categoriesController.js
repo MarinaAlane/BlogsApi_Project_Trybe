@@ -2,6 +2,7 @@ const service = require('../services/validationCategories');
 
 const createCategorie = async (req, res) => {
   const result = await service.createCategorie(req.body, req.headers.authorization);
+  console.log(result);
   return res.status(201).json(result);
 };
 

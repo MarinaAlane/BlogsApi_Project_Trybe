@@ -3,7 +3,7 @@ const { Category } = require('../models');
 const err = (statusCode) => ({ statusCode });
 
 const validationName = (name) => {
-  if (!name || name !== 'string') throw err({ statusCode: 400, message: '"name" is required' });
+  if (!name) throw err({ statusCode: 400, message: '"name" is required' });
 };
 
 const insertCategorie = async (name) => {
@@ -11,9 +11,10 @@ const insertCategorie = async (name) => {
   return result;
 };
 
-const validationCategories = (name) => {
+const validationCategories = async (name) => {
   validationName(name);
-  insertCategorie(name);
+  const result = await insertCategorie(name);
+  return result;
 };
 
 module.exports = {
