@@ -18,6 +18,12 @@ const createBlogPost = async (req, res) => {
     // }
 };
 
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  await servicesBlogPost.deletePost(id);
+  return res.status(204).json();
+};
+
 const getAllPosts = async (_req, res) => {
     const Posts = await servicesBlogPost.getAllPosts();
     return res.status(200).json(Posts);
@@ -39,4 +45,4 @@ const updatePost = async (req, res) => {
   return res.status(200).json(updatedPost);
 };
 
-module.exports = { createBlogPost, getAllPosts, findPostId, updatePost };
+module.exports = { createBlogPost, getAllPosts, findPostId, updatePost, deletePost };

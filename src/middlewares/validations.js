@@ -163,6 +163,15 @@ const notUpdateCategory = async (req, res, next) => {
   next();
 };
 
+const doesPostExists = async (req, res, next) => { 
+  const { id } = req.params;
+  const post = await BlogPosts.findOne({ where: { id } });
+  if (!post) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+  next();
+};
+
 module.exports = { validateEmail, 
   checkUniqueUser,
 validPassword,
@@ -182,4 +191,5 @@ checkCategoryIds,
 validateCategories,
 notUpdateCategory,
 validateUser,
+doesPostExists,
  };
