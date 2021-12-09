@@ -37,9 +37,20 @@ const update = async ({ id, title, content, userId }) => {
   return { title, content, userId, categories };
 };
 
+const deleta = async (id) => {
+  const post = await BlogPosts.findOne({ where: { id } });
+  // Faço a validação que somente o usuario que criou meu post, pode editar o title e o content.
+  if (!post) return null;
+
+  await BlogPosts.destroy({ where: { id } });
+ 
+  return post;
+};
+
 module.exports = {
   create,
   getAllPost,
   findByIdPost,
   update,
+  deleta,
 };

@@ -12,5 +12,6 @@ router.post('/', validateToken, validatePost, validateExistCategories, controlle
 router.get('/', validateToken, controller.getAllPost);
 router.get('/:id', validateToken, controller.findByIdPost);
 router.put('/:id', validateToken, validatePostUpdate, controller.update);
+router.delete('/:id', validateToken, controller.deleta);
 
 module.exports = router;
