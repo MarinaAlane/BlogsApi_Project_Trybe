@@ -2,6 +2,7 @@ const service = require('../services/users');
  
 const getAll = async (req, res) => {
   const result = await service.getAll(req.headers.authorization);
+  console.log('oii 2');
   return res.status(200).json(result);
 };
 

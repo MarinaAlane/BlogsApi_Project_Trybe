@@ -10,7 +10,9 @@ const createPost = async (token, body) => {
 };
 
 const getAll = async (token) => {
+  console.log('oii 3');
   tokenExists(token);
+  console.log('oiii');
   const result = await 
   BlogPost.findAll({ include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } },
   { model: Category, as: 'categories', through: { attributes: [] } }] });
