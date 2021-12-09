@@ -49,7 +49,7 @@ const getAllPosts = async (req, res) => {
     return res.status(200).json(post);
 };
 
-const updatePostById = async (req, res) => {
+/* const updatePostById = async (req, res) => {
     const { id } = req.params;
 
     await BlogPost.update(
@@ -82,12 +82,10 @@ const deletePost = async (req, res) => {
   }
 
   return res.status(204);
-};
+}; */
 
 module.exports = {
   createNewPost,
   getAllPosts,
   getPostById,
-  updatePostById,
-  deletePost,
 };

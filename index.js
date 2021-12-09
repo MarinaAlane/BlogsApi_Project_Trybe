@@ -57,8 +57,8 @@ app.get('/post', validateToken, blogPostController.getAllPosts);
 
 app.get('/post/:id', validateToken, blogPostController.getPostById);
 
-app.put('/post/:id', validateToken, blogPostController.updatePostById);
+// app.put('/post/:id', validateToken, blogPostController.updatePostById);
 
-app.delete('/post/:id', blogPostController.deletePost);
+// app.delete('/post/:id', blogPostController.deletePost);
 
 app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}!`));
