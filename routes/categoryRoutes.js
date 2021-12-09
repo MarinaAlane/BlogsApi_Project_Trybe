@@ -5,5 +5,6 @@ const { tokenValidation, newCategoryValidation } = require('../middlewares/valid
 
 router.post('/categories', rescue(tokenValidation),
   rescue(newCategoryValidation), rescue(controller.createCategory));
+router.get('/categories', rescue(tokenValidation), rescue(controller.getAllCategories));
 
 module.exports = router;
