@@ -29,9 +29,11 @@ const passwordValidation = (password) => {
   if (password === '') {
     throw error('notPassEmptyAllowed');
   }
+
   if (!password) {
     throw error('passwordRequired');
   }
+
   if (password.length !== 6) {
     throw error('invalidPassword');
   }
