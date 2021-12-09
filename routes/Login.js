@@ -5,6 +5,6 @@ const {
   validatePassword,
 } = require('../middlewares/rules');
 
-router.post('/', validateEmail, validatePassword, Login.authenticate);
+router.post('/', validateEmail, validatePassword, Login.authentication);
 
 module.exports = router;
