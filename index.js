@@ -19,6 +19,8 @@ app.use('/login', loginRoutes);
 app.use('/categories', categoryRoutes);
 app.use('/post', postRoutes);
 
+app.use((_error, _req, res, _next) => res.status(500).json({ message: 'Something went wrong' }));
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
