@@ -5,6 +5,7 @@ const express = require('express');
 // routes imports
 const Users = require('./routes/userRoutes');
 const Categories = require('./routes/categoryRoutes');
+const Post = require('./routes/postRoutes');
 
 // MW imports
 const errorMW = require('./middlewares/error');
@@ -16,6 +17,7 @@ app.use(express.json());
 // routes use
 app.use(Users);
 app.use(Categories);
+app.use(Post);
 
 // middlewares
 app.use(errorMW);
