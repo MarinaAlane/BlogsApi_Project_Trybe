@@ -37,8 +37,22 @@ const getPostsById = async (req, res) => {
   }
 };
 
+const deletePosts = async (req, res) => {
+  try {
+    await BlogPosts.destroy({
+      where: { id: req.params.id },
+    });
+
+    return res.status(204).json();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Aconteceu um erro ao deletar o post' });
+  }
+};
+
 module.exports = {
   createPost,
   getPosts,
   getPostsById,
+  deletePosts,
 };
