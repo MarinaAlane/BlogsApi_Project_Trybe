@@ -84,14 +84,6 @@ const createNewUser = async ({ email, password, displayName, image }) => {
 
 // Requisito 2
 const checkLoginInfo = (email, password) => {
-    //  Req. 02 - Se o login não tiver o campo "email" o resultado retornado deverá ser um status http 400:
-    if (!email) {
-        return { err: { code: 400, message: { message: '"email" is required' } } };
-    }
-    // Req. 02 - Se o login não tiver o campo "password" o resultado retornado deverá ser um status http 400:
-    if (!password) {
-        return { err: { code: 400, message: { message: '"password" is required' } } };
-    }
     // Req. 02 - Se o login tiver o campo "email" em branco o resultado retornado deverá ser um status http 400:
     if (email === '') {
         return { err: { code: 400, message: { message: '"email" is not allowed to be empty' } } };
@@ -101,6 +93,14 @@ const checkLoginInfo = (email, password) => {
         return {
             err: { code: 400, message: { message: '"password" is not allowed to be empty' } },
         };
+    }
+    //  Req. 02 - Se o login não tiver o campo "email" o resultado retornado deverá ser um status http 400:
+    if (!email) {
+        return { err: { code: 400, message: { message: '"email" is required' } } };
+    }
+    // Req. 02 - Se o login não tiver o campo "password" o resultado retornado deverá ser um status http 400:
+    if (!password) {
+        return { err: { code: 400, message: { message: '"password" is required' } } };
     }
 };
 
