@@ -1,5 +1,5 @@
 const User = (sequelize, DataTypes) => {
-  const UserType = sequelize.define('User', {
+  const UserType = sequelize.define('user', {
     displayName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,

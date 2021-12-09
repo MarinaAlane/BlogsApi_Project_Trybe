@@ -1,10 +1,10 @@
 const Category = (sequelize, DataTypes) => {
-  const categoryType = sequelize.define('Categories', {
+  const categoryType = sequelize.define('categories', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: DataTypes.STRING,
   }, {
     timestamps: false,
-    tableName: 'Categories',
+    tableName: 'categories',
   });
   return categoryType;
 };

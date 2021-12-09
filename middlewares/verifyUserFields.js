@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { user } = require('../models');
 
 const displayNameField = async (req, res, next) => {
   const { displayName } = req.body;
@@ -49,7 +49,7 @@ const passwordField = async (req, res, next) => {
 const userExists = async (req, res, next) => {
   const { email } = req.body;
 
-  const getAllEmails = await User.findAll();
+  const getAllEmails = await user.findAll();
 
   const emailFinded = getAllEmails.some((a) => a.dataValues.email === email);
   if (emailFinded) {

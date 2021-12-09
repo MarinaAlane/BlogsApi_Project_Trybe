@@ -1,9 +1,9 @@
-const { User } = require('../models');
+const { user } = require('../models');
 
 const findUser = async (req, res, next) => {
   const { id } = req.params;
 
-  const verifyUser = await User.findByPk(id);
+  const verifyUser = await user.findByPk(id);
 
   if (verifyUser === null) {
     return res.status(404).json({

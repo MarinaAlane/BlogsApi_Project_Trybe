@@ -14,7 +14,9 @@ const {
 
 const router = express.Router();
 
-router.get('/', listAllPosts);
+router.get('/',
+validToken,
+listAllPosts);
 
 router.post('/',
 validatefields,

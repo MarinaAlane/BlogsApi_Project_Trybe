@@ -26,7 +26,7 @@ const loginUser = async (req, res) => {
 };
 
 const listAllUsers = async (_req, res) => {
-  const getUsers = await Model.User.findAll();
+  const getUsers = await Model.user.findAll();
 
   return res.status(200).json(getUsers);
 };
@@ -34,7 +34,7 @@ const listAllUsers = async (_req, res) => {
 const listUserById = async (req, res) => {
   const { id } = req.params;
 
-  const getUserId = await Model.User.findByPk(id);
+  const getUserId = await Model.user.findByPk(id);
 
   res.status(200).json(getUserId);
 };
