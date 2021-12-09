@@ -31,8 +31,17 @@ const listAllUsers = async (_req, res) => {
   return res.status(200).json(getUsers);
 };
 
+const listUserById = async (req, res) => {
+  const { id } = req.params;
+
+  const getUserId = await Model.User.findByPk(id);
+
+  res.status(200).json(getUserId);
+};
+
 module.exports = {
   createUser,
   loginUser,
   listAllUsers,
+  listUserById,
 };
