@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 // Requisito 1
-module.exports = (req, res, next) => {
+const usersValidations = (req, res, next) => {
     const { error } = Joi.object({
         displayName: Joi.string().min(8).required(),
         email: Joi.string().email().required(),
@@ -14,4 +14,8 @@ module.exports = (req, res, next) => {
     }
 
     next();
+};
+
+module.exports = {
+    usersValidations,
 };

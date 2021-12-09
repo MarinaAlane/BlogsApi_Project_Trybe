@@ -34,9 +34,9 @@ const login = async (req, res) => {
 const listAllUsers = async (req, res) => {
     try {
         const allUsers = await usersService.listAllUsers();
-        if (allUsers.err) {
-            return res.status(allUsers.err.code).json(allUsers.err.message);
-        }
+        // if (allUsers.err) {
+        //     return res.status(allUsers.err.code).json(allUsers.err.message);
+        // }
         // Req. 03 - Ao listar usuários com sucesso o resultado retornado deverá ser um status http 200:
         return res.status(200).json(allUsers);
     } catch (error) {
