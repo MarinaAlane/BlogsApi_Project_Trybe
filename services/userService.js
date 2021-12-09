@@ -1,19 +1,10 @@
-const jwt = require('jsonwebtoken');
 const { User } = require('../models');
-
-require('dotenv').config();
-
-const secret = process.env.JWT_SECRET;
-
-const jwtConfiguration = {
-  expiresIn: '15m',
-  algorithm: 'HS256',
-};
 
 const {
   validateEmail,
   validateName,
   validatePassword,
+  generateToken,
 } = require('../middleware/validationMiddlewares');
 
 const findEmail = async (email) => {
@@ -27,6 +18,17 @@ const findEmail = async (email) => {
   return false;
 };
 
+const findUser = async (email, password) => {
+  const userExistes = await User.findOne({ where: { email, password } });
+  if (userExistes === null) {
+    return { err: {
+      status: 400,
+      message: 'Invalid fields',
+    } };
+  }
+  return userExistes;
+};
+
 const createUser = async ({ displayName, email, password, image }) => {
   if (validateName(displayName).err) return validateName(displayName);
   if (validateEmail(email).err) return validateEmail(email);
@@ -36,11 +38,11 @@ const createUser = async ({ displayName, email, password, image }) => {
 
   const { id } = await User.create({ displayName, email, password, image });
 
-  const payload = { id, displayName, email };
-  const token = jwt.sign({ data: payload }, secret, jwtConfiguration);
+  const token = generateToken(id, email);
   return token;
 };
 
 module.exports = {
+  findUser,
   createUser,
 };

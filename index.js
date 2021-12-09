@@ -13,6 +13,7 @@ app.get('/', (request, response) => {
 });
 
 const userRouter = require('./routes/userRouter');
+const loginRouter = require('./routes/loginRouter'); 
 
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
