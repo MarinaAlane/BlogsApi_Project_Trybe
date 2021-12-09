@@ -39,7 +39,8 @@ const checkPassword = (password) => {
     }
 };
 
-const verifyUserInfo = async (email, password, displayName) => {
+// Requisito 1
+const checkUserInfo = async (email, password, displayName) => {
     // Req. 01 - Se o usuário não tiver campo "email" o resultado retornado deverá ser um status http 400:
     if (!email) {
         return { err: { code: 400, message: { message: '"email" is required' } } };
@@ -58,9 +59,11 @@ const verifyUserInfo = async (email, password, displayName) => {
     }
 };
 
+// Requisito 1
 const createNewUser = async ({ email, password, displayName, image }) => {
-    if (await verifyUserInfo(email, password, displayName)) {
-        return verifyUserInfo(email, password, displayName);
+    // Req.01 - Será validado que é possível cadastrar um usuário com sucesso após as validações:
+    if (await checkUserInfo(email, password, displayName)) {
+        return checkUserInfo(email, password, displayName);
     }
     if (checkDisplayName(displayName)) return checkDisplayName(displayName);
     if (checkPassword(password)) return checkPassword(password);
@@ -73,9 +76,50 @@ const createNewUser = async ({ email, password, displayName, image }) => {
         };
     }
 
+    // Req. 01 - Caso esteja tudo certo com o login, a resposta deve ser um token JWT:
     const user = await User.create({ email, password, displayName, image });
     const token = generateToken(user, email);
     return token;
 };
 
-module.exports = { createNewUser };
+// Requisito 2
+const checkLoginInfo = (email, password) => {
+    //  Req. 02 - Se o login não tiver o campo "email" o resultado retornado deverá ser um status http 400:
+    if (!email) {
+        return { err: { code: 400, message: { message: '"email" is required' } } };
+    }
+    // Req. 02 - Se o login não tiver o campo "password" o resultado retornado deverá ser um status http 400:
+    if (!password) {
+        return { err: { code: 400, message: { message: '"password" is required' } } };
+    }
+    // Req. 02 - Se o login tiver o campo "email" em branco o resultado retornado deverá ser um status http 400:
+    if (email === '') {
+        return { err: { code: 400, message: { message: '"email" is not allowed to be empty' } } };
+    }
+    // Req. 02 - Se o login tiver o campo "password" em branco o resultado retornado deverá ser um status http 400:
+    if (password === '') {
+        return {
+            err: { code: 400, message: { message: '"password" is not allowed to be empty' } },
+        };
+    }
+};
+
+// Requisito 2
+const login = async ({ email, password }) => {
+    if (checkLoginInfo(email, password)) return checkLoginInfo(email, password);
+
+    // Req. 02 - Se o login for com usuário inexistente o resultado retornado deverá ser um status http 400:
+    const user = await User.findOne({ where: { email } });
+    if (!user || user.password !== password) {
+        return { err: { code: 400, message: { message: 'Invalid fields' } } };
+    }
+
+    // Req. 02 - Caso esteja tudo certo com o login, a resposta deve ser um token JWT:
+    const token = generateToken(user, email);
+    return token;
+};
+
+module.exports = {
+    createNewUser,
+    login,
+};
