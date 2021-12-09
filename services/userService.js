@@ -9,7 +9,7 @@ const {
 
 const findEmail = async (email) => {
   const emailExistes = await User.findOne({ where: { email } });
-   if (emailExistes !== null) {
+  if (emailExistes !== null) {
     return { err: {
       status: 409,
       message: 'User already registered',
@@ -20,7 +20,7 @@ const findEmail = async (email) => {
 
 const findUser = async (email, password) => {
   const userExistes = await User.findOne({ where: { email, password } });
-  if (userExistes === null) {
+   if (userExistes === null) {
     return { err: {
       status: 400,
       message: 'Invalid fields',
@@ -31,7 +31,7 @@ const findUser = async (email, password) => {
 
 const findAll = async () => {
   const users = await User.findAll({ 
-    attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } });
+    attributes: { exclude: ['password'] } });
   return users;
 };
 
@@ -41,7 +41,9 @@ const createUser = async ({ displayName, email, password, image }) => {
   if (validatePassword(password).err) return validatePassword(password);
   const emailExists = await findEmail(email);
   if (emailExists.err) return emailExists;
+
   const { id } = await User.create({ displayName, email, password, image });
+
   const token = generateToken(id, email);
   return token;
 };
@@ -56,9 +58,24 @@ const logUser = async ({ email, password }) => {
   return token;
 };
 
+const findById = async ({ id }) => {
+  const user = await User.findByPk(id, { 
+    attributes: { exclude: ['password'] } });
+  if (user === null) { 
+    return {
+      err: {
+        status: 404,
+        message: 'User does not exist',
+      },
+    };
+  }
+  return user;
+};
+
 module.exports = {
   createUser,
   findAll,
   findUser,
   logUser,
+  findById,
 };
