@@ -37,3 +37,5 @@ app.get('/user', [
 app.get('/user/:id', Validations.checkToken, Users.getUserById);
 
 app.post('/categories', Validations.checkToken, Categories.createCategory);
+
+app.get('/categories', Validations.checkToken, Categories.getCategories);
