@@ -1,5 +1,7 @@
 const router = require('express').Router();
+const validateLogin = require('../validations/validateLogin');
+const Login = require('../controller/Login');
 
-router.post('/', (_req, res) => res.send('página login'));
+router.post('/', validateLogin, Login);
 
 module.exports = router;

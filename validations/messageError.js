@@ -5,7 +5,9 @@ const MESSAGE_ERROR4 = '"email" is required';
 const MESSAGE_ERROR5 = '"displayName" is required';
 const MESSAGE_ERROR6 = '"displayName" length must be at least 8 characters long';
 const MESSAGE_ERROR7 = 'User already registered';
-const MESSAGE_ERROR8 = 'Only admins can register new admins';
+const MESSAGE_ERROR8 = 'Invalid fields';
+const MESSAGE_ERROR9 = '"password" is not allowed to be empty';
+const MESSAGE_ERROR10 = '"email" is not allowed to be empty';
 
 module.exports = {
   MESSAGE_ERROR1,
@@ -16,4 +18,6 @@ module.exports = {
   MESSAGE_ERROR6,
   MESSAGE_ERROR7,
   MESSAGE_ERROR8,
+  MESSAGE_ERROR9,
+  MESSAGE_ERROR10,
 };
