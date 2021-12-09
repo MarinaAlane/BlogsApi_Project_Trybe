@@ -9,7 +9,7 @@ const validateEmail = (email) => {
     result = { erro: HTTP_BAD_REQUEST_STATUS, message: '"email" is required' };
   }
   if (email === '') {
-    result = { erro: HTTP_BAD_REQUEST_STATUS, message: '"email" is note allowed to be empty' };
+    result = { erro: HTTP_BAD_REQUEST_STATUS, message: '"email" is not allowed to be empty' };
   }
   return result;
 };
@@ -20,7 +20,7 @@ const validatePassword = (password) => {
     result = { erro: HTTP_BAD_REQUEST_STATUS, message: '"password" is required' };
   }
   if (password === '') {
-    result = { erro: HTTP_BAD_REQUEST_STATUS, message: '"password" is note allowed to be empty' };
+    result = { erro: HTTP_BAD_REQUEST_STATUS, message: '"password" is not allowed to be empty' };
   }
   return result;
 };
@@ -36,7 +36,7 @@ const login = async (userData) => {
 
   const [user] = await User.findAll({ where: { email, password } });
   if (!user) {
-    return { erro: HTTP_BAD_REQUEST_STATUS, message: 'invalid fields' };
+    return { erro: HTTP_BAD_REQUEST_STATUS, message: 'Invalid fields' };
   }
   const { password: _, image: __, ...payload } = user.dataValues;
 
