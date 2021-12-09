@@ -6,14 +6,14 @@ const {
   getPostsById,
   deletePosts,
 } = require('../controllers/postController');
-// const { validateCategorieExists } = require('../middlewares/categorieMiddlewares');
+const { validateCategorieExists } = require('../middlewares/categorieMiddlewares');
 const {
   validatePostFields,
   validatePostExist,
   validateUserOwnerPost,
 } = require('../middlewares/postMiddlewares');
 
-router.post('/post', authToken, validatePostFields, createPost);
+router.post('/post', authToken, validatePostFields, validateCategorieExists, createPost);
 router.get('/post/:id', authToken, validatePostExist, getPostsById);
 router.get('/post', authToken, getPosts);
 router.delete('/post/:id', authToken, validatePostExist, validateUserOwnerPost, deletePosts);
