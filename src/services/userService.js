@@ -19,6 +19,12 @@ const createUser = async (userData) => {
   return { code: statusCode.HTTP_CREATED_STATUS, token };
 };
 
+const findUsers = async () => {
+  const user = await User.findAll();
+  return user;
+};
+
 module.exports = {
   createUser,
+  findUsers,
 };
